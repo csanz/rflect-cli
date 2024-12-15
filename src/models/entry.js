@@ -6,20 +6,13 @@ const entrySchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    type: {
+    prompt: {
         type: String,
-        enum: ['reflect', 'general'],
         required: true
     },
     content: {
         type: String,
         required: true
-    },
-    prompt: {
-        type: String,
-        required: function() {
-            return this.type === 'reflect';
-        }
     },
     createdAt: {
         type: Date,

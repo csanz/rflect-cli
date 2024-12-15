@@ -8,14 +8,21 @@ const { program } = require('commander');
     await mongoose.connect(db);
 })();
 
-program.command('write').description('Write a free-form journal entry about anything you want.').action();
+// Description
+program.name('rflect').description('A CLI tool for guided reflection and journaling').version('1.0.0');
+
+// Entries
 program.command('reflect').description('Write a guided reflection with prompts.').action();
 program.command('show').description('View your past reflections.').option('-a, --all', 'Show all saved reflections.').argument('[date]', 'Show entries from a specific date (MM/DD/YYYY)').action();
 
+// Authentication & Registration
 program.command('status').description('Check your login status').action();
 program.command('register').description('Create a new account').action();
 program.command('login').description('Login to your account.').action();
 program.command('logout').description('Logout from your account').action();
-program.command('config').description('Configure your storage preferences.').action();
+
+// Configuration
+program.command('backup').description('Backup your entries to the cloud for safekeeping.').action();
+program.command('sync').description('Choose where to read your entries from (defaults to filesystem).').option('-l, --local', 'Read entries from your filesystem (default)').option('-c, --cloud', 'Read entries from the cloud').action();
 
 program.parse(process.argv);

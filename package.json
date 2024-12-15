@@ -1,0 +1,31 @@
+{
+  "name": "rflect",
+  "version": "1.0.0",
+  "description": "📝 A CLI tool for journaling and reflection",
+  "private": true,
+  "main": "src/index.js",
+  "bin": {
+    "rflect": "./src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "rflect": "./src/index.js"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Aniqa",
+    "email": "hello@aniqa.io",
+    "url": "https://aniqa.dev"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.7",
+    "inquirer": "^12.2.0",
+    "mongoose": "^8.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

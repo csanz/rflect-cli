@@ -22,7 +22,7 @@ async function writeCommand() {
 
         await Prompt.updateOne({ _id: prompt._id }, { $inc: { usageCount: 1 }});
 
-        console.log(styles.header('\n=== Time to Reflect ==='));
+        console.log(styles.header('\n=== Time to Reflect ===\n'));
         console.log(styles.info('Take your time. Your response will be saved when you press Enter.'));
 
         const startTime = Date.now();
@@ -30,7 +30,7 @@ async function writeCommand() {
             {
                 type: 'input',
                 name: 'response',
-                message: styles.prompt(prompt.question),
+                message: styles.prompt(prompt.question) + "\n\n",
                 validate: (input) => {
                     if (!input.trim()) {
                         return styles.error('Please provide a response.');

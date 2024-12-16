@@ -19,7 +19,7 @@ async function storageCommand(options) {
         }
 
         if (!options.local && !options.cloud && !options.both) {
-            console.log(styles.header('\n=== Storage Settings ==='));
+            console.log(styles.header('\n=== Storage Settings ===\n'));
             console.log(styles.info(`Current storage: ${styles.value(user.storagePreference)}`));
             console.log(styles.warning('\nNo storage preference provided. Available options:'));
             console.log(styles.help(`Use ${styles.value('-l')} or ${styles.value('--local')} for filesystem storage only`));

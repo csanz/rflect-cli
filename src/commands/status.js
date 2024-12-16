@@ -6,7 +6,7 @@ async function statusCommand() {
     try {
         const session = await isLoggedIn();
         if (!session.isValid) {
-            console.log(styles.header('\n=== Account Status ==='));
+            console.log(styles.header('\n=== Account Status ===\n'));
             console.log(styles.warning('Currently logged out. Use ') +
                 styles.value('rflect login') +
                 styles.warning(' to access your account.'));
@@ -25,7 +25,7 @@ async function statusCommand() {
 
         const joinDate = new Date(user.createdAt).toLocaleDateString();
 
-        console.log(styles.header('\n=== Account Status ==='));
+        console.log(styles.header('\n=== Account Status ===\n'));
         console.log(styles.success(`Logged in as: ${styles.value(session.username)}`));
         console.log(styles.info(`Member since: ${styles.date(joinDate)}`));
         console.log(styles.info(`Total reflections: ${styles.number(user.entryCount)}`));

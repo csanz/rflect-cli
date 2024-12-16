@@ -26,7 +26,7 @@ const styles = {
     number: (text) => chalk.yellow(text),
 
     // Entry display formatting
-    entryHeader: () => chalk.inverse.bold.blue('\n=== Entry ==='),
+    entryHeader: () => chalk.inverse.bold.blue('\n=== Entry ===\n'),
     entryDate: (date) => `${chalk.bold.white('Date:')} ${chalk.yellow(date)}`,
     entryPrompt: (prompt) => `${chalk.bold.white('Prompt:')} ${chalk.cyan(prompt)}`,
     entryResponse: (response) => `${chalk.bold.white('Response:')} ${response}}`,

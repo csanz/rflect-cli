@@ -109,8 +109,11 @@ async function showCommand(options) {
             }
         }
     } catch (error) {
-        // Error messaging
-        console.log(styles.error(`Error occurred when trying to receive your past entries: ${styles.value(error.message)}`));
+        if (error.code === "ENOENT") {
+            console.log(styles.warning(`\nNo entries found. Start writing with ${styles.value('rflect write')}!`));
+        } else {
+            console.log(styles.error(`Error occurred when trying to receive your past entries: ${styles.value(error.message)}`));
+        }
     }
 }
 

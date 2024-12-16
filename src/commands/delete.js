@@ -23,7 +23,7 @@ async function deleteCommand(options) {
         }
 
         if (!options.local && !options.cloud && !options.both) {
-            console.log(styles.header('\n=== Delete Entries ==='));
+            console.log(styles.header('\n=== Delete Entries ===\n'));
             console.log(styles.warning('No delete option provided.'));
             console.log(styles.info(`Current storage: ${styles.value(user.storagePreference)}`));
             console.log(styles.help('\nAvailable options:'));
@@ -39,7 +39,7 @@ async function deleteCommand(options) {
         if (options.both) storageToDelete = 'both';
 
         console.log(styles.header('\n=== Delete Confirmation ==='));
-        console.log(styles.warning('⚠️  This action cannot be undone!'));
+        console.log(styles.warning('⚠️  This action cannot be undone!\n'));
 
         const { confirm } = await inquirer.prompt([
             {

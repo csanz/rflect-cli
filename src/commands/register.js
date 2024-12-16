@@ -14,7 +14,7 @@ async function registerCommand() {
             return;
         }
 
-        console.log(styles.header('\n=== Create Your Account ==='));
+        console.log(styles.header('\n=== Create Your Account ===\n'));
         console.log(styles.info('Follow the prompts to set up your rflect account.\n'));
 
         const response = await inquirer.prompt([

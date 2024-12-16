@@ -16,7 +16,7 @@ async function loginCommand() {
             return;
         }
 
-        console.log(styles.header('\n=== Login to rflect ==='));
+        console.log(styles.header('\n=== Login to rflect ===\n'));
 
         const response = await inquirer.prompt([
             {

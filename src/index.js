@@ -83,6 +83,22 @@ program
     .option('-a, --all', 'Delete all entries from both local and cloud.')
     .action();
 
+/* Wrapped (Data) general
+ - # of entries,
+ - which prompt was given the most,
+ - which category had the most entries (across all users in cloud db),
+ - average number of minutes people tend to reflect,
+ - # of users
+
+ Wrapped (data) user-specific
+ - # of entries by user
+ - total time spent
+ - shortest entry (word count + date)
+ - largest entry (word count + date)
+ - category with the most entries
+ - category with the least entries
+ */
+
 program.parse(process.argv);
 
 // Add styling once complete (user chalk or node:utils)

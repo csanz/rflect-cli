@@ -14,10 +14,6 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    lastSync: {
-        type: Date,
-        default: null
-    },
     storagePreference: {
         type: String,
         enum: ['cloud', 'local', 'both'],

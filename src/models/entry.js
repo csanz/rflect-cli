@@ -19,6 +19,10 @@ const entrySchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    wordCount: {
+        type: Number,
+        required: true
+    },
     createdAt: {
         type: Date,
         default: Date.now

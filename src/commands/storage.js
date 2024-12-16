@@ -1,6 +1,8 @@
 const User = require('../models/user');
 const { isLoggedIn } = require('../utils/auth');
 
+/***** sync the data based on what is passed *****/
+
 async function storageCommand(options) {
     try {
         const session = await isLoggedIn();

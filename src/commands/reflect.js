@@ -37,6 +37,7 @@ async function reflectCommand() {
         ]);
         const endTime = Date.now();
         const durationMinutes = Math.round((endTime - startTime) / 60000);
+        const wordCount = countWords(response.response);
 
         const user = await User.findOne({ username: session.username });
         if (user) {
@@ -47,7 +48,8 @@ async function reflectCommand() {
             userId: user._id,
             promptId: prompt._id,
             content: response.response,
-            duration: durationMinutes
+            duration: durationMinutes,
+            wordCount: wordCount
         });
 
         if (user.storagePreference === "both" || user.storagePreference === "cloud") {
@@ -67,6 +69,7 @@ async function reflectCommand() {
                 promptQuestion: prompt.question,
                 content: response.response,
                 duration: durationMinutes,
+                wordCount: wordCount,
                 createdAt: new Date().toISOString(),
             }));
         }
@@ -80,6 +83,10 @@ async function reflectCommand() {
         // Error messaging
         console.log('Reflection prompt failed: ', error.message);
     }
+}
+
+function countWords(text) {
+    return text.trim().split(/\s+/).filter(word => word.length > 0).length;
 }
 
 module.exports = reflectCommand;

@@ -38,6 +38,7 @@ async function reflectCommand() {
         const endTime = Date.now();
         const durationMinutes = Math.round((endTime - startTime) / 60000);
         const wordCount = countWords(response.response);
+        const creationDate = new Date();
 
         const user = await User.findOne({ username: session.username });
         if (user) {
@@ -49,7 +50,8 @@ async function reflectCommand() {
             promptId: prompt._id,
             content: response.response,
             duration: durationMinutes,
-            wordCount: wordCount
+            wordCount: wordCount,
+            createdAt: creationDate.toISOString()
         });
 
         if (user.storagePreference === "both" || user.storagePreference === "cloud") {
@@ -60,7 +62,7 @@ async function reflectCommand() {
             const entriesDir = path.join(os.homedir(), '.rflect', 'entries');
             await fs.mkdir(entriesDir, { recursive: true });
 
-            const filename = `${Date.now()}_entry.txt`;
+            const filename = `${new Date().toISOString().split('T')[0]}_entry.txt`;
             const filePath = path.join(entriesDir, filename);
 
             await fs.writeFile(filePath, JSON.stringify({
@@ -70,7 +72,7 @@ async function reflectCommand() {
                 content: response.response,
                 duration: durationMinutes,
                 wordCount: wordCount,
-                createdAt: new Date().toISOString(),
+                createdAt: creationDate.toISOString()
             }));
         }
 

@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const { isLoggedIn } = require('../utils/auth');
-
-/***** sync the data based on what is passed *****/
+const { migrateCloudToLocal, migrateLocalToCloud } = require('../utils/sync');
+const inquirer = require('inquirer');
 
 async function storageCommand(options) {
     try {
@@ -25,20 +25,47 @@ async function storageCommand(options) {
             console.log('Use -b or --both to save your entries to the cloud and locally.');
         }
 
+        const currentPreference = user.storagePreference;
         let newPreference;
         if (options.local) newPreference = 'local';
         if (options.cloud) newPreference = 'cloud';
         if (options.both) newPreference = 'both';
+
+        if (currentPreference !== newPreference) {
+            const { confirm } = await inquirer.prompt([
+                {
+                    type: 'confirm',
+                    name: 'confirm',
+                    message: `Do you want to migrate your entries from ${currentPreference} to ${newPreference} storage?`,
+                    default: true
+                }
+            ]);
+
+            if (!confirm) {
+                console.log('Migration cancelled.');
+                return;
+            }
+
+            if (currentPreference === 'local' && newPreference === 'cloud') {
+                await migrateLocalToCloud(user._id);
+            }
+            if (currentPreference === 'cloud' && newPreference === 'local') {
+                await migrateCloudToLocal(user._id);
+            }
+            if (currentPreference === 'local' && newPreference === 'both') {
+                await migrateLocalToCloud(user._id);
+            }
+            if (currentPreference === 'cloud' && newPreference === 'both') {
+                await migrateCloudToLocal(user._id);
+            }
+        }
+
         await User.updateOne({_id: user._id}, {storagePreference: newPreference});
-        console.log(`You currently save your entries to ${user.storagePreference} storage option(s).`);
+        console.log(`You currently save your entries to ${newPreference} storage option(s).`);
     } catch (error) {
         // Error messaging
         console.log("Error occurred when updating storage preference: ", error.message);
     }
 }
-
-async function migrateCloudToLocal(userId) {}
-
-async function migrateLocalToCloud(userId) {}
 
 module.exports = storageCommand;

@@ -32,7 +32,7 @@ const styles = {
     entryHeader: () => chalk.bold.cyan('\n=== Entry ==='),
     entryDate: (date) => `${chalk.bold.white('Date:')} ${chalk.yellow(date)}`,
     entryPrompt: (prompt) => `${chalk.bold.white('Prompt:')} ${chalk.cyan(prompt)}`,
-    entryResponse: (response) => `${chalk.bold.white('Response:')} ${chalk.white(response)}`,
+    entryResponse: (response) => `${chalk.bold.white('Response:')} ${response}}`,
     entryStats: (duration, wordCount) => `${chalk.bold.white('Duration:')} ${chalk.yellow(duration)} minutes | ${chalk.bold.white('Word Count:')} ${chalk.yellow(wordCount)} words`
 }
 

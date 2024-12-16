@@ -5,6 +5,7 @@ function displayEntry(entry, type) {
     type === 'cloud' || type === 'both'
         ? console.log(`Prompt: ${entry.promptId ? entry.promptId.question : 'Unknown prompt'}`)
         : console.log(`Prompt: ${entry.promptQuestion ? entry.promptQuestion : 'Unknown prompt'}`);
+
     console.log(`Response: ${entry.content}`);
     console.log(`Duration: ${entry.duration} minutes`);
     console.log(`Word Count: ${entry.wordCount} words`);

@@ -1,9 +1,17 @@
 const inquirer = require('inquirer');
 const bcrypt = require('bcrypt');
+
 const User = require('../models/user');
+const { isLoggedIn } = require('../utils/auth');
 
 async function registerCommand() {
     try {
+        const session = await isLoggedIn();
+        if (session.isValid) {
+            console.log(`You are already logged in as ${session.username}.`);
+            return;
+        }
+
         const response = await inquirer.prompt([
             // Choose a username
             {
@@ -65,7 +73,6 @@ async function registerCommand() {
     } catch (error) {
         // Error messaging
         console.log('Registration failed: ', error.message);
-        process.exit(1);
     }
 }
 

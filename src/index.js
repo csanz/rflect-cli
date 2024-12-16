@@ -8,8 +8,24 @@ const { program } = require('commander');
     await mongoose.connect(db);
 })();
 
+function wrap(action) {
+    return async function(...args) {
+        try {
+            // calls the function with arguments passed to wrapper
+            await action(...args);
+        }
+        finally {
+            // ensures db connection closes to avoid the terminal hanging
+            await mongoose.connection.close();
+        }
+    }
+}
+
 // Command scripts
 const registerCommand = require('./commands/register');
+const loginCommand = require('./commands/login');
+const logoutCommand = require('./commands/logout');
+const statusCommand = require('./commands/status');
 
 // Description
 program
@@ -32,20 +48,20 @@ program
 // Authentication & Registration
 program
     .command('status')
-    .description('Check your login status.')
-    .action();
+    .description('Check your login and account status.')
+    .action(wrap(statusCommand));
 program
     .command('register')
     .description('Create a new account.')
-    .action(registerCommand);
+    .action(wrap(registerCommand));
 program
     .command('login')
     .description('Login to your account.')
-    .action();
+    .action(wrap(loginCommand));
 program
     .command('logout')
     .description('Logout from your account.')
-    .action();
+    .action(wrap(logoutCommand));
 
 // Configuration
 program

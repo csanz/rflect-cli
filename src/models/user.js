@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    entryCount: {
+        type: Number,
+        default: 0
+    },
     lastSync: {
         type: Date,
         default: null

@@ -12,7 +12,7 @@ async function migrateCloudToLocal(userId) {
     try {
         const cloudEntries = await Entry.find({ userId });
         for (const entry of cloudEntries) {
-            const filename = `${entry.createdAt.getTime()}_entry.txt`;
+            const filename = `${new Date().toISOString().replace(/:/g, '-')}_entry.txt`;
             const filePath = path.join(entriesDir, filename);
 
             try {
@@ -78,7 +78,12 @@ async function migrateLocalToCloud(userId) {
         }
         console.log(`Migration complete. ${migratedCount} entries migrated to local storage.`);
     } catch (error) {
-        console.log('Error migrating local entries to cloud storage:', error.message);
+        // Error messaging
+        if (error.code === "ENOENT") {
+            console.log("No local entries found to migrate.");
+        } else {
+            console.log('Error migrating local entries to cloud storage: ', error.message);
+        }
     }
 }
 

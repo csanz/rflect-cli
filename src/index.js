@@ -28,7 +28,7 @@ const registerCommand = require('./commands/register');
 const loginCommand = require('./commands/login');
 const logoutCommand = require('./commands/logout');
 const statusCommand = require('./commands/status');
-const reflectCommand = require('./commands/reflect');
+const writeCommand = require('./commands/write');
 const storageCommand = require('./commands/storage');
 const deleteCommand = require('./commands/delete');
 const showCommand = require('./commands/show');
@@ -41,9 +41,9 @@ program
 
 // Entries
 program
-    .command('reflect')
+    .command('write')
     .description('Write a guided reflection based on the given prompt.')
-    .action(wrap(reflectCommand));
+    .action(wrap(writeCommand));
 program
     .command('show')
     .description('View your past reflections.')

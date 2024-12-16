@@ -8,7 +8,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const os = require('os');
 
-async function reflectCommand() {
+async function writeCommand() {
     try {
         const session = await isLoggedIn();
         if (!session.isValid) {
@@ -38,7 +38,7 @@ async function reflectCommand() {
         const endTime = Date.now();
         const durationMinutes = Math.round((endTime - startTime) / 60000);
         const wordCount = countWords(response.response);
-        const creationDate = new Date();
+        const creationDate = new Date().toISOString();
 
         const user = await User.findOne({ username: session.username });
         if (user) {
@@ -51,7 +51,7 @@ async function reflectCommand() {
             content: response.response,
             duration: durationMinutes,
             wordCount: wordCount,
-            createdAt: creationDate.toISOString()
+            createdAt: creationDate
         });
 
         if (user.storagePreference === "both" || user.storagePreference === "cloud") {
@@ -62,7 +62,7 @@ async function reflectCommand() {
             const entriesDir = path.join(os.homedir(), '.rflect', 'entries');
             await fs.mkdir(entriesDir, { recursive: true });
 
-            const filename = `${new Date().toISOString().split('T')[0]}_entry.txt`;
+            const filename = `${creationDate.replace(/:/g, '-')}_entry.txt`;
             const filePath = path.join(entriesDir, filename);
 
             await fs.writeFile(filePath, JSON.stringify({
@@ -72,7 +72,7 @@ async function reflectCommand() {
                 content: response.response,
                 duration: durationMinutes,
                 wordCount: wordCount,
-                createdAt: creationDate.toISOString()
+                createdAt: creationDate
             }));
         }
 
@@ -92,4 +92,4 @@ function countWords(text) {
     return text.trim().split(/\s+/).length;
 }
 
-module.exports = reflectCommand;
+module.exports = writeCommand;

@@ -16,7 +16,7 @@ const styles = {
   help: (text) => chalk.cyan(text),
 
   // Data display
-  value: (text) => chalk.bold.whiteBright(text),
+  value: (text) => chalk.bold.white(text),
   date: (text) => chalk.yellow(text),
 
   // Prompts and questions

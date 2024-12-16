@@ -3,6 +3,8 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const { program } = require('commander');
 
+// Add styling once complete (user chalk or node:utils)
+
 (async function connectDB() {
     const db = process.env.DB_URI.replace('<password>', process.env.DB_PW);
     await mongoose.connect(db);
@@ -28,6 +30,8 @@ const logoutCommand = require('./commands/logout');
 const statusCommand = require('./commands/status');
 const reflectCommand = require('./commands/reflect');
 const storageCommand = require('./commands/storage');
+const deleteCommand = require('./commands/delete');
+const showCommand = require('./commands/show');
 
 // Description
 program
@@ -45,7 +49,7 @@ program
     .description('View your past reflections.')
     .option('-a, --all', 'Show all saved reflections.')
     .option('-d, --date <date>', 'Show entries from a specific date (MM/DD/YYYY)')
-    .action();
+    .action(wrap(showCommand));
 
 // Authentication & Registration
 program
@@ -80,25 +84,7 @@ program
     .description('Manage and clear your reflection history')
     .option('-l, --local', 'Delete entries from local filesystem.')
     .option('-c, --cloud', 'Delete entries from cloud storage.')
-    .option('-a, --all', 'Delete all entries from both local and cloud.')
-    .action();
-
-/* Wrapped (Data) general
- - # of entries,
- - which prompt was given the most,
- - which category had the most entries (across all users in cloud db),
- - average number of minutes people tend to reflect,
- - # of users
-
- Wrapped (data) user-specific
- - # of entries by user
- - total time spent
- - shortest entry (word count + date)
- - largest entry (word count + date)
- - category with the most entries
- - category with the least entries
- */
+    .option('-b, --both', 'Delete all entries from both local and cloud.')
+    .action(wrap(deleteCommand));
 
 program.parse(process.argv);
-
-// Add styling once complete (user chalk or node:utils)

@@ -37,7 +37,7 @@ async function storageCommand(options) {
                     type: 'confirm',
                     name: 'confirm',
                     message: `Do you want to migrate your entries from ${currentPreference} to ${newPreference} storage?`,
-                    default: true
+                    default: false
                 }
             ]);
 

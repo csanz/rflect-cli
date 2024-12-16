@@ -3,16 +3,17 @@ const path = require('path');
 const os = require('os');
 
 const Entry = require('../models/entry');
+const Prompt = require('../models/prompt');
 const entriesDir = path.join(os.homedir(), '.rflect', 'entries');
-let migratedCount = 0;
 
 async function migrateCloudToLocal(userId) {
+    let migratedCount = 0;
     await fs.mkdir(entriesDir, { recursive: true });
 
     try {
-        const cloudEntries = await Entry.find({ userId });
+        const cloudEntries = await Entry.find({ userId }).populate('promptId');
         for (const entry of cloudEntries) {
-            const filename = `${new Date().toISOString().replace(/:/g, '-')}_entry.txt`;
+            const filename = `${entry.createdAt.toISOString().replace(/:/g, '-')}_entry.txt`;
             const filePath = path.join(entriesDir, filename);
 
             try {
@@ -20,7 +21,8 @@ async function migrateCloudToLocal(userId) {
             } catch {
                 await fs.writeFile(filePath, JSON.stringify({
                     userId: entry.userId.toString(),
-                    promptId: entry.promptId.toString(),
+                    promptId: entry.promptId._id.toString(),
+                    promptQuestion: entry.promptId.question,
                     content: entry.content,
                     duration: entry.duration,
                     wordCount: entry.wordCount,
@@ -37,6 +39,8 @@ async function migrateCloudToLocal(userId) {
 }
 
 async function migrateLocalToCloud(userId) {
+    let migratedCount = 0;
+
     try {
         const files = await fs.readdir(entriesDir);
         for (const file of files) {
@@ -54,18 +58,19 @@ async function migrateLocalToCloud(userId) {
                 continue;
             }
 
+            const prompt = await Prompt.findOne({ question: entry.promptQuestion });
             const existingEntry = await Entry.findOne({
                 userId: userId,
                 duration: entry.duration,
                 wordCount: entry.wordCount,
-                promptId: entry.promptId,
+                promptId: prompt._id,
                 createdAt: entry.createdAt
             });
 
             if (!existingEntry) {
                 const newEntry = new Entry({
                     userId: userId,
-                    promptId: entry.promptId,
+                    promptId: prompt._id,
                     content: entry.content,
                     duration: entry.duration,
                     wordCount: entry.wordCount,

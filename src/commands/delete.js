@@ -39,7 +39,7 @@ async function deleteCommand(options) {
                 type: 'confirm',
                 name: 'confirm',
                 message: `Are you sure you want to delete your entries from ${storageToDelete} storage?`,
-                default: false
+                default: true
             }
         ]);
 

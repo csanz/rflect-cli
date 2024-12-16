@@ -1,7 +1,11 @@
-const { isLoggedIn } = require('../utils/auth');
+const fs = require('fs').promises;
+const path = require('path');
+const os = require('os');
+
 const User = require("../models/user");
 const Entry = require("../models/entry");
-const Prompt = require("../models/prompt");
+const { isLoggedIn } = require('../utils/auth');
+const displayEntry = require('../utils/entry');
 
 async function showCommand(options) {
     try {
@@ -33,36 +37,54 @@ async function showCommand(options) {
                     console.log('No entries found.');
                     return;
                 }
-
                 for (const entry of entries) {
-                    console.log('\n=== Entry ===');
-                    console.log(`Date: ${new Date(entry.createdAt).toLocaleDateString()}`);
-                    console.log(`Prompt: ${entry.promptId ? entry.promptId.question : 'Unknown prompt'}`);
-                    console.log(`Response: ${entry.content}`);
-                    console.log(`Duration: ${entry.duration} minutes`);
-                    console.log(`Word Count: ${entry.wordCount} words`);
+                    displayEntry(entry, storagePreference);
                 }
             }
-            // --recent show most recently saved entry (same content)
             if (options.recent) {
                 const mostRecentEntry = await Entry.findOne({ userId: user._id }).sort({ createdAt: -1 }).populate('promptId');
                 if (!mostRecentEntry) {
                     console.log('No entries found.');
                     return;
                 }
-
-                console.log('\n=== Entry ===');
-                console.log(`Date: ${new Date(mostRecentEntry.createdAt).toLocaleDateString()}`);
-                console.log(`Prompt: ${mostRecentEntry.promptId ? mostRecentEntry.promptId.question : 'Unknown prompt'}`);
-                console.log(`Response: ${mostRecentEntry.content}`);
-                console.log(`Duration: ${mostRecentEntry.duration} minutes`);
-                console.log(`Word Count: ${mostRecentEntry.wordCount} words`);
+                displayEntry(mostRecentEntry, storagePreference);
             }
-            // --date <MM/DD/YYYY> show entry from the specified date
+           if (options.date) {
+               const date = new Date(options.date);
+               // the date provided + 24 hours in case there are multiple entries throughout the specified date
+               const entries = await Entry.find({ userId: user._id, createdAt: { $gte: date, $lte: new Date(date.getTime() + 24 * 60 * 60 * 1000 )}}).populate('promptId');
+               if (entries.length === 0) {
+                   console.log(`No entries found for ${options.date}`);
+                   return;
+               }
+               for (const entry of entries) {
+                   displayEntry(entry, storagePreference);
+               }
+           }
         }
 
         if (storagePreference === "local") {
-            // pull from cloud
+            const entriesDir = path.join(os.homedir(), '.rflect', 'entries');
+            const files = await fs.readdir(entriesDir);
+            const entryFiles = files.filter(file => file.endsWith('_entry.txt'));
+
+            if (entryFiles.length === 0) {
+                console.log('No entries found.');
+                return;
+            }
+
+            if (options.all) {
+                // newest first
+                const sortedEntries = entryFiles.sort().reverse();
+                for (const file of sortedEntries) {
+                    const content = await fs.readFile(path.join(entriesDir, file));
+                    const entry = JSON.parse(content);
+                    displayEntry(entry, storagePreference);
+                }
+            }
+            if (options.recent) {}
+            if (options.date) {}
+            // pull from local
             // --all show all entries (show date, prompt question, category, recorded resposne, duration and word count
             // --recent show most recently saved entry (same content)
             // --date <MM/DD/YYYY> show entry(ies) from the specified date (first convert the given date to ISO string in order to match with the filename)
@@ -71,10 +93,6 @@ async function showCommand(options) {
         // Error messaging
         console.log("Error occurred when trying to receive your past entries: ", error.message);
     }
-}
-
-function displayResults() {
-
 }
 
 module.exports = showCommand;

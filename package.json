@@ -2,16 +2,32 @@
   "name": "rflect",
   "version": "1.0.0",
   "description": "📝 A CLI tool for guided reflections and journaling.",
-  "private": true,
+  "private": false,
   "main": "src/index.js",
   "bin": {
     "rflect": "./src/index.js"
   },
   "scripts": {
     "dev": "nodemon src/index.js",
-    "rflect": "./src/index.js"
+    "rflect": "./src/index.js",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
-  "keywords": ["cli", "journaling", "reflection", "mindfulness", "diary", "writing", "gratitude", "guided writing", "guided reflections", "terminal journal", "cli tool", "daily-journal", "self-improvement"],
+  "keywords": [
+    "cli",
+    "journaling",
+    "reflection",
+    "mindfulness",
+    "diary",
+    "writing",
+    "gratitude",
+    "guided writing",
+    "guided reflections",
+    "terminal journal",
+    "cli tool",
+    "daily-journal",
+    "self-improvement"
+  ],
   "author": {
     "name": "Aniqa",
     "email": "hello@aniqa.io",
@@ -28,6 +44,9 @@
     "mongoose": "^8.9.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "nodemon": "^3.1.9",
+    "prettier": "^3.4.2"
   }
 }

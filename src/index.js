@@ -34,56 +34,56 @@ const showCommand = require('./commands/show');
 // Description
 program
     .name('rflect')
-    .description('📝 A CLI tool for guided reflections and journaling.')
+    .description('📝 Your personal space for guided reflections and mindful journaling.')
     .version('1.0.0');
 
 // Entries
 program
     .command('write')
-    .description('Write a guided reflection based on the given prompt.')
+    .description('Start a new reflection with a thoughtfully selected prompt.')
     .action(wrap(writeCommand));
 program
     .command('show')
-    .description('View your past reflections.')
-    .option('-a, --all', 'Show all saved reflections.')
-    .option('-r, --recent', 'Show your most recent entry.')
-    .option('-d, --date <date>', 'Show entries from a specific date (MM/DD/YYYY)')
+    .description('Browse and revisit your past reflections.')
+    .option('-a, --all', 'Display all your saved reflections.')
+    .option('-r, --recent', 'View your latest reflection.')
+    .option('-d, --date <date>', 'Find reflections from a specific date (MM/DD/YYYY).')
     .action(wrap(showCommand));
 
 // Authentication & Registration
 program
     .command('status')
-    .description('Check your login and account status.')
+    .description('View your account information and settings.')
     .action(wrap(statusCommand));
 program
     .command('register')
-    .description('Create a new account.')
+    .description('Begin your reflection journey - create an account.')
     .action(wrap(registerCommand));
 program
     .command('login')
-    .description('Login to your account.')
+    .description('Access your personal reflection space.')
     .action(wrap(loginCommand));
 program
     .command('logout')
-    .description('Logout from your account.')
+    .description('Safely end your reflection session.')
     .action(wrap(logoutCommand));
 
-// Configuration
+// Storage Settings
 program
     .command('storage')
-    .description('Backup your entries to the cloud for safekeeping.')
-    .option('-l, --local', 'Save entries to your filesystem (default).')
-    .option('-c, --cloud', 'Save entries to the cloud.')
-    .option('-b, --both', 'Save entries to both local and cloud storage.')
+    .description('Choose where to keep your reflections safe.')
+    .option('-l, --local', 'Store entries privately on your device.')
+    .option('-c, --cloud', 'Save entries securely in the cloud.')
+    .option('-b, --both', 'Keep entries backed up in both locations.')
     .action(wrap(storageCommand));
 
 // Delete
 program
     .command('delete')
-    .description('Manage and clear your reflection history')
-    .option('-l, --local', 'Delete entries from local filesystem.')
-    .option('-c, --cloud', 'Delete entries from cloud storage.')
-    .option('-b, --both', 'Delete all entries from both local and cloud.')
+    .description('Thoughtfully manage your reflection history.')
+    .option('-l, --local', 'Remove entries stored on your device.')
+    .option('-c, --cloud', 'Remove entries from cloud storage.')
+    .option('-b, --both', 'Clear all entries from both storage locations.')
     .action(wrap(deleteCommand));
 
 program.parse(process.argv);

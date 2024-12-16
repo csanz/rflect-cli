@@ -82,12 +82,29 @@ async function showCommand(options) {
                     displayEntry(entry, storagePreference);
                 }
             }
-            if (options.recent) {}
-            if (options.date) {}
-            // pull from local
-            // --all show all entries (show date, prompt question, category, recorded resposne, duration and word count
-            // --recent show most recently saved entry (same content)
-            // --date <MM/DD/YYYY> show entry(ies) from the specified date (first convert the given date to ISO string in order to match with the filename)
+            if (options.recent) {
+                const sortedEntries = entryFiles.sort().reverse();
+                const mostRecentFile = sortedEntries[0];
+                const content = await fs.readFile(path.join(entriesDir, mostRecentFile), 'utf8');
+                const entry = JSON.parse(content);
+                displayEntry(entry, storagePreference);
+            }
+            if (options.date) {
+                const date = new Date(options.date).toLocaleDateString();
+                let found = false;
+                for (const file of entryFiles) {
+                    const content = await fs.readFile(path.join(entriesDir, file), 'utf8');
+                    const entry = JSON.parse(content);
+
+                    if (new Date(entry.createdAt).toLocaleDateString() === date) {
+                        displayEntry(entry, storagePreference);
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    console.log(`No entries found for ${date}.`);
+                }
+            }
         }
     } catch (error) {
         // Error messaging

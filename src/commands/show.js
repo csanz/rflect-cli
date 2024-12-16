@@ -26,9 +26,9 @@ async function showCommand(options) {
         const storagePreference = user.storagePreference;
         if (!options.date && !options.all && !options.recent) {
             console.log(styles.warning('No option provided. Please enter one of the following:'));
-            console.log(styles.help(`Use -a or --all to see all your entries saved in ${storagePreference} storage.`));
-            console.log(styles.help(`Use -r or --recent to see your most recent entry saved in ${storagePreference} storage.`));
-            console.log(styles.help(`Use -d or --date <date> to an entry from the specified date MM/DD/YYYY.`));
+            console.log(styles.help(`Use ${styles.value('-a')} or ${styles.value('--all')} to see all your entries saved in ${styles.value(storagePreference)} storage.`));
+            console.log(styles.help(`Use ${styles.value('-r')} or ${styles.value('--recent')} to see your most recent entry saved in ${styles.value(storagePreference)} storage.`));
+            console.log(styles.help(`Use ${styles.value('-d')} or ${styles.value('--date')} ${styles.value('<MM/DD/YYYY>')} to see an entry from the specified date.`));
             return;
         }
 
@@ -36,7 +36,7 @@ async function showCommand(options) {
             if (options.all) {
                 const entries = await Entry.find({ userId: user._id }).populate('promptId').sort({ createdAt: -1 });
                 if (entries.length === 0) {
-                    console.log(styles.error('No entries found.'));
+                    console.log(styles.error(`No entries found. Start writing with ${styles.value('rflect write')}!`));
                     return;
                 }
                 for (const entry of entries) {
@@ -46,7 +46,7 @@ async function showCommand(options) {
             if (options.recent) {
                 const mostRecentEntry = await Entry.findOne({ userId: user._id }).sort({ createdAt: -1 }).populate('promptId');
                 if (!mostRecentEntry) {
-                    console.log(styles.error('No entries found.'));
+                    console.log(styles.error(`No entries found. Start writing with ${styles.value('rflect write')}!`));
                     return;
                 }
                 displayEntry(mostRecentEntry, storagePreference);
@@ -56,7 +56,7 @@ async function showCommand(options) {
                // the date provided + 24 hours in case there are multiple entries throughout the specified date
                const entries = await Entry.find({ userId: user._id, createdAt: { $gte: date, $lte: new Date(date.getTime() + 24 * 60 * 60 * 1000 )}}).populate('promptId');
                if (entries.length === 0) {
-                   console.log(styles.error(`No entries found for ${options.date}`));
+                   console.log(styles.error(`No entries found for ${styles.value(options.date)}.`));
                    return;
                }
                for (const entry of entries) {
@@ -71,7 +71,7 @@ async function showCommand(options) {
             const entryFiles = files.filter(file => file.endsWith('_entry.txt'));
 
             if (entryFiles.length === 0) {
-                console.log(styles.error('No entries found.'));
+                console.log(styles.error(`No entries found. Start writing with ${styles.value('rflect write')}!`));
                 return;
             }
 
@@ -104,13 +104,13 @@ async function showCommand(options) {
                     }
                 }
                 if (!found) {
-                    console.log(styles.error(`No entries found for ${date}`));
+                    console.log(styles.error(`No entries found for ${styles.value(date)}`));
                 }
             }
         }
     } catch (error) {
         // Error messaging
-        console.log(styles.error("Error occurred when trying to receive your past entries: ", error.message));
+        console.log(styles.error(`Error occurred when trying to receive your past entries: ${styles.value(error.message)}`));
     }
 }
 

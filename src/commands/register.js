@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const bcrypt = require('bcrypt');
+const styles = require('../utils/styles');
 
 const User = require('../models/user');
 const { isLoggedIn } = require('../utils/auth');
@@ -8,45 +9,46 @@ async function registerCommand() {
     try {
         const session = await isLoggedIn();
         if (session.isValid) {
-            console.log(`You are already logged in as ${session.username}.`);
+            console.log(styles.warning(`You are already logged in as ${styles.value(session.username)}.`));
+            console.log(styles.help(`Use ${styles.value('rflect logout')} to switch accounts.`));
             return;
         }
 
+        console.log(styles.header('\n=== Create Your Account ==='));
+        console.log(styles.info('Follow the prompts to set up your rflect account.\n'));
+
         const response = await inquirer.prompt([
-            // Choose a username
             {
                 type: 'input',
                 name: 'username',
-                message: 'Choose a username: ',
+                message: styles.prompt('Choose a username:'),
                 validate: (input) => {
                     if (input.trim().length < 3) {
-                        return 'Username must be at least 3 characters.';
+                        return styles.error('Username must be at least 3 characters');
                     }
                     return true;
                 },
             },
-            // Choose a password
             {
                 type: 'password',
                 name: 'password',
-                message: 'Enter a password: ',
+                message: styles.prompt('Enter a password:'),
                 mask: true,
                 validate: (input) => {
                     if (input.trim().length < 6) {
-                        return 'Password must be at least 6 characters.';
+                        return styles.error('Password must be at least 6 characters');
                     }
                     return true;
                 },
             },
-            // Confirm password
             {
                 type: 'password',
                 name: 'confirmPassword',
-                message: 'Confirm your password: ',
+                message: styles.prompt('Confirm your password:'),
                 mask: true,
-                validate: (input, response) => {
-                    if (input !== response.password) {
-                        return 'Passwords do not match.';
+                validate: (input, answers) => {
+                    if (input !== answers.password) {
+                        return styles.error('Passwords do not match');
                     }
                     return true;
                 },
@@ -54,39 +56,55 @@ async function registerCommand() {
             {
                 type: 'list',
                 name: 'storagePreference',
-                message: 'Choose your storage preference: ',
+                message: styles.prompt('\nChoose where to save your entries:'),
                 choices: [
-                    { name: 'Local Storage Only', value: 'local' },
-                    { name: 'Cloud Storage Only', value: 'cloud' },
-                    { name: 'Both Local & Cloud Storage', value: 'both'}
+                    {
+                        name: '💻 Local Storage Only (Private to this device)',
+                        value: 'local'
+                    },
+                    {
+                        name: '☁️  Cloud Storage Only (Access anywhere)',
+                        value: 'cloud'
+                    },
+                    {
+                        name: '✨ Both Local & Cloud Storage (Maximum safety)',
+                        value: 'both'
+                    }
                 ],
                 default: 'local'
             }
         ]);
 
-        // Check if username exists
         if (await User.findOne({ username: response.username })) {
-            console.log('Username already exists. Please run \'rflect register\' to try again.');
+            console.log(styles.error('\nUsername already exists.'));
+            console.log(styles.help(`Try ${styles.value('rflect register')} again with a different username.`));
             return;
         }
 
-        // Hash password
-        const hashedPassword = await bcrypt.hash(response.password, 10);
+        console.log(styles.info('\nCreating your account...'));
 
-        // Create user in MongoDB
+        const hashedPassword = await bcrypt.hash(response.password, 10);
         const user = new User({
             username: response.username,
             password: hashedPassword,
             storagePreference: response.storagePreference
         });
-        // Success messaging
         await user.save();
 
-        console.log(`Registration successful for ${response.username}! You can now login using 'rflect login'.`);
-        console.log(`Storage preference for your rflect entries is set to ${response.storagePreference}.`);
+        // Success
+        console.log(styles.success('\n✨ Account created successfully! '));
+        console.log(styles.info(`Welcome to rflect, ${styles.value(response.username)}!`));
+        console.log(styles.info(`Your entries will be saved to ${styles.value(response.storagePreference)} storage.`));
+
+        // Next
+        console.log(styles.help('\nNext steps:'));
+        console.log(styles.help(`1. Login with ${styles.value('rflect login')}`));
+        console.log(styles.help(`2. Start writing with ${styles.value('rflect write')}`));
+        console.log(styles.help(`3. View your entries with ${styles.value('rflect show')}`));
+
     } catch (error) {
-        // Error messaging
-        console.log('Registration failed: ', error.message);
+        console.log(styles.error('\nRegistration failed: ') + styles.value(error.message));
+        console.log(styles.help('Please try again or check your connection.'));
     }
 }
 

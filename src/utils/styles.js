@@ -19,7 +19,7 @@ const styles = {
 
     // Data display
     label: (text) => chalk.bold.white(text),
-    value: (text) => chalk.white(text),
+    value: (text) => chalk.bold.white(text),
     date: (text) => chalk.yellow(text),
 
     // Prompts and questions

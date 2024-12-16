@@ -3,8 +3,6 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const { program } = require('commander');
 
-// Add styling once complete (user chalk or node:utils)
-
 (async function connectDB() {
     const db = process.env.DB_URI.replace('<password>', process.env.DB_PW);
     await mongoose.connect(db);

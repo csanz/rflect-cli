@@ -3,6 +3,7 @@ const User = require('../models/user');
 const Prompt = require('../models/prompt');
 const Entry = require('../models/entry');
 const inquirer = require('inquirer');
+const styles = require('../utils/styles');
 
 const fs = require('fs').promises;
 const path = require('path');
@@ -12,7 +13,7 @@ async function writeCommand() {
     try {
         const session = await isLoggedIn();
         if (!session.isValid) {
-            console.log('You are currently not logged in.');
+            console.log(styles.error('You are currently not logged in.'));
             return;
         }
 
@@ -21,15 +22,18 @@ async function writeCommand() {
 
         await Prompt.updateOne({ _id: prompt._id }, { $inc: { usageCount: 1 }});
 
+        console.log(styles.header('\n=== Time to Reflect ==='));
+        console.log(styles.info('Take your time. Your response will be saved when you press Enter.'));
+
         const startTime = Date.now();
         const response = await inquirer.prompt([
             {
                 type: 'input',
                 name: 'response',
-                message: prompt.question,
+                message: styles.prompt(prompt.question),
                 validate: (input) => {
                     if (!input.trim()) {
-                        return 'Provide a response.';
+                        return styles.error('Please provide a response.');
                     }
                     return true;
                 },
@@ -54,6 +58,8 @@ async function writeCommand() {
             createdAt: creationDate
         });
 
+        console.log(styles.info('\nSaving your reflection...'));
+
         if (user.storagePreference === "both" || user.storagePreference === "cloud") {
             await entry.save();
         }
@@ -76,19 +82,29 @@ async function writeCommand() {
             }));
         }
 
-        user.storagePreference === "both"
-            ? console.log(`Thank you for your reflection. That only took ${durationMinutes} minute(s). Your entry has been saved locally and in the cloud.`)
-                : ( user.storagePreference === "local"
-                    ? console.log(`Thank you for your reflection. That only took ${durationMinutes} minutes. Your entry has been saved locally.`)
-                    : console.log(`Thank you for your reflection. That only took ${durationMinutes} minutes. Your entry has been saved to the cloud.`));
+        // Stats display
+        console.log(styles.success('\nReflection complete! ✨'));
+        console.log(styles.info(`Time spent: ${styles.number(durationMinutes)} minute(s)`));
+        console.log(styles.info(`Words written: ${styles.number(wordCount)}`));
+
+        // Storage confirmation
+        let storageMessage;
+        if (user.storagePreference === "both") {
+            storageMessage = 'Entry saved locally and in the cloud.';
+        } else if (user.storagePreference === "local") {
+            storageMessage = 'Entry saved locally.';
+        } else {
+            storageMessage = 'Entry saved to the cloud.';
+        }
+        console.log(styles.success(storageMessage));
+        console.log(styles.info('\nUse ') + styles.value('rflect show --recent') + styles.info(' to view this entry again.'));
+
     } catch (error) {
-        // Error messaging
-        console.log('Reflection prompt failed: ', error.message);
+        console.log(styles.error('Reflection prompt failed: ') + styles.value(error.message));
     }
 }
 
 function countWords(text) {
-    // regex: all types of whitespace characters
     return text.trim().split(/\s+/).length;
 }
 

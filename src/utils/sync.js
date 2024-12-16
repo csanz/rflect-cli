@@ -1,9 +1,12 @@
 const fs = require('fs').promises;
 const path = require('path');
 const os = require('os');
+const ora = require('ora');
 
 const Entry = require('../models/entry');
 const Prompt = require('../models/prompt');
+const styles = require('../utils/styles');
+
 const entriesDir = path.join(os.homedir(), '.rflect', 'entries');
 
 async function migrateCloudToLocal(userId) {
@@ -11,13 +14,23 @@ async function migrateCloudToLocal(userId) {
     await fs.mkdir(entriesDir, { recursive: true });
 
     try {
+        console.log(styles.info('\nFetching entries from cloud...'));
         const cloudEntries = await Entry.find({ userId }).populate('promptId');
+
+        if (cloudEntries.length === 0) {
+            console.log(styles.info('No cloud entries found to migrate.'));
+            return;
+        }
+
+        console.log(styles.info(`Found ${styles.number(cloudEntries.length)} entries to migrate.`));
+
         for (const entry of cloudEntries) {
             const filename = `${entry.createdAt.toISOString().replace(/:/g, '-')}_entry.txt`;
             const filePath = path.join(entriesDir, filename);
 
             try {
                 await fs.access(filePath);
+                console.log(styles.warning(`Skipping: ${styles.value(filename)} (already exists)`));
             } catch {
                 await fs.writeFile(filePath, JSON.stringify({
                     userId: entry.userId.toString(),
@@ -29,12 +42,13 @@ async function migrateCloudToLocal(userId) {
                     createdAt: entry.createdAt.toISOString()
                 }));
                 migratedCount++;
-                console.log(`Migrated entry from cloud storage to ${filename}.`);
+                console.log(styles.success(`Migrated: ${styles.value(filename)}`));
             }
         }
-        console.log(`Migration complete. ${migratedCount} entries migrated to local storage.`);
+
+        console.log(styles.success(`\n✨ Migration complete! ${styles.number(migratedCount)} entries saved locally.`));
     } catch (error) {
-        console.log('Error migrating cloud entries to local storage:', error.message);
+        console.log(styles.error('Failed to migrate cloud entries:'), styles.value(error.message));
     }
 }
 
@@ -42,52 +56,65 @@ async function migrateLocalToCloud(userId) {
     let migratedCount = 0;
 
     try {
+        console.log(styles.info('\nScanning local entries...'));
         const files = await fs.readdir(entriesDir);
-        for (const file of files) {
-            if (file.startsWith(".")) {
-                continue;
-            }
+        const entryFiles = files.filter(file => !file.startsWith(".") && file.endsWith('_entry.txt'));
+
+        if (entryFiles.length === 0) {
+            console.log(styles.info('No local entries found to migrate.'));
+            return;
+        }
+
+        console.log(styles.info(`Found ${styles.number(entryFiles.length)} entries to process.`));
+
+        for (const file of entryFiles) {
             const filePath = path.join(entriesDir, file);
-            const fileContent = await fs.readFile(filePath, 'utf8');
-            // Attempt to parse JSON
-            let entry;
             try {
-                entry = JSON.parse(fileContent);
-            } catch (parseError) {
-                console.log(`Error parsing file ${file}: ${parseError.message}`);
-                continue;
-            }
+                const fileContent = await fs.readFile(filePath, 'utf8');
+                const entry = JSON.parse(fileContent);
 
-            const prompt = await Prompt.findOne({ question: entry.promptQuestion });
-            const existingEntry = await Entry.findOne({
-                userId: userId,
-                duration: entry.duration,
-                wordCount: entry.wordCount,
-                promptId: prompt._id,
-                createdAt: entry.createdAt
-            });
+                const prompt = await Prompt.findOne({ question: entry.promptQuestion });
+                if (!prompt) {
+                    console.log(styles.warning(`Skipping: ${styles.value(file)} (prompt not found)`));
+                    continue;
+                }
 
-            if (!existingEntry) {
-                const newEntry = new Entry({
+                const existingEntry = await Entry.findOne({
                     userId: userId,
-                    promptId: prompt._id,
-                    content: entry.content,
                     duration: entry.duration,
                     wordCount: entry.wordCount,
+                    promptId: prompt._id,
                     createdAt: entry.createdAt
                 });
-                await newEntry.save();
-                migratedCount++;
-                console.log(`Migrated entry from ${file} to cloud.`);
+
+                if (!existingEntry) {
+                    const newEntry = new Entry({
+                        userId: userId,
+                        promptId: prompt._id,
+                        content: entry.content,
+                        duration: entry.duration,
+                        wordCount: entry.wordCount,
+                        createdAt: entry.createdAt
+                    });
+                    await newEntry.save();
+                    migratedCount++;
+                    console.log(styles.success(`Migrated: ${styles.value(file)}`));
+                } else {
+                    console.log(styles.warning(`Skipping: ${styles.value(file)} (already exists in cloud)`));
+                }
+            } catch (parseError) {
+                console.log(styles.error(`Error processing ${styles.value(file)}:`), styles.value(parseError.message));
+                continue;
             }
         }
-        console.log(`Migration complete. ${migratedCount} entries migrated to local storage.`);
+
+        console.log(styles.success(`\n✨ Migration complete! ${styles.number(migratedCount)} entries saved to cloud.`));
     } catch (error) {
-        // Error messaging
         if (error.code === "ENOENT") {
-            console.log("No local entries found to migrate.");
+            console.log(styles.warning('\nNo local entries directory found.'));
+            console.log(styles.help('Start writing entries locally before migrating.'));
         } else {
-            console.log('Error migrating local entries to cloud storage: ', error.message);
+            console.log(styles.error('\nFailed to migrate local entries:'), styles.value(error.message));
         }
     }
 }

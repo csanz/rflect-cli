@@ -48,6 +48,7 @@ program
     .command('show')
     .description('View your past reflections.')
     .option('-a, --all', 'Show all saved reflections.')
+    .option('-r, --recent', 'Show your most recent entry.')
     .option('-d, --date <date>', 'Show entries from a specific date (MM/DD/YYYY)')
     .action(wrap(showCommand));
 

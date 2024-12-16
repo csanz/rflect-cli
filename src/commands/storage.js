@@ -23,15 +23,20 @@ async function storageCommand(options) {
             console.log('Use -l or --local to save your entries to your local filesystem.');
             console.log('Use -c or --cloud to save your entries to the cloud.');
             console.log('Use -b or --both to save your entries to the cloud and locally.');
+            return;
         }
 
-        const currentPreference = user.storagePreference;
         let newPreference;
+        const currentPreference = user.storagePreference;
         if (options.local) newPreference = 'local';
         if (options.cloud) newPreference = 'cloud';
         if (options.both) newPreference = 'both';
 
-        if (currentPreference !== newPreference) {
+        if (!options.local && !options.cloud && !options.both) {
+            newPreference = currentPreference;
+        }
+
+        if (currentPreference !== newPreference && (options.local || options.cloud || options.both)) {
             const { confirm } = await inquirer.prompt([
                 {
                     type: 'confirm',
@@ -60,7 +65,7 @@ async function storageCommand(options) {
             }
         }
 
-        await User.updateOne({_id: user._id}, {storagePreference: newPreference});
+        await User.updateOne({_id: user._id }, { storagePreference: newPreference });
         console.log(`You currently save your entries to ${newPreference} storage option(s).`);
     } catch (error) {
         // Error messaging

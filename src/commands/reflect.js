@@ -86,7 +86,8 @@ async function reflectCommand() {
 }
 
 function countWords(text) {
-    return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+    // regex: all types of whitespace characters
+    return text.trim().split(/\s+/).length;
 }
 
 module.exports = reflectCommand;

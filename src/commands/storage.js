@@ -25,21 +25,20 @@ async function storageCommand(options) {
             console.log('Use -b or --both to save your entries to the cloud and locally.');
         }
 
-        if (options.local) {
-            await User.updateOne({_id: user._id}, {storagePreference: "local"});
-        }
-        if (options.cloud) {
-            await User.updateOne({_id: user._id}, {storagePreference: "cloud"});
-        }
-        if (options.both) {
-            await User.updateOne({_id: user._id}, {storagePreference: "both"});
-        }
-
+        let newPreference;
+        if (options.local) newPreference = 'local';
+        if (options.cloud) newPreference = 'cloud';
+        if (options.both) newPreference = 'both';
+        await User.updateOne({_id: user._id}, {storagePreference: newPreference});
         console.log(`You currently save your entries to ${user.storagePreference} storage option(s).`);
     } catch (error) {
         // Error messaging
         console.log("Error occurred when updating storage preference: ", error.message);
     }
 }
+
+async function migrateCloudToLocal(userId) {}
+
+async function migrateLocalToCloud(userId) {}
 
 module.exports = storageCommand;

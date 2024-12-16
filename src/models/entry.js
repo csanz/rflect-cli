@@ -6,12 +6,17 @@ const entrySchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    prompt: {
-        type: String,
+    promptId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Prompt',
         required: true
     },
     content: {
         type: String,
+        required: true
+    },
+    duration: {
+        type: Number,
         required: true
     },
     createdAt: {

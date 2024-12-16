@@ -1,14 +1,13 @@
 {
   "name": "rflect",
   "version": "1.0.0",
-  "description": "📝 A CLI tool for journaling and reflection",
+  "description": "📝 A CLI tool for guided reflections and journaling.",
   "private": true,
   "main": "src/index.js",
   "bin": {
     "rflect": "./src/index.js"
   },
   "scripts": {
-    "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "rflect": "./src/index.js"
   },
@@ -20,9 +19,11 @@
   },
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "commander": "^12.1.0",
     "dotenv": "^16.4.7",
-    "inquirer": "^12.2.0",
+    "inquirer": "^8.2.4",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.0"
   },
   "devDependencies": {

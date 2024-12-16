@@ -52,7 +52,6 @@ async function reflectCommand() {
 
         if (user.storagePreference === "both" || user.storagePreference === "cloud") {
             await entry.save();
-            console.log('Thank you for your rflection! Entry was saved to the cloud.');
         }
 
         if (user.storagePreference === "both" || user.storagePreference === "local") {
@@ -73,10 +72,10 @@ async function reflectCommand() {
         }
 
         user.storagePreference === "both"
-            ? console.log("Thank you for your reflection. Your entry has been saved locally and in the cloud.")
+            ? console.log(`Thank you for your reflection. That only took ${durationMinutes} minute(s). Your entry has been saved locally and in the cloud.`)
                 : ( user.storagePreference === "local"
-                    ? console.log("Thank you for your reflection. Your entry has been saved locally.")
-                    : console.log("Thank you for your reflection. Your entry has been saved to the cloud."));
+                    ? console.log(`Thank you for your reflection. That only took ${durationMinutes} minutes. Your entry has been saved locally.`)
+                    : console.log(`Thank you for your reflection. That only took ${durationMinutes} minutes. Your entry has been saved to the cloud.`));
     } catch (error) {
         // Error messaging
         console.log('Reflection prompt failed: ', error.message);

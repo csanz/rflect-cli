@@ -27,6 +27,7 @@ const loginCommand = require('./commands/login');
 const logoutCommand = require('./commands/logout');
 const statusCommand = require('./commands/status');
 const reflectCommand = require('./commands/reflect');
+const storageCommand = require('./commands/storage');
 
 // Description
 program
@@ -43,7 +44,7 @@ program
     .command('show')
     .description('View your past reflections.')
     .option('-a, --all', 'Show all saved reflections.')
-    .argument('[date]', 'Show entries from a specific date (MM/DD/YYYY)')
+    .option('-d, --date <date>', 'Show entries from a specific date (MM/DD/YYYY)')
     .action();
 
 // Authentication & Registration
@@ -66,11 +67,22 @@ program
 
 // Configuration
 program
-    .command('sync')
+    .command('storage')
     .description('Backup your entries to the cloud for safekeeping.')
     .option('-l, --local', 'Save entries to your filesystem (default).')
     .option('-c, --cloud', 'Save entries to the cloud.')
     .option('-b, --both', 'Save entries to both local and cloud storage.')
+    .action(wrap(storageCommand));
+
+// Delete
+program
+    .command('delete')
+    .description('Manage and clear your reflection history')
+    .option('-l, --local', 'Delete entries from local filesystem.')
+    .option('-c, --cloud', 'Delete entries from cloud storage.')
+    .option('-a, --all', 'Delete all entries from both local and cloud.')
     .action();
 
 program.parse(process.argv);
+
+// Add styling once complete (user chalk or node:utils)

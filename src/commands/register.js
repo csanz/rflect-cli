@@ -51,6 +51,17 @@ async function registerCommand() {
                     return true;
                 },
             },
+            {
+                type: 'list',
+                name: 'storagePreference',
+                message: 'Choose your storage preference: ',
+                choices: [
+                    { name: 'Local Storage Only', value: 'local' },
+                    { name: 'Cloud Storage Only', value: 'cloud' },
+                    { name: 'Both Local & Cloud Storage', value: 'both'}
+                ],
+                default: 'local'
+            }
         ]);
 
         // Check if username exists
@@ -65,11 +76,14 @@ async function registerCommand() {
         // Create user in MongoDB
         const user = new User({
             username: response.username,
-            password: hashedPassword
+            password: hashedPassword,
+            storagePreference: response.storagePreference
         });
         // Success messaging
         await user.save();
+
         console.log(`Registration successful for ${response.username}! You can now login using 'rflect login'.`);
+        console.log(`Storage preference for your rflect entries is set to ${response.storagePreference}.`);
     } catch (error) {
         // Error messaging
         console.log('Registration failed: ', error.message);

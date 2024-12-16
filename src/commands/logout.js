@@ -16,6 +16,7 @@ async function logoutCommand() {
         await fs.unlink(sessionPath);
         console.log(`Successfully logged out of rflect. Come back soon, ${session.username}.`);
     } catch (error) {
+        // Error messaging
         console.log('Logout failed: ', error.message);
     }
 }

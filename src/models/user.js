@@ -18,6 +18,12 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: null
     },
+    storagePreference: {
+        type: String,
+        enum: ['cloud', 'local', 'both'],
+        default: 'local',
+        required: true,
+    },
     createdAt: {
         type: Date,
         default: Date.now

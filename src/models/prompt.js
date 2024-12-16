@@ -10,6 +10,11 @@ const promptSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    category: {
+        type: String,
+        enum: ['question', 'quote', 'gratitude', 'growth', 'mindfulness'],
+        required: true,
+    },
     createdAt: {
         type: Date,
         default: Date.now

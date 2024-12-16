@@ -1,6 +1,5 @@
 const User = require('../models/user');
 const { isLoggedIn } = require('../utils/auth');
-const mongoose = require('mongoose');
 
 async function statusCommand() {
     try {
@@ -21,7 +20,9 @@ async function statusCommand() {
         console.log(`You are currently logged in as ${session.username}.`);
         console.log(`You have been writing with rflect since ${user.createdAt.toLocaleDateString()}.`);
         console.log(`You have ${user.entryCount} total entries with the rflect CLI tool.`);
+        console.log(`Storage preference for your rflect entries is set to ${user.storagePreference}.`);
     } catch (error) {
+        // Error messaging
         console.log('Status check failed: ', error.message);
     }
 }

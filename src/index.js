@@ -26,6 +26,7 @@ const registerCommand = require('./commands/register');
 const loginCommand = require('./commands/login');
 const logoutCommand = require('./commands/logout');
 const statusCommand = require('./commands/status');
+const reflectCommand = require('./commands/reflect');
 
 // Description
 program
@@ -37,7 +38,7 @@ program
 program
     .command('reflect')
     .description('Write a guided reflection based on the given prompt.')
-    .action();
+    .action(wrap(reflectCommand));
 program
     .command('show')
     .description('View your past reflections.')
@@ -65,14 +66,10 @@ program
 
 // Configuration
 program
-    .command('backup')
-    .description('Backup your entries to the cloud for safekeeping.')
-    .action();
-program
     .command('sync')
-    .description('Choose where to read your entries from (defaults to filesystem).')
-    .option('-l, --local', 'Read entries from your filesystem (default).')
-    .option('-c, --cloud', 'Read entries from the cloud.')
+    .description('Backup your entries to the cloud for safekeeping.')
+    .option('-l, --local', 'Save entries to your filesystem (default).')
+    .option('-c, --cloud', 'Save entries to the cloud.')
     .option('-b, --both', 'Save entries to both local and cloud storage.')
     .action();
 

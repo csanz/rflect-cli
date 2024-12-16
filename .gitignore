@@ -6,3 +6,6 @@ node_modules/
 
 # idea xml
 .idea/
+
+# misc
+.DS_Store

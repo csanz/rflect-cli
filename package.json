@@ -1,6 +1,6 @@
 {
   "name": "rflect",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "📝 A CLI tool for guided reflections and journaling.",
   "private": false,
   "main": "src/index.js",

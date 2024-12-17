@@ -1,9 +1,6 @@
 # npm packages
 node_modules/
 
-# .env files
-.env
-
 # idea xml
 .idea/
 

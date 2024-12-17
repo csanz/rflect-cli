@@ -39,7 +39,12 @@ program
   .option('-p, --popular', 'Show most frequently used tags.')
   .action();
 
-// User Settings & Stats
+// User settings & Stats
+program
+  .command('init')
+  .description(styles.help('Set up your rflect account with initial preferences.'))
+  .action();
+
 program
   .command('config')
   .description(styles.help('Customize your reflection preferences.'))

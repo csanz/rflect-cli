@@ -8,7 +8,7 @@
     "rflect": "src/index.js"
   },
   "scripts": {
-    "postinstall": "node scripts/install.js",
+    "postinstall": "node src/scripts/install.js",
     "start": "node src/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

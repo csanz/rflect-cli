@@ -41,13 +41,6 @@ rflect status    # Check account status
 rflect streak    # View your writing streak
 ```
 
-## Security
-- Passwords are hashed using `bcrypt`
-- JWT-based authentication
-- Entries are stored securely with user-specific encryption
-- Local storage is protected within your own home directory
-- Session management for secure login/logout
-
 ## Storage
 `rflect` offers three storage settings:
 1. **Local Storage** `--local`
@@ -91,15 +84,6 @@ rflect streak --current  # View current streak
 rflect streak --best     # View longest streak
 ```
 
-## Issues
-*Found a bug? Have a suggestion?* Please open an [issue](https://github.com/aniqatc/rflect-cli/issues) on GitHub.
-
-## Contributing
-Contributions are welcome!
-
-## License
-This project is licensed under the MIT License.
-
 ---
 
 ## Tech
@@ -107,6 +91,13 @@ This project is licensed under the MIT License.
 - **Core**: `commander`, `inquirer`, `mongoose`, `chalk`, `dotenv`
 - **Security**: `bcrypt`, `jsonwebtoken`
 - **Dev Tools**: `nodemon`, `eslint`, `prettier`
+
+#### Security
+- Passwords are hashed using `bcrypt`
+- JWT-based authentication
+- Entries are stored securely with user-specific encryption
+- Local storage is protected within your own home directory
+- Session management for secure login/logout
 
 #### Scripts
 ```bash
@@ -122,4 +113,12 @@ DB_URI=your_mongodb_connection_string
 DB_PW=your_database_password
 JWT_SECRET=your_jwt_secret_key
 ```
+---
+## Issues
+*Found a bug? Have a suggestion?* Please open an [issue](https://github.com/aniqatc/rflect-cli/issues) on GitHub.
 
+## Contributing
+Contributions are welcome!
+
+## License
+This project is licensed under the MIT License.

@@ -1,15 +1,17 @@
 {
   "name": "rflect",
-  "version": "1.0.4",
-  "description": "📝 A CLI tool for guided reflections and journaling.",
+  "version": "2.0.0",
   "private": false,
+  "description": "A CLI tool for guided reflections and journaling",
   "main": "src/index.js",
   "bin": {
     "rflect": "src/index.js"
   },
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "postinstall": "node scripts/install.js",
+    "start": "node src/index.js",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "format": "prettier --write ."
   },
   "keywords": [
@@ -40,22 +42,19 @@
     "url": "https://github.com/aniqatc/rflect/issues"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.0.0"
   },
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^5.1.1",
     "chalk": "^4.1.2",
-    "commander": "^12.1.0",
-    "dotenv": "^16.4.7",
-    "inquirer": "^8.2.4",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.9.0"
+    "commander": "^9.4.1",
+    "date-fns": "^4.1.0",
+    "inquirer": "^8.2.4"
   },
   "devDependencies": {
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "nodemon": "^3.1.9",
-    "prettier": "^3.4.2"
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.4.1"
   }
 }

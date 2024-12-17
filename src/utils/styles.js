@@ -1,38 +1,30 @@
 const chalk = require('chalk');
 
 const styles = {
-  // Header
-  header: (text) => chalk.inverse.bold.cyan(text),
+  // Headers
+  header: (text) => chalk.inverse.cyan.bold(text),
 
-  // Success message
+  // Status messages
   success: (text) => chalk.green(text),
-
-  // Error messages
   error: (text) => chalk.red(text),
   warning: (text) => chalk.yellow(text),
 
-  // Info messages
-  info: (text) => chalk.blue(text),
+  // Information display
+  info: (text) => chalk.cyan(text),
   help: (text) => chalk.cyan(text),
-
-  // Data display
-  value: (text) => chalk.bold.white(text),
+  value: (text) => chalk.white(text),
   date: (text) => chalk.yellow(text),
-
-  // Prompts and questions
   prompt: (text) => chalk.magenta(text),
-
-  // Stats and numbers
   number: (text) => chalk.yellow(text),
 
-  // Entry display formatting
-  entryHeader: () => chalk.inverse.bold.blue('\n=== Entry ===\n'),
-  entryDate: (date) => `${chalk.bold.white('Date:')} ${chalk.yellow(date)}`,
-  entryPrompt: (prompt) =>
-    `${chalk.bold.white('Prompt:')} ${chalk.cyan(prompt)}`,
-  entryResponse: (response) => `${chalk.bold.white('Response:')} ${response}}`,
+  // Entry formatting
+  entryHeader: () => chalk.inverse.cyan.bold('\n=== Entry ===\n'),
+  entryDate: (date) => `${chalk.white.bold('Date:')} ${chalk.yellow(date)}`,
+  entryPrompt: (prompt) => `${chalk.white.bold('Prompt:')} ${chalk.cyan(prompt)}`,
+  entryResponse: (response) => `${chalk.white.bold('Response:')} ${chalk.white(response)}`,
   entryStats: (duration, wordCount) =>
-    `${chalk.bold.white('Duration:')} ${chalk.green(duration)} minutes | ${chalk.bold.white('Word Count:')} ${chalk.green(wordCount)} words`,
+    `${chalk.white.bold('Duration:')} ${chalk.yellow(duration)} minutes | ` +
+    `${chalk.white.bold('Word Count:')} ${chalk.yellow(wordCount)} words`,
 };
 
 module.exports = styles;

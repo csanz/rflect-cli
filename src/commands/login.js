@@ -12,13 +12,9 @@ async function loginCommand() {
     const session = await isLoggedIn();
     if (session.isValid) {
       console.log(
-        styles.warning(
-          `You are already logged in as ${styles.value(session.username)}.`
-        )
+        styles.warning(`You are already logged in as ${styles.value(session.username)}.`)
       );
-      console.log(
-        styles.help(`Use ${styles.value('rflect logout')} to switch accounts.`)
-      );
+      console.log(styles.help(`Use ${styles.value('rflect logout')} to switch accounts.`));
       return;
     }
 
@@ -55,18 +51,11 @@ async function loginCommand() {
     const user = await User.findOne({ username: response.username });
     if (!user) {
       console.log(styles.error('\nInvalid username or password.'));
-      console.log(
-        styles.help(
-          `No account? Register with ${styles.value('rflect register')}`
-        )
-      );
+      console.log(styles.help(`No account? Register with ${styles.value('rflect register')}`));
       return;
     }
 
-    const passwordCheck = await bcrypt.compare(
-      response.password,
-      user.password
-    );
+    const passwordCheck = await bcrypt.compare(response.password, user.password);
     if (!passwordCheck) {
       console.log(styles.error('\nInvalid username or password.'));
       console.log(styles.help('Please try again.'));
@@ -82,9 +71,7 @@ async function loginCommand() {
 
     if (user.entryCount === 0) {
       console.log(
-        styles.help(
-          `\nStart your first reflection with ${styles.value('rflect write')}`
-        )
+        styles.help(`\nStart your first reflection with ${styles.value('rflect write')}`)
       );
     } else {
       console.log(
@@ -93,9 +80,7 @@ async function loginCommand() {
         )
       );
       console.log(
-        styles.help(
-          `\nTip: View your entries with ${styles.value('rflect show --all')}`
-        )
+        styles.help(`\nTip: View your entries with ${styles.value('rflect show --all')}`)
       );
     }
   } catch (error) {

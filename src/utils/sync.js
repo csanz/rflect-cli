@@ -21,11 +21,7 @@ async function migrateCloudToLocal(userId) {
       return;
     }
 
-    console.log(
-      styles.info(
-        `Found ${styles.number(cloudEntries.length)} entries to migrate.`
-      )
-    );
+    console.log(styles.info(`Found ${styles.number(cloudEntries.length)} entries to migrate.`));
 
     for (const entry of cloudEntries) {
       const filename = `${entry.createdAt.toISOString().replace(/:/g, '-')}_entry.txt`;
@@ -33,9 +29,7 @@ async function migrateCloudToLocal(userId) {
 
       try {
         await fs.access(filePath);
-        console.log(
-          styles.warning(`Skipping: ${styles.value(filename)} (already exists)`)
-        );
+        console.log(styles.warning(`Skipping: ${styles.value(filename)} (already exists)`));
       } catch {
         await fs.writeFile(
           filePath,
@@ -60,10 +54,7 @@ async function migrateCloudToLocal(userId) {
       )
     );
   } catch (error) {
-    console.log(
-      styles.error('Failed to migrate cloud entries:'),
-      styles.value(error.message)
-    );
+    console.log(styles.error('Failed to migrate cloud entries:'), styles.value(error.message));
   }
 }
 
@@ -73,20 +64,14 @@ async function migrateLocalToCloud(userId) {
   try {
     console.log(styles.info('\nScanning local entries...'));
     const files = await fs.readdir(entriesDir);
-    const entryFiles = files.filter(
-      (file) => !file.startsWith('.') && file.endsWith('_entry.txt')
-    );
+    const entryFiles = files.filter((file) => !file.startsWith('.') && file.endsWith('_entry.txt'));
 
     if (entryFiles.length === 0) {
       console.log(styles.info('No local entries found to migrate.'));
       return;
     }
 
-    console.log(
-      styles.info(
-        `Found ${styles.number(entryFiles.length)} entries to process.`
-      )
-    );
+    console.log(styles.info(`Found ${styles.number(entryFiles.length)} entries to process.`));
 
     for (const file of entryFiles) {
       const filePath = path.join(entriesDir, file);
@@ -98,9 +83,7 @@ async function migrateLocalToCloud(userId) {
           question: entry.promptQuestion,
         });
         if (!prompt) {
-          console.log(
-            styles.warning(`Skipping: ${styles.value(file)} (prompt not found)`)
-          );
+          console.log(styles.warning(`Skipping: ${styles.value(file)} (prompt not found)`));
           continue;
         }
 
@@ -125,11 +108,7 @@ async function migrateLocalToCloud(userId) {
           migratedCount++;
           console.log(styles.success(`Migrated: ${styles.value(file)}`));
         } else {
-          console.log(
-            styles.warning(
-              `Skipping: ${styles.value(file)} (already exists in cloud)`
-            )
-          );
+          console.log(styles.warning(`Skipping: ${styles.value(file)} (already exists in cloud)`));
         }
       } catch (parseError) {
         console.log(
@@ -148,14 +127,9 @@ async function migrateLocalToCloud(userId) {
   } catch (error) {
     if (error.code === 'ENOENT') {
       console.log(styles.warning('\nNo local entries directory found.'));
-      console.log(
-        styles.help('Start writing entries locally before migrating.')
-      );
+      console.log(styles.help('Start writing entries locally before migrating.'));
     } else {
-      console.log(
-        styles.error('\nFailed to migrate local entries:'),
-        styles.value(error.message)
-      );
+      console.log(styles.error('\nFailed to migrate local entries:'), styles.value(error.message));
     }
   }
 }

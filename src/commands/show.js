@@ -19,19 +19,13 @@ async function showCommand(options) {
 
     const user = await User.findById(session.userId);
     if (!user) {
-      console.log(
-        styles.error(
-          'Something went wrong. Try logging out and logging back in!'
-        )
-      );
+      console.log(styles.error('Something went wrong. Try logging out and logging back in!'));
       return;
     }
 
     const storagePreference = user.storagePreference;
     if (!options.date && !options.all && !options.recent) {
-      console.log(
-        styles.warning('No option provided. Please enter one of the following:')
-      );
+      console.log(styles.warning('\nNo option provided. Please enter one of the following:'));
       console.log(
         styles.help(
           `Use ${styles.value('-a')} or ${styles.value('--all')} to see all your entries saved in ${styles.value(storagePreference)} storage.`
@@ -44,7 +38,7 @@ async function showCommand(options) {
       );
       console.log(
         styles.help(
-          `Use ${styles.value('-d')} or ${styles.value('--date')} ${styles.value('<MM/DD/YYYY>')} to see an entry from the specified date.`
+          `Use ${styles.value('-d')} or ${styles.value('--date <MM/DD/YYYY>')} to see an entry from the specified date.`
         )
       );
       return;
@@ -57,9 +51,7 @@ async function showCommand(options) {
           .sort({ createdAt: -1 });
         if (entries.length === 0) {
           console.log(
-            styles.error(
-              `No entries found. Start writing with ${styles.value('rflect write')}!`
-            )
+            styles.error(`No entries found. Start writing with ${styles.value('rflect write')}!`)
           );
           return;
         }
@@ -75,9 +67,7 @@ async function showCommand(options) {
           .populate('promptId');
         if (!mostRecentEntry) {
           console.log(
-            styles.error(
-              `No entries found. Start writing with ${styles.value('rflect write')}!`
-            )
+            styles.error(`No entries found. Start writing with ${styles.value('rflect write')}!`)
           );
           return;
         }
@@ -94,9 +84,7 @@ async function showCommand(options) {
           },
         }).populate('promptId');
         if (entries.length === 0) {
-          console.log(
-            styles.error(`No entries found for ${styles.value(options.date)}.`)
-          );
+          console.log(styles.error(`No entries found for ${styles.value(options.date)}.`));
           return;
         }
         for (const entry of entries) {
@@ -112,9 +100,7 @@ async function showCommand(options) {
 
       if (entryFiles.length === 0) {
         console.log(
-          styles.error(
-            `No entries found. Start writing with ${styles.value('rflect write')}!`
-          )
+          styles.error(`No entries found. Start writing with ${styles.value('rflect write')}!`)
         );
         return;
       }
@@ -131,10 +117,7 @@ async function showCommand(options) {
       if (options.recent) {
         const sortedEntries = entryFiles.sort().reverse();
         const mostRecentFile = sortedEntries[0];
-        const content = await fs.readFile(
-          path.join(entriesDir, mostRecentFile),
-          'utf8'
-        );
+        const content = await fs.readFile(path.join(entriesDir, mostRecentFile), 'utf8');
         const entry = JSON.parse(content);
         displayEntry(entry, storagePreference);
       }
@@ -142,10 +125,7 @@ async function showCommand(options) {
         const date = new Date(options.date).toLocaleDateString();
         let found = false;
         for (const file of entryFiles) {
-          const content = await fs.readFile(
-            path.join(entriesDir, file),
-            'utf8'
-          );
+          const content = await fs.readFile(path.join(entriesDir, file), 'utf8');
           const entry = JSON.parse(content);
 
           if (new Date(entry.createdAt).toLocaleDateString() === date) {
@@ -154,18 +134,14 @@ async function showCommand(options) {
           }
         }
         if (!found) {
-          console.log(
-            styles.error(`No entries found for ${styles.value(date)}`)
-          );
+          console.log(styles.error(`No entries found for ${styles.value(date)}`));
         }
       }
     }
   } catch (error) {
     if (error.code === 'ENOENT') {
       console.log(
-        styles.warning(
-          `\nNo entries found. Start writing with ${styles.value('rflect write')}!`
-        )
+        styles.warning(`\nNo entries found. Start writing with ${styles.value('rflect write')}!`)
       );
     } else {
       console.log(

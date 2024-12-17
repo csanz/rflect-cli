@@ -23,11 +23,7 @@ async function writeCommand() {
     await Prompt.updateOne({ _id: prompt._id }, { $inc: { usageCount: 1 } });
 
     console.log(styles.header('\n=== Time to Reflect ===\n'));
-    console.log(
-      styles.info(
-        'Take your time. Your response will be saved when you press Enter.'
-      )
-    );
+    console.log(styles.info('Take your time. Your response will be saved when you press Enter.'));
 
     const startTime = Date.now();
     const response = await inquirer.prompt([
@@ -64,17 +60,11 @@ async function writeCommand() {
 
     console.log(styles.info('\nSaving your reflection...'));
 
-    if (
-      user.storagePreference === 'both' ||
-      user.storagePreference === 'cloud'
-    ) {
+    if (user.storagePreference === 'both' || user.storagePreference === 'cloud') {
       await entry.save();
     }
 
-    if (
-      user.storagePreference === 'both' ||
-      user.storagePreference === 'local'
-    ) {
+    if (user.storagePreference === 'both' || user.storagePreference === 'local') {
       const entriesDir = path.join(os.homedir(), '.rflect', 'entries');
       await fs.mkdir(entriesDir, { recursive: true });
 
@@ -97,9 +87,7 @@ async function writeCommand() {
 
     // Stats display
     console.log(styles.success('\nReflection complete! ✨'));
-    console.log(
-      styles.info(`Time spent: ${styles.number(durationMinutes)} minute(s)`)
-    );
+    console.log(styles.info(`Time spent: ${styles.number(durationMinutes)} minute(s)`));
     console.log(styles.info(`Words written: ${styles.number(wordCount)}`));
 
     // Storage confirmation
@@ -118,9 +106,7 @@ async function writeCommand() {
         styles.info(' to view this entry again.')
     );
   } catch (error) {
-    console.log(
-      styles.error('Reflection prompt failed: ') + styles.value(error.message)
-    );
+    console.log(styles.error('Reflection prompt failed: ') + styles.value(error.message));
   }
 }
 

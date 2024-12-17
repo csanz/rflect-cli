@@ -10,20 +10,14 @@ async function registerCommand() {
     const session = await isLoggedIn();
     if (session.isValid) {
       console.log(
-        styles.warning(
-          `You are already logged in as ${styles.value(session.username)}.`
-        )
+        styles.warning(`You are already logged in as ${styles.value(session.username)}.`)
       );
-      console.log(
-        styles.help(`Use ${styles.value('rflect logout')} to switch accounts.`)
-      );
+      console.log(styles.help(`Use ${styles.value('rflect logout')} to switch accounts.`));
       return;
     }
 
     console.log(styles.header('\n=== Create Your Account ===\n'));
-    console.log(
-      styles.info('Follow the prompts to set up your rflect account.\n')
-    );
+    console.log(styles.info('Follow the prompts to set up your rflect account.\n'));
 
     const response = await inquirer.prompt([
       {
@@ -86,9 +80,7 @@ async function registerCommand() {
     if (await User.findOne({ username: response.username })) {
       console.log(styles.error('\nUsername already exists.'));
       console.log(
-        styles.help(
-          `Try ${styles.value('rflect register')} again with a different username.`
-        )
+        styles.help(`Try ${styles.value('rflect register')} again with a different username.`)
       );
       return;
     }
@@ -105,9 +97,7 @@ async function registerCommand() {
 
     // Success
     console.log(styles.success('\n✨ Account created successfully! '));
-    console.log(
-      styles.info(`Welcome to rflect, ${styles.value(response.username)}!`)
-    );
+    console.log(styles.info(`Welcome to rflect, ${styles.value(response.username)}!`));
     console.log(
       styles.info(
         `Your entries will be saved to ${styles.value(response.storagePreference)} storage.`
@@ -117,16 +107,10 @@ async function registerCommand() {
     // Next
     console.log(styles.help('\nNext steps:'));
     console.log(styles.help(`1. Login with ${styles.value('rflect login')}`));
-    console.log(
-      styles.help(`2. Start writing with ${styles.value('rflect write')}`)
-    );
-    console.log(
-      styles.help(`3. View your entries with ${styles.value('rflect show')}`)
-    );
+    console.log(styles.help(`2. Start writing with ${styles.value('rflect write')}`));
+    console.log(styles.help(`3. View your entries with ${styles.value('rflect show')}`));
   } catch (error) {
-    console.log(
-      styles.error('\nRegistration failed: ') + styles.value(error.message)
-    );
+    console.log(styles.error('\nRegistration failed: ') + styles.value(error.message));
     console.log(styles.help('Please try again or check your connection.'));
   }
 }

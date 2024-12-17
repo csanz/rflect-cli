@@ -12,29 +12,20 @@ async function deleteCommand(options) {
     const session = await isLoggedIn();
     if (!session.isValid) {
       console.log(styles.error('You are currently not logged in.'));
-      console.log(
-        styles.help(
-          `Use ${styles.value('rflect login')} to access your account.`
-        )
-      );
+      console.log(styles.help(`Use ${styles.value('rflect login')} to access your account.`));
       return;
     }
 
     const user = await User.findById(session.userId);
     if (!user) {
-      console.log(
-        styles.error('Something went wrong. Try logging out and back in!')
-      );
+      console.log(styles.error('Something went wrong. Try logging out and back in!'));
       return;
     }
 
     if (!options.local && !options.cloud && !options.both) {
       console.log(styles.header('\n=== Delete Entries ===\n'));
-      console.log(styles.warning('No delete option provided.'));
-      console.log(
-        styles.info(`Current storage: ${styles.value(user.storagePreference)}`)
-      );
-      console.log(styles.help('\nAvailable options:'));
+      console.log(styles.info(`Current storage: ${styles.value(user.storagePreference)}\n`));
+      console.log(styles.warning('No delete option provided. Available options:'));
       console.log(
         styles.help(
           `Use ${styles.value('-l')} or ${styles.value('--local')} to delete local entries`
@@ -46,9 +37,7 @@ async function deleteCommand(options) {
         )
       );
       console.log(
-        styles.help(
-          `Use ${styles.value('-b')} or ${styles.value('--both')} to delete all entries`
-        )
+        styles.help(`Use ${styles.value('-b')} or ${styles.value('--both')} to delete all entries`)
       );
       return;
     }
@@ -86,17 +75,11 @@ async function deleteCommand(options) {
       const entriesDir = path.join(os.homedir(), '.rflect', 'entries');
       try {
         const files = await fs.readdir(entriesDir);
-        localEntryCount = files.filter((file) =>
-          file.endsWith('_entry.txt')
-        ).length;
+        localEntryCount = files.filter((file) => file.endsWith('_entry.txt')).length;
 
         if (localEntryCount > 0) {
           await fs.rm(entriesDir, { recursive: true, force: true });
-          console.log(
-            styles.success(
-              `Deleted ${styles.number(localEntryCount)} local entries`
-            )
-          );
+          console.log(styles.success(`Deleted ${styles.number(localEntryCount)} local entries`));
         } else {
           console.log(styles.info('No local entries found.'));
         }
@@ -115,11 +98,7 @@ async function deleteCommand(options) {
       });
       if (cloudEntryCount > 0) {
         await Entry.deleteMany({ userId: session.userId });
-        console.log(
-          styles.success(
-            `Deleted ${styles.number(cloudEntryCount)} cloud entries`
-          )
-        );
+        console.log(styles.success(`Deleted ${styles.number(cloudEntryCount)} cloud entries`));
       } else {
         console.log(styles.info('No cloud entries found.'));
       }
@@ -136,13 +115,9 @@ async function deleteCommand(options) {
       console.log(styles.info('\nNo entries found to delete.'));
     }
 
-    console.log(
-      styles.help(`\nStart fresh with ${styles.value('rflect write')}`)
-    );
+    console.log(styles.help(`\nStart fresh with ${styles.value('rflect write')}`));
   } catch (error) {
-    console.log(
-      styles.error('\nError deleting entries: ') + styles.value(error.message)
-    );
+    console.log(styles.error('\nError deleting entries: ') + styles.value(error.message));
     console.log(styles.help('Please try again or check your connection.'));
   }
 }

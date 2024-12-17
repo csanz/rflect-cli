@@ -1,4 +1,5 @@
 const { isLoggedIn } = require('../utils/auth');
+const updateStreak = require('../utils/counter');
 const User = require('../models/user');
 const Prompt = require('../models/prompt');
 const Entry = require('../models/entry');
@@ -46,7 +47,18 @@ async function writeCommand() {
 
     const user = await User.findOne({ username: session.username });
     if (user) {
-      await User.updateOne({ _id: user._id }, { $inc: { entryCount: 1 } });
+      const streak = updateStreak(user.streaks?.lastEntry, user.streaks?.current);
+      await User.updateOne(
+        { _id: user._id },
+        {
+          $inc: { entryCount: 1 },
+          $set: { 'streaks.current': streak.days, 'streaks.lastEntry': streak.lastEntry, 'streaks.best': Math.max(streak.days, user.streaks?.best || 0)
+          }
+        }
+      );
+      if (streak.days > 1) {
+        console.log(styles.success(`\n🔥 You're on a ${styles.number(streak.days)}-day writing streak!`));
+      }
     }
 
     const entry = new Entry({

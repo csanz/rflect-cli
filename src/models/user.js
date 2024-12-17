@@ -20,10 +20,15 @@ const userSchema = new mongoose.Schema({
     default: 'local',
     required: true,
   },
+  streaks: {
+    current: { type: Number, default: 0 },
+    best: { type: Number, default: 0 },
+    lastEntry: { type: Date }
+  },
   createdAt: {
     type: Date,
     default: Date.now,
-  },
+  }
 });
 
 module.exports = mongoose.model('User', userSchema);

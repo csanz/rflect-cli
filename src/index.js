@@ -30,6 +30,7 @@ const writeCommand = require('./commands/write');
 const storageCommand = require('./commands/storage');
 const deleteCommand = require('./commands/delete');
 const showCommand = require('./commands/show');
+const streakCommand = require('./commands/streak');
 const styles = require('./utils/styles');
 
 // Description
@@ -78,7 +79,6 @@ program
   .option('-b, --both', 'Keep entries backed up in both locations.')
   .action(wrap(storageCommand));
 
-// Delete
 program
   .command('delete')
   .description(styles.help('Thoughtfully manage your reflection history.'))
@@ -86,5 +86,13 @@ program
   .option('-c, --cloud', 'Remove entries from cloud storage.')
   .option('-b, --both', 'Clear all entries from both storage locations.')
   .action(wrap(deleteCommand));
+
+// Streak
+program
+  .command('streak')
+  .description(styles.help('Track your reflection consistency and writing milestones.'))
+  .option('-c, --current', 'View your current streak.')
+  .option('-b, --best', 'Show your longest streak.')
+  .action(wrap(streakCommand));
 
 program.parse(process.argv);

@@ -5,7 +5,7 @@
   "private": false,
   "main": "src/index.js",
   "bin": {
-    "rflect": "./src/index.js"
+    "rflect": "src/index.js"
   },
   "scripts": {
     "dev": "nodemon src/index.js",

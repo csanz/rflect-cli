@@ -1,4 +1,4 @@
-# rflect
+# rflect ![NPM Version](https://img.shields.io/npm/v/rflect)
 📝 A CLI journaling tool that guides you through daily reflections with thoughtfully curated prompts.
 
 ## Features

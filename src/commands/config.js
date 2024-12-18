@@ -1,15 +1,17 @@
 const inquirer = require('inquirer');
 const styles = require('../utils/styles');
 const { checkConfig, updateConfig } = require('../utils/config');
+const createRflectDirectory = require('../scripts/install');
 
 async function configCommand(options) {
   try {
     const { isFirstTime, config } = await checkConfig();
-    if (!options.name && !options.show && !options.goal) {
+    if (!options.name && !options.show && !options.goal && !options.install) {
       console.log(styles.header('\n=== Configuration ===\n'));
       console.log(styles.help('Available options:'));
       console.log(styles.value('  rflect config --name <name>   ') + styles.help('Change your display name'));
       console.log(styles.value('  rflect config --show   ') + styles.help('View current settings'));
+      console.log(styles.value('  rflect config --install   ') + styles.help('Reinstall rflect configuration file and directories.'));
       console.log(styles.value('  rflect config goal -t <type> -f <frequency> -v <number> ') + styles.help('Set goals ("entry" or "words")'));
       return;
     }
@@ -17,6 +19,32 @@ async function configCommand(options) {
     if (isFirstTime) {
       console.log(styles.warning(`\n ⚠️ It looks like you haven't set up your rflect account yet.`));
       console.log(styles.info('To get started, please use the ') + styles.value('rflect init') + styles.info(' command to configure your preferences.'));
+      return;
+    }
+
+    if (options.install) {
+      const { confirmInstall } = await inquirer.prompt([
+        {
+          type: 'confirm',
+          name: 'confirmInstall',
+          message: config
+            ? styles.warning('This will reset your configuration and will require you to re-configure your details. Are you sure?')
+            : styles.prompt('Would you like to install rflect?'),
+          default: false
+        }
+      ]);
+      if (confirmInstall) {
+        const success = await createRflectDirectory(true);
+        if (success) {
+          console.log(styles.success('\nConfiguration reset successfully.'));
+          console.log(styles.info('\nPlease run rflect init to populate the config file with your details.'));
+        } else {
+          console.log(styles.error('\nFailed to reset configuration.'));
+          console.log(styles.help('Please try again or check file permissions.'));
+        }
+      } else {
+        console.log(styles.info('\nInstallation cancelled.'));
+      }
       return;
     }
 

@@ -5,6 +5,7 @@ const styles = require('./utils/styles');
 const configCommand = require('./commands/config');
 const initCommand = require('./commands/init');
 const promptsCommand = require('./commands/prompts');
+const writeCommand = require('./commands/write');
 
 // CLI Description
 program
@@ -16,7 +17,7 @@ program
 program
   .command('write')
   .description(styles.help('Start a new reflection with a thoughtfully curated prompt.'))
-  .action();
+  .action(writeCommand);
 
 program
   .command('show')
@@ -61,6 +62,7 @@ program
 program
   .command('config')
   .description(styles.help('Customize your reflection preferences.'))
+  .option('-i, --install', 'Reinstall rflect configuration file and directories.')
   .option('-n, --name', 'Set your display name.')
   .option('-s, --show', 'View current settings.')
   .option('-g, --goal', 'Configure word count or writing frequency goals.')

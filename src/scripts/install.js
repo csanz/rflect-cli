@@ -4,9 +4,9 @@ const os = require('os');
 
 const styles = require('../utils/styles');
 
-async function createRflectDirectory() {
+async function createRflectDirectory(isReinstall = false) {
   try {
-    console.log(styles.header('\n=== 🚀 Installing rflect ===\n'));
+    console.log(styles.header(`\n=== 🚀 Installing rflect ===\n`));
 
     // Directories needed for rflect
     const primaryDirectory = path.join(os.homedir(), '.rflect');
@@ -57,26 +57,39 @@ async function createRflectDirectory() {
       mood: {},
     };
 
-    try {
-      await fs.access(configLocation); // checks existence otherwise throws an error
-      console.log(styles.info(`Found existing configuration: ${configLocation}`));
-    } catch {
+    if (isReinstall) {
       await fs.writeFile(configLocation, JSON.stringify(config, null, 2));
-      console.log(styles.success(`Created initial configuration file: ${configLocation}.`));
+      console.log(styles.success('Configuration reset to defaults.'));
+    } else {
+      try {
+        await fs.access(configLocation);
+        console.log(styles.info(`Found existing configuration: ${configLocation}`));
+        console.log(styles.info(`Use rflect init or rflect config to make adjustments.`));
+      } catch {
+        await fs.writeFile(configLocation, JSON.stringify(config, null, 2));
+        console.log(styles.success(`Created initial configuration file: ${configLocation}.`));
+      }
     }
 
     // Welcome and next steps
     console.log(styles.header('\n=== 👋🏼 Welcome to rflect! ==='));
-    console.log(styles.info('\nGet started with these commands:'));
-    console.log(styles.help('1. Set up your profile:'));
+    console.log(styles.info('\nGet started with:'));
+    console.log(styles.help('1. Initialize your profile:'));
     console.log(styles.value('   rflect init'));
-    console.log(styles.help('\n2. Start writing:'));
+    console.log(styles.help('2. Start writing:'));
     console.log(styles.value('   rflect write'));
-    console.log(styles.help('\n3. View your entries:'));
+    console.log(styles.help('3. View your entries:'));
     console.log(styles.value('   rflect show --recent\n'));
+    return true;
   } catch (error) {
     console.error(styles.error('\nSetup error: ') + styles.value(error.message));
+    return false;
   }
 }
 
-createRflectDirectory();
+module.exports = createRflectDirectory;
+
+// Run on npm install
+if (require.main === module) {
+  createRflectDirectory();
+}

@@ -23,26 +23,28 @@ async function createRflectDirectory() {
         createdAt: new Date().toISOString(),
       },
       goals: {
-        streak: {
-          goal: 0,
-          type: null // daily, weekly, monthly
+        dailyStreak: {
+          current: 0,
+          best: 0,
+          lastEntryDate: null
         },
-        wordCount: {
+        entries: {
           goal: 0,
-          type: null // daily, weekly, monthly
+          type: null, // daily, weekly, monthly
+          current: 0,
+          periodStart: null
         },
-        entryCount: {
+        words: {
           goal: 0,
-          type: null // daily, weekly, monthly
+          type: null, // daily, weekly, monthly
+          current: 0,
+          periodStart: null
         }
       },
       stats: {
         totalEntries: 0,
         totalWords: 0,
         totalTimeSpent: 0,
-        currentStreak: 0,
-        bestStreak: 0,
-        lastEntry: null,
         entryCountByPromptType: {
           question: 0,
           quote: 0,

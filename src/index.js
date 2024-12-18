@@ -2,6 +2,8 @@
 const { program } = require('commander');
 const styles = require('./utils/styles');
 
+const initCommand = require('./commands/init');
+
 // CLI Description
 program
   .name('rflect')
@@ -43,7 +45,7 @@ program
 program
   .command('init')
   .description(styles.help('Set up your rflect account with initial preferences.'))
-  .action();
+  .action(initCommand);
 
 program
   .command('config')

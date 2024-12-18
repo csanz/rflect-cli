@@ -6,12 +6,13 @@ const createRflectDirectory = require('../scripts/install');
 async function configCommand(options) {
   try {
     const { isFirstTime, config } = await checkConfig();
-    if (!options.name && !options.show && !options.goal && !options.install) {
+    if (!options.name && !options.show && !options.goal && !options.install & !options.editor) {
       console.log(styles.header('\n=== Configuration ===\n'));
       console.log(styles.help('Available options:'));
       console.log(styles.value('  rflect config --name <name>   ') + styles.help('Change your display name'));
       console.log(styles.value('  rflect config --show   ') + styles.help('View current settings'));
       console.log(styles.value('  rflect config --install   ') + styles.help('Reinstall rflect configuration file and directories.'));
+      console.log(styles.value('  rflect config --editor <boolean> ') + styles.help('Toggle your system editor usage (true/false).'));
       console.log(styles.value('  rflect config goal -t <type> -f <frequency> -v <number> ') + styles.help('Set goals ("entry" or "words")'));
       return;
     }
@@ -48,6 +49,7 @@ async function configCommand(options) {
       return;
     }
 
+
     if (options.name) {
       const { newName, confirmChange } = await inquirer.prompt([
         {
@@ -69,6 +71,13 @@ async function configCommand(options) {
         await updateConfig(config);
         console.log(styles.success(`Display name updated to ${styles.highlight(newName)}.`));
       }
+    }
+
+    if (options.editor !== undefined) {
+      const useEditor = options.editor.toLowerCase() === 'true';
+      config.user.useEditor = useEditor;
+      await updateConfig(config);
+      console.log(styles.success(`System editor preference is ${styles.invert(`${useEditor ? 'enabled' : 'disabled'}`)}.`));
     }
 
     if (options.show) {

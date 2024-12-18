@@ -34,6 +34,12 @@ async function initCommand() {
       },
       {
         type: 'confirm',
+        name: 'useEditor',
+        message: styles.prompt('Would you like to use your system editor for writing? (e.g., vim, nano, notepad)?'),
+        default: false
+      },
+      {
+        type: 'confirm',
         name: 'setGoals',
         message: styles.prompt('Would you like to set writing goals?'),
         default: true,
@@ -81,6 +87,7 @@ async function initCommand() {
     ]);
 
     config.user.name = answers.name;
+    config.user.useEditor = answers.useEditor;
     if (answers.setGoals) {
       config.goals.entries = {
         type: answers.entryFrequency,
@@ -95,6 +102,12 @@ async function initCommand() {
 
     // Success message
     console.log(styles.success(`\n✨ Welcome, ${styles.value(answers.name)}!`));
+    console.log(
+      answers.useEditor
+        ? styles.success(`\nYou will be writing in your system editor with rflect.`)
+        : styles.success(`\nYou will be writing in basic text inputs with rflect.`) +
+        styles.info(`\n(You can change this later with rflect config --editor true/false.)`)
+    );
     if (answers.setGoals) {
       console.log(styles.info(`\nYour goals:`));
       console.log(styles.help(`- Write ${styles.number(answers.entryGoal)} entries ${styles.number(answers.entryFrequency)}`));

@@ -66,6 +66,7 @@ program
   .option('-i, --install', 'Reinstall rflect configuration file and directories.')
   .option('-n, --name', 'Set your display name.')
   .option('-s, --show', 'View current settings.')
+  .option('-e, --editor <boolean>', 'Toggle system editor usage.')
   .option('-g, --goal', 'Configure word count or writing frequency goals.')
   .option('-t, --type <type>', 'Goal type (entries or words).')
   .option('-f, --frequency <frequency>', 'Goal frequency (daily, weekly, or monthly).')

@@ -21,6 +21,7 @@ async function createRflectDirectory(isReinstall = false) {
       user: {
         name: '',
         createdAt: new Date().toISOString(),
+        useEditor: false, // default is simple input method
       },
       goals: {
         dailyStreak: {

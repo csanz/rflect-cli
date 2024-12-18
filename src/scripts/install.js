@@ -53,7 +53,8 @@ async function createRflectDirectory() {
           mindfulness: 0,
         },
       },
-      tags: [],
+      tags: {},
+      mood: {},
     };
 
     try {

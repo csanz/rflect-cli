@@ -2,6 +2,7 @@
 const { program } = require('commander');
 const styles = require('./utils/styles');
 
+const configCommand = require('./commands/config');
 const initCommand = require('./commands/init');
 const promptsCommand = require('./commands/prompts');
 
@@ -51,10 +52,13 @@ program
 program
   .command('config')
   .description(styles.help('Customize your reflection preferences.'))
-  .option('-n, --name <name>', 'Set your display name.')
+  .option('-n, --name', 'Set your display name.')
   .option('-s, --show', 'View current settings.')
-  .option('-g, --goal <type> <value>', 'Set goals (streak or words).')
-  .action();
+  .option('-g, --goal', 'Set goals')
+  .option('-t, --type <type>', 'Goal type (streak or words)')
+  .option('-f, --frequency <frequency>', 'Goal frequency (daily, weekly, or monthly)')
+  .option('-v, --value <number>', 'Goal value')
+  .action(configCommand);
 
 program
   .command('stats')

@@ -11,12 +11,13 @@ const styles = {
 
   // Information display
   info: (text) => chalk.cyan(text),
-  help: (text) => chalk.cyan(text),
+  help: (text) => chalk.blue(text),
   value: (text) => chalk.white(text),
   date: (text) => chalk.yellow(text),
   prompt: (text) => chalk.magenta(text),
   number: (text) => chalk.yellow(text),
-  highlight: (text) => chalk.italic.magenta(`'${text}'`),
+  quote: (text) => chalk.italic.magenta(`'${text}'`),
+  highlight: (text) => chalk.italic.yellow(`'${text}'`),
 
   // Entry formatting
   entryHeader: () => chalk.inverse.cyan.bold('\n=== Entry ===\n'),

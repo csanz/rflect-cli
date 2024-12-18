@@ -53,7 +53,7 @@ function formatQuoteInPrompt(prompt) {
   const quoteMatch = prompt.match(/'([^']+)'/);
   if (quoteMatch) {
     let [fullMatch, quote] = quoteMatch;
-    return prompt.replace(fullMatch, styles.highlight(quote));
+    return prompt.replace(fullMatch, styles.quote(quote));
   }
   return prompt;
 }

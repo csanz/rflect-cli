@@ -18,6 +18,8 @@ const styles = {
   number: (text) => chalk.yellow(text),
   quote: (text) => chalk.italic.magenta(`'${text}'`),
   highlight: (text) => chalk.italic.yellow(`'${text}'`),
+  em: (text) => chalk.italic.white(text),
+  invert: (text) => chalk.inverse(text),
 
   // Entry formatting
   entryHeader: () => chalk.inverse.cyan.bold('\n=== Entry ===\n'),

@@ -54,10 +54,10 @@ program
   .description(styles.help('Customize your reflection preferences.'))
   .option('-n, --name', 'Set your display name.')
   .option('-s, --show', 'View current settings.')
-  .option('-g, --goal', 'Set goals')
-  .option('-t, --type <type>', 'Goal type (streak or words)')
-  .option('-f, --frequency <frequency>', 'Goal frequency (daily, weekly, or monthly)')
-  .option('-v, --value <number>', 'Goal value')
+  .option('-g, --goal', 'Configure word count or writing frequency goals.')
+  .option('-t, --type <type>', 'Goal type (entries or words).')
+  .option('-f, --frequency <frequency>', 'Goal frequency (daily, weekly, or monthly).')
+  .option('-v, --value <number>', 'Goal value (# of entries or # of words).')
   .action(configCommand);
 
 program

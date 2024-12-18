@@ -58,24 +58,45 @@ async function configCommand(options) {
     if (options.goal) {
       const { frequency, type, value } = options;
       if (!frequency || !type || !value) {
-        console.log(styles.error('Please provide all required goal information:'));
-        console.log(styles.warning(`--type or -t can be "words" or "entry" goal.`));
+        console.log(styles.error(`Please provide all ${styles.invert("required")} goal-related details: `));
+        console.log(styles.warning(`--type or -t can be "words" for a word count goal or "entries" for an entry goal.`));
         console.log(styles.warning(`--frequency or -f can be a "monthly", "weekly" or "daily" goal.`));
         console.log(styles.warning(`--value or -v can be a number.`));
-        console.log();
-        console.log(styles.info(`For example, "rflect config --goal -f weekly -v 10 -t entry" means you would like to write 10 entries a week. `));
-        console.log(styles.info(`For example, "rflect config --goal -f daily -v 500 -t words" means you would like to write 500 words a day. `));
+        console.log(styles.em(`   - "rflect config --goal -f weekly -v 10 -t entry" = you would like to write 10 entries a week. `));
+        console.log(styles.em(`   - "rflect config --goal -t words -f monthly -v 5000" = you would like to write at least 5000 words every month. `));
         return;
       }
+      const validTypes = ['words', 'entries'];
+      const validFrequency = ['monthly', 'daily', 'weekly'];
+
+      if (!validTypes.includes(options.type)) {
+        console.log(styles.error('Invalid goal type. Use "entries" or "words".'));
+      }
+
+      if (!validFrequency.includes(options.frequency)) {
+        console.log(styles.error('Invalid frequency. Use "daily", "weekly" or "monthly".'));
+      }
+
+      if (isNaN(options.value)) {
+        console.log(styles.error(`Invalid input. Enter a number that you'd like to achieve in your specified frequency.`));
+      }
+
+      if (isNaN(options.value) || !validFrequency.includes(options.frequency) || !validTypes.includes(options.type)) {
+        return;
+      }
+
+      // Update config at this point
+      config.goals[type] = {
+        type: frequency,
+        goal: Number(value),
+      }
+      await updateConfig(config);
+      console.log(styles.success(`${type[0].toUpperCase() + type.slice(1)} count goal has ${styles.em("successfully")} been updated to ${styles.invert(options.value)} ${type === "words" ? "words" : "entries"} ${options.frequency}.`));
     }
   } catch (error) {
     // error messages
     console.error(styles.error('Error in configCommand:'), error);
   }
-}
-
-async function goalCommand(options) {
-  console.log("hello")
 }
 
 module.exports = configCommand;

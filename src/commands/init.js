@@ -97,7 +97,7 @@ async function initCommand() {
     console.log(styles.success(`\n✨ Welcome, ${styles.value(answers.name)}!`));
     if (answers.setGoals) {
       console.log(styles.info(`\nYour goals:`));
-      console.log(styles.help(`- Write ${styles.number(answers.entryGoal)} times ${styles.number(answers.entryFrequency)}`));
+      console.log(styles.help(`- Write ${styles.number(answers.entryGoal)} entries ${styles.number(answers.entryFrequency)}`));
       console.log(styles.help(`- Write ${styles.number(answers.wordCountGoal)} words ${styles.number(answers.wordCountFrequency)}`));
     }
 

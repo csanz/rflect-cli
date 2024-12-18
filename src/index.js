@@ -3,6 +3,7 @@ const { program } = require('commander');
 const styles = require('./utils/styles');
 
 const initCommand = require('./commands/init');
+const promptsCommand = require('./commands/prompts');
 
 // CLI Description
 program
@@ -32,7 +33,7 @@ program
   .description(styles.help('Browse available writing prompts by category.'))
   .option('-a, --all', 'View all prompts.')
   .option('-c, --category <type>', 'View prompts by category (mindfulness, gratitude, growth).')
-  .action();
+  .action(promptsCommand);
 
 program
   .command('tags')
@@ -73,6 +74,15 @@ program
   .option('-d, --date <date>', 'Remove entries from specific date (MM/DD/YYYY).')
   .action();
 
-// Backup command (future feature - allows user to sync their data to MongoDB)
+// Future feature(s)
+program
+  .command('backup')
+  .description('Backup your rflect entries to the cloud for access anywhere.')
+  .action(() => console.log(`[COMING SOON]: Backup your rflect entries to the cloud for access anywhere.`))
+
+program
+  .command('theme')
+  .description(`Customize rflect's outputs with your own theme and color choices.`)
+  .action(() => console.log(`[COMING SOON]: Customize rflect's outputs with your own theme and color choices.`))
 
 program.parse(process.argv);

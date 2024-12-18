@@ -16,7 +16,6 @@ async function checkConfig() {
         config: config
       }
     }
-
     return {
       isFirstTime: false,
       config: config

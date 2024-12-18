@@ -1,4 +1,5 @@
-const { getAllPrompts, getPromptsByCategory, formatQuoteInPrompt } = require('../utils/prompts');
+const { getAllPrompts, getPromptsByCategory } = require('../utils/prompts');
+const { formatQuoteInPrompt } = require('../utils/format');
 const styles = require('../utils/styles');
 
 async function promptsCommand(options) {

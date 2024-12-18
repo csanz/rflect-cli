@@ -49,19 +49,10 @@ async function incrementPromptUsageCount(id) {
   }
 }
 
-function formatQuoteInPrompt(prompt) {
-  const quoteMatch = prompt.match(/'([^']+)'/);
-  if (quoteMatch) {
-    const [fullMatch, quote] = quoteMatch;
-    return prompt.replace(fullMatch, styles.quote(quote));
-  }
-  return prompt;
-}
 
 module.exports = {
   incrementPromptUsageCount,
   getAllPrompts,
   getPromptsByCategory,
-  getRandomPrompt,
-  formatQuoteInPrompt,
+  getRandomPrompt
 };

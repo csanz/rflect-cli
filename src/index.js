@@ -32,7 +32,7 @@ program
   .command('prompts')
   .description(styles.help('Browse available writing prompts by category.'))
   .option('-a, --all', 'View all prompts.')
-  .option('-c, --category <type>', 'View prompts by category (mindfulness, gratitude, growth).')
+  .option('-c, --category <type>', 'View prompts by category (mindfulness, gratitude, growth, question or quote).')
   .action(promptsCommand);
 
 program
@@ -77,12 +77,18 @@ program
 // Future feature(s)
 program
   .command('backup')
-  .description('Backup your rflect entries to the cloud for access anywhere.')
-  .action(() => console.log(`[COMING SOON]: Backup your rflect entries to the cloud for access anywhere.`))
+  .description(styles.value('[COMING SOON]: Backup your rflect entries to the cloud for access anywhere.'))
+  .action(() => console.log(styles.warning(`[COMING SOON]: Backup your rflect entries to the cloud for access anywhere.`)))
 
 program
   .command('theme')
-  .description(`Customize rflect's outputs with your own theme and color choices.`)
-  .action(() => console.log(`[COMING SOON]: Customize rflect's outputs with your own theme and color choices.`))
+  .description(styles.value(`[COMING SOON]: Customize rflect's outputs with your own theme and color choices.`))
+  .action(() => console.log(styles.warning(`[COMING SOON]: Customize rflect's outputs with your own theme and color choices.`)))
 
 program.parse(process.argv);
+
+// Handle Ctrl+C
+process.on('SIGINT', () => {
+  console.log('\n👋 Until next time!');
+  process.exit(0);
+});

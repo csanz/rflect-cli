@@ -16,6 +16,7 @@ const styles = {
   date: (text) => chalk.yellow(text),
   prompt: (text) => chalk.magenta(text),
   number: (text) => chalk.yellow(text),
+  highlight: (text) => chalk.italic.magenta(`'${text}'`),
 
   // Entry formatting
   entryHeader: () => chalk.inverse.cyan.bold('\n=== Entry ===\n'),

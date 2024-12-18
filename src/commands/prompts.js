@@ -1,5 +1,4 @@
 const { getAllPrompts, getPromptsByCategory, formatQuoteInPrompt } = require('../utils/prompts');
-const inquirer = require('inquirer');
 const styles = require('../utils/styles');
 
 async function promptsCommand(options) {
@@ -14,13 +13,17 @@ async function promptsCommand(options) {
 
     if (options.all) {
       const prompts = await getAllPrompts();
+      console.log(styles.header(`\n=== All available prompts ===\n`));
       prompts.forEach((prompt, index) => console.log(styles.number(index + 1) + `. ${prompt}`));
+      console.log(styles.info(`\n${styles.em("rflect write")} will provide you with a random prompt from the list above to write about.`));
     }
 
     const categories = ['mindfulness', 'gratitude', 'growth', 'question', 'quote'];
-    const isValid = categories.filter(category => category === options.category);
+    const isValid = categories.filter((category) => category === options.category);
     if (options.category && isValid) {
       const prompts = await getPromptsByCategory(options.category);
+      console.log(styles.header(`\n=== Available prompts for '${options.category}' category ===\n`));
+
       prompts.forEach((prompt, index) => {
         if (options.category === 'quote') {
           console.log(styles.number(index + 1) + `. ${formatQuoteInPrompt(prompt)}`);
@@ -28,6 +31,7 @@ async function promptsCommand(options) {
           console.log(styles.number(index + 1) + `. ${prompt}`);
         }
       });
+      console.log(styles.info(`\n${styles.em("rflect write")} will provide you with a random prompt to write about.`));
     }
     // add pagination option + allow users to start writing based on a prompt they click (?)
   } catch (error) {

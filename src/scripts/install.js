@@ -26,20 +26,20 @@ async function createRflectDirectory() {
         dailyStreak: {
           current: 0,
           best: 0,
-          lastEntryDate: null
+          lastEntryDate: null,
         },
         entries: {
           goal: 0,
           type: null, // daily, weekly, monthly
           current: 0,
-          periodStart: null
+          periodStart: null,
         },
         words: {
           goal: 0,
           type: null, // daily, weekly, monthly
           current: 0,
-          periodStart: null
-        }
+          periodStart: null,
+        },
       },
       stats: {
         totalEntries: 0,
@@ -50,11 +50,11 @@ async function createRflectDirectory() {
           quote: 0,
           gratitude: 0,
           growth: 0,
-          mindfulness: 0
-        }
+          mindfulness: 0,
+        },
       },
-      tags: []
-    }
+      tags: [],
+    };
 
     try {
       await fs.access(configLocation); // checks existence otherwise throws an error
@@ -75,7 +75,6 @@ async function createRflectDirectory() {
     console.log(styles.value('   rflect show --recent\n'));
   } catch (error) {
     console.error(styles.error('\nSetup error: ') + styles.value(error.message));
-    process.exit(1);
   }
 }
 

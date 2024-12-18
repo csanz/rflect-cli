@@ -11,8 +11,8 @@ async function initCommand() {
           type: 'confirm',
           name: 'initConfirmation',
           message: styles.warning(`rflect is already initialized for ${styles.info(config.user.name)}. Would you like to restart the setup?`),
-          default: false
-        }
+          default: false,
+        },
       ]);
       if (!initConfirmation) {
         console.log(styles.info('\nSetup cancelled. Use rflect config to modify settings.'));
@@ -22,7 +22,7 @@ async function initCommand() {
 
     // Init setup
     console.log(styles.header('\n=== Welcome to rflect! ==='));
-    console.log(styles.info('Let\'s get you set up for your reflection journey.\n'));
+    console.log(styles.info("Let's get you set up for your reflection journey.\n"));
 
     // Get user config
     const answers = await inquirer.prompt([
@@ -30,13 +30,13 @@ async function initCommand() {
         type: 'input',
         name: 'name',
         message: styles.prompt('What should I call you?'),
-        validate: (input) => input.trim() ? true : styles.warning('Name is required.'),
+        validate: (input) => (input.trim() ? true : styles.warning('Name is required.')),
       },
       {
         type: 'confirm',
         name: 'setGoals',
         message: styles.prompt('Would you like to set writing goals?'),
-        default: true
+        default: true,
       },
       {
         type: 'list',
@@ -45,18 +45,18 @@ async function initCommand() {
         choices: [
           { name: 'Daily entries', value: 'daily' },
           { name: 'Weekly entries', value: 'weekly' },
-          { name: 'Monthly entries', value: 'monthly' }
+          { name: 'Monthly entries', value: 'monthly' },
         ],
-        when: (answers) => answers.setGoals
+        when: (answers) => answers.setGoals,
       },
       {
         type: 'number',
         name: 'entryGoal',
         message: (answers) => {
-            return styles.prompt(`How many entries would you like to write ${answers.entryFrequency}?`);
+          return styles.prompt(`How many entries would you like to write ${answers.entryFrequency}?`);
         },
         when: (answers) => answers.setGoals,
-        validate: (input) => input > 0 ? true : styles.warning('Set a goal higher than 0.'),
+        validate: (input) => (input > 0 ? true : styles.warning('Set a goal higher than 0.')),
       },
       {
         type: 'list',
@@ -65,7 +65,7 @@ async function initCommand() {
         choices: [
           { name: 'Daily word count', value: 'daily' },
           { name: 'Weekly word count', value: 'weekly' },
-          { name: 'Monthly word count', value: 'monthly' }
+          { name: 'Monthly word count', value: 'monthly' },
         ],
         when: (answers) => answers.setGoals,
       },
@@ -76,7 +76,7 @@ async function initCommand() {
           return styles.prompt(`How many words would you like to write ${answers.wordCountFrequency}?`);
         },
         when: (answers) => answers.setGoals,
-        validate: (input) => input > 0 ? true : styles.warning('Set a goal higher than 0.'),
+        validate: (input) => (input > 0 ? true : styles.warning('Set a goal higher than 0.')),
       },
     ]);
 
@@ -84,12 +84,12 @@ async function initCommand() {
     if (answers.setGoals) {
       config.goals.entries = {
         type: answers.entryFrequency,
-        goal: answers.entryGoal
+        goal: answers.entryGoal,
       };
       config.goals.words = {
         type: answers.wordCountFrequency,
-        goal: answers.wordCountGoal
-      }
+        goal: answers.wordCountGoal,
+      };
     }
     await updateConfig(config);
 

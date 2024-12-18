@@ -26,13 +26,13 @@ async function configCommand(options) {
           type: 'confirm',
           name: 'confirmChange',
           message: styles.prompt(`⚠️ Are you sure you would like to change your current name, ${config.user.name}?`),
-          default: true
+          default: true,
         },
         {
           type: 'input',
           name: 'newName',
           message: styles.prompt(`Enter a new display name: `),
-          validate: (input) => input.trim() ? true : styles.warning('Name is required.'),
+          validate: (input) => (input.trim() ? true : styles.warning('Name is required.')),
         },
       ]);
 
@@ -58,7 +58,7 @@ async function configCommand(options) {
     if (options.goal) {
       const { frequency, type, value } = options;
       if (!frequency || !type || !value) {
-        console.log(styles.error(`Please provide all ${styles.invert("required")} goal-related details: `));
+        console.log(styles.error(`Please provide all ${styles.invert('required')} goal-related details: `));
         console.log(styles.warning(`--type or -t can be "words" for a word count goal or "entries" for an entry goal.`));
         console.log(styles.warning(`--frequency or -f can be a "monthly", "weekly" or "daily" goal.`));
         console.log(styles.warning(`--value or -v can be a number.`));
@@ -89,13 +89,19 @@ async function configCommand(options) {
       config.goals[type] = {
         type: frequency,
         goal: Number(value),
-      }
+      };
       await updateConfig(config);
-      console.log(styles.success(`${type[0].toUpperCase() + type.slice(1)} count goal has ${styles.em("successfully")} been updated to ${styles.invert(options.value)} ${type === "words" ? "words" : "entries"} ${options.frequency}.`));
+      console.log(
+        styles.success(
+          `${type === 'words' ? 'Word' : 'Entry'} count goal has ${styles.em('successfully')} 
+            been updated to ${styles.invert(options.value)} ${type === 'words' ? 'words' : 'entries'} 
+          ${options.frequency === 'daily' ? 'per day' : options.frequency === 'weekly' ? 'per week' : 'per month'}.`
+        )
+      );
     }
   } catch (error) {
     // error messages
-    console.error(styles.error('Error in configCommand:'), error);
+    console.error(styles.error('Error in config:'), error);
   }
 }
 

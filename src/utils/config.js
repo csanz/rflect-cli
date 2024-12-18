@@ -13,13 +13,13 @@ async function checkConfig() {
     if (!config.user.name.trim()) {
       return {
         isFirstTime: true,
-        config: config
-      }
+        config: config,
+      };
     }
     return {
       isFirstTime: false,
-      config: config
-    }
+      config: config,
+    };
   } catch (error) {
     console.log(styles.error('\nConfiguration not found.'));
     console.log(styles.help('Run: ') + styles.value('rflect init'));

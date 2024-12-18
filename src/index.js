@@ -27,6 +27,7 @@ program
   .option('-d, --date <date>', 'Find entries from a specific date (MM/DD/YYYY).')
   .option('-t, --tag <tag>', 'Filter entries by tag.')
   .option('-s, --search <text>', 'Search entry contents.')
+  .option('-c, --category <text>', 'Filter my prompt category')
   .action();
 
 // Prompts, tags, mood

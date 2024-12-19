@@ -22,8 +22,9 @@ async function configCommand(options) {
           styles.help('Toggle your system editor usage (true/false).')
       );
       console.log(
-        styles.value('  rflect config goal -t <entries|words> -f <daily|weekly|monthly> -v <number> ') +
-          styles.help('Set goals ("entries" or "words")')
+        styles.value(
+          '  rflect config goal -t <entries|words> -f <daily|weekly|monthly> -v <number> '
+        ) + styles.help('Set goals ("entries" or "words")')
       );
       return;
     }
@@ -207,7 +208,13 @@ async function configCommand(options) {
       };
       await updateConfig(config);
       console.log(
-        styles.success(`${type === 'words' ? 'Word' : 'Entry'} count goal has ${styles.em('successfully')} been updated to ${styles.invert(options.value)} ${type === 'words' ? 'words' : 'entries'} ${options.frequency === 'daily'
+        styles.success(
+          `${type === 'words' ? 'Word' : 'Entry'} count goal has ${styles.em(
+            'successfully'
+          )} been updated to ${styles.invert(options.value)} ${
+            type === 'words' ? 'words' : 'entries'
+          } ${
+            options.frequency === 'daily'
               ? 'per day'
               : options.frequency === 'weekly'
               ? 'per week'

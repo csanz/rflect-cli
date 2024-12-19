@@ -18,7 +18,7 @@ async function saveEntry({
   const timestamp = format(startTime, 'MM-dd-yyyy-HHmm');
   const durationInMinutes = differenceInMinutes(endTime, startTime);
   const parsedDate = parse(timestamp, 'MM-dd-yyyy-HHmm', new Date());
-  const dateString = format(parsedDate, 'MMM dd yyyy \'at\' h:mm a');
+  const dateString = format(parsedDate, "MMM dd yyyy 'at' h:mm a");
 
   const entry = {
     prompt,
@@ -62,7 +62,7 @@ async function getAllEntries() {
   try {
     const entriesDir = path.join(os.homedir(), '.rflect', 'entries');
     const files = await fs.readdir(entriesDir);
-    const jsonFiles = files.filter(file => file.endsWith('.json'));
+    const jsonFiles = files.filter((file) => file.endsWith('.json'));
 
     return await Promise.all(
       jsonFiles.map(async (filename) => {
@@ -79,12 +79,12 @@ async function getAllEntries() {
 async function getEntryDates() {
   try {
     const entries = await getAllEntries();
-    return entries.map(entry => {
-        return {
-          filename: `${entry.metadata.timestamp}.json`,
-          dateString: entry.metadata.dateString,
-          created: entry.metadata.created
-        };
+    return entries.map((entry) => {
+      return {
+        filename: `${entry.metadata.timestamp}.json`,
+        dateString: entry.metadata.dateString,
+        created: entry.metadata.created,
+      };
     });
   } catch (error) {
     throw new Error(`Failed to read entries: ${error.message}`);
@@ -94,7 +94,7 @@ async function getEntryDates() {
 async function getEntryByTag(tag) {
   try {
     const entries = await getAllEntries();
-    return entries.filter(entry => entry.content.tags.includes(tag));
+    return entries.filter((entry) => entry.content.tags.includes(tag));
   } catch (error) {
     throw new Error(`Failed to read entries: ${error.message}`);
   }
@@ -103,7 +103,7 @@ async function getEntryByTag(tag) {
 async function getEntryByMood(mood) {
   try {
     const entries = await getAllEntries();
-    return entries.filter(entry => entry.content.mood.includes(mood));
+    return entries.filter((entry) => entry.content.mood.includes(mood));
   } catch (error) {
     throw new Error(`Failed to read entries: ${error.message}`);
   }
@@ -112,7 +112,7 @@ async function getEntryByMood(mood) {
 async function getEntryByPromptCategory(category) {
   try {
     const entries = await getAllEntries();
-    return entries.filter(entry => entry.prompt.category.includes(category));
+    return entries.filter((entry) => entry.prompt.category.includes(category));
   } catch (error) {
     throw new Error(`Failed to read entries: ${error.message}`);
   }
@@ -138,19 +138,6 @@ async function getLastEntry() {
   }
 }
 
-function formatEntryForDisplay(entry, index = 1) {
-  const { prompt, content, metadata } = entry;
-
-  console.log(styles.entryHeader(index));
-  console.log(styles.entryDate(metadata.dateString));
-  console.log(styles.entryPrompt(prompt.question));
-  console.log(styles.entryPromptCategory(prompt.category));
-  console.log(styles.entryMood(content.mood));
-  console.log(styles.entryTags(content.tags));
-  console.log(styles.entryStats(metadata.durationString, content.wordCount));
-  console.log(styles.entryResponse(content.body));
-}
-
 async function deleteAllEntries() {}
 async function deleteEntryByFileName(filename) {}
 
@@ -163,5 +150,4 @@ module.exports = {
   getEntryByPromptCategory,
   getEntryByFileName,
   getLastEntry,
-  formatEntryForDisplay
 };

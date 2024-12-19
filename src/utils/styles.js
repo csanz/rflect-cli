@@ -27,11 +27,12 @@ const styles = {
   entryPrompt: (prompt) => `${chalk.white.bold('Prompt:')} ${chalk.cyan(prompt)}`,
   entryPromptCategory: (category) => `${chalk.white.bold('Category:')} ${chalk.magenta(category)}`,
   entryMood: (mood) => `${chalk.white.bold('Mood:')} ${chalk.yellow(mood)}`,
-  entryTags: (tags) => `${chalk.white.bold('Tags:')} ${tags.map(tag => chalk.cyan(`#${tag}`)).join(' ')}`,
+  entryTags: (tags) =>
+    `${chalk.white.bold('Tags:')} ${tags.map((tag) => chalk.cyan(`#${tag}`)).join(' ')}`,
   entryStats: (duration, wordCount) =>
     `${chalk.white.bold('Time Spent:')} ${chalk.yellow(duration)} | ` +
     `${chalk.white.bold('Words:')} ${chalk.yellow(wordCount)}`,
-  entryResponse: (response) => `\n${chalk.white.bold('Response:')}\n${chalk.white(response)}\n`
+  entryResponse: (response) => `\n${chalk.white.bold('Response:')}\n${chalk.white(response)}\n`,
 };
 
 module.exports = styles;

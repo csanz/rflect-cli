@@ -4,13 +4,15 @@ const styles = require('../utils/styles');
 
 async function tagsCommand(options) {
   try {
-    const { isFirstTime  } = await checkConfig();
+    const { isFirstTime } = await checkConfig();
     if (isFirstTime) {
       console.log(
         styles.warning(`\n ⚠️ It looks like you haven't set up your rflect account yet.`)
       );
       console.log(
-        styles.info('To get started, please use the ') + styles.value('rflect init') + styles.info(' command to configure your preferences.')
+        styles.info('To get started, please use the ') +
+          styles.value('rflect init') +
+          styles.info(' command to configure your preferences.')
       );
       return;
     }

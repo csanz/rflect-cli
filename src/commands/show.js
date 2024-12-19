@@ -1,18 +1,29 @@
 const { checkConfig } = require('../utils/config');
 const styles = require('../utils/styles');
-const { getAllEntries, formatEntryForDisplay, getLastEntry, getEntryDates, getEntryByFileName, getEntryByTag, getEntryByMood, getEntryByPromptCategory } = require('../utils/entries');
+const { formatEntryForDisplay } = require('../utils/format');
 const inquirer = require('inquirer');
 const { moods } = require('../data/mood');
+const {
+  getAllEntries,
+  getLastEntry,
+  getEntryDates,
+  getEntryByFileName,
+  getEntryByTag,
+  getEntryByMood,
+  getEntryByPromptCategory,
+} = require('../utils/entries');
 
 async function showCommand(options) {
   try {
-    const { isFirstTime, config  } = await checkConfig();
+    const { isFirstTime, config } = await checkConfig();
     if (isFirstTime) {
       console.log(
         styles.warning(`\n ⚠️ It looks like you haven't set up your rflect account yet.`)
       );
       console.log(
-        styles.info('To get started, please use the ') + styles.value('rflect init') + styles.info(' command to configure your preferences.')
+        styles.info('To get started, please use the ') +
+          styles.value('rflect init') +
+          styles.info(' command to configure your preferences.')
       );
       return;
     }
@@ -21,7 +32,7 @@ async function showCommand(options) {
       const entries = await getAllEntries();
       entries.forEach((entry, index) => {
         formatEntryForDisplay(entry, index + 1);
-      })
+      });
     }
 
     if (options.recent) {
@@ -35,13 +46,11 @@ async function showCommand(options) {
         {
           type: 'list',
           name: 'selectedEntry',
-          message: styles.prompt(
-            `Select the date/time of the entry you'd like to view: `
-          ),
-          choices: dates.map(date => ({
+          message: styles.prompt(`Select the date/time of the entry you'd like to view: `),
+          choices: dates.map((date) => ({
             name: date.dateString,
-            value: date.filename
-          }))
+            value: date.filename,
+          })),
         },
       ]);
       const entry = await getEntryByFileName(selectedEntry);
@@ -54,16 +63,14 @@ async function showCommand(options) {
         {
           type: 'list',
           name: 'selectedTag',
-          message: styles.prompt(
-            `Select the tag of the entries you'd like to view: `
-          ),
+          message: styles.prompt(`Select the tag of the entries you'd like to view: `),
           choices: Object.keys(tags),
         },
       ]);
       const entries = await getEntryByTag(selectedTag);
       entries.forEach((entry, index) => {
         formatEntryForDisplay(entry, index + 1);
-      })
+      });
     }
 
     if (options.category) {
@@ -72,9 +79,7 @@ async function showCommand(options) {
         {
           type: 'list',
           name: 'selectedCategory',
-          message: styles.prompt(
-            `Select the prompt category of the entries you'd like to view: `
-          ),
+          message: styles.prompt(`Select the prompt category of the entries you'd like to view: `),
           choices: categories,
         },
       ]);

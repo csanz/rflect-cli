@@ -18,4 +18,19 @@ function formatDuration(duration) {
   return `${hString}${mString}${sString}`;
 }
 
-module.exports = { formatQuoteInPrompt, formatDuration };
+function formatEntryForDisplay(entry, index = 1) {
+  const { prompt, content, metadata } = entry;
+
+  console.log(styles.entryHeader(index));
+  console.log(styles.entryDate(metadata.dateString));
+  console.log(styles.entryPrompt(prompt.question));
+  console.log(styles.entryPromptCategory(prompt.category));
+  console.log(styles.entryMood(content.mood));
+  console.log(styles.entryTags(content.tags));
+  console.log(styles.entryStats(metadata.durationString, content.wordCount));
+  console.log(styles.entryResponse(content.body));
+}
+
+function formatStatsForDisplay(stats) {}
+
+module.exports = { formatQuoteInPrompt, formatDuration, formatEntryForDisplay };

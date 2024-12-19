@@ -1,8 +1,9 @@
 const fs = require('fs').promises;
 const path = require('path');
 const os = require('os');
-const { format, differenceInMinutes, parse } = require('date-fns');
+const { format, differenceInMinutes, parse, parseISO, isAfter } = require('date-fns');
 const { updateStatsAndGoals } = require('./stats');
+const styles = require('./styles');
 
 async function saveEntry({
   prompt,
@@ -16,6 +17,9 @@ async function saveEntry({
 }) {
   const timestamp = format(startTime, 'MM-dd-yyyy-HHmm');
   const durationInMinutes = differenceInMinutes(endTime, startTime);
+  const parsedDate = parse(timestamp, 'MM-dd-yyyy-HHmm', new Date());
+  const dateString = format(parsedDate, 'MMM dd yyyy \'at\' h:mm a');
+
   const entry = {
     prompt,
     content: {
@@ -32,6 +36,7 @@ async function saveEntry({
       durationInMinutes,
       durationString,
       created: startTime.toISOString(),
+      dateString,
     },
   };
 
@@ -73,16 +78,13 @@ async function getAllEntries() {
 
 async function getEntryDates() {
   try {
-    const entriesDir = path.join(os.homedir(), '.rflect', 'entries');
-    const files = await fs.readdir(entriesDir);
-    return files.filter(file => file.endsWith('.json')).map(filename => {
-      const dateString = filename.replace('.json', '');
-      const parsedDate = parse(dateString, 'MM-dd-yyyy-HHmm', new Date());
-      const formattedDate = format(parsedDate, 'MMM dd yyyy \'at\' h:mm a');
-      return {
-        filename: filename,
-        date: formattedDate
-      };
+    const entries = await getAllEntries();
+    return entries.map(entry => {
+        return {
+          filename: `${entry.metadata.timestamp}.json`,
+          dateString: entry.metadata.dateString,
+          created: entry.metadata.created
+        };
     });
   } catch (error) {
     throw new Error(`Failed to read entries: ${error.message}`);
@@ -107,13 +109,28 @@ async function getEntryByPromptCategory(category) {
   }
 }
 
-async function getEntryByDate(date) {}
+async function getEntryByFileName(filename) {
+  const entriesDir = path.join(os.homedir(), '.rflect', 'entries');
+  const filePath = path.join(entriesDir, filename);
+  const file = await fs.readFile(filePath, 'utf8');
+  return JSON.parse(file);
+}
 
-async function getLastEntry() {}
+async function getLastEntry() {
+  try {
+    const entries = await getAllEntries();
+    return entries.sort((a, b) => {
+      const dateA = parseISO(a.metadata.created);
+      const dateB = parseISO(b.metadata.created);
+      return isAfter(dateA, dateB) ? -1 : 1;
+    })[0];
+  } catch (error) {
+    throw new Error(`Failed to read entries: ${error.message}`);
+  }
+}
 
 async function formatEntryForDisplay(entry) {
-  // takes an entry object and returns an array of styled strings
-  // print to user wherever necessary
+  const { prompt, content, metadata } = entry;
 }
 
 module.exports = {
@@ -122,6 +139,6 @@ module.exports = {
   getAllEntries,
   getEntryByTag,
   getEntryByPromptCategory,
-  getEntryByDate,
+  getEntryByFileName,
   getLastEntry,
 };

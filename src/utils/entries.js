@@ -89,9 +89,23 @@ async function getEntryDates() {
   }
 }
 
-async function getEntryByTag(tag) {}
+async function getEntryByTag(tag) {
+  try {
+    const entries = await getAllEntries();
+    return entries.filter(entry => entry.content.tags.includes(tag));
+  } catch (error) {
+    throw new Error(`Failed to read entries: ${error.message}`);
+  }
+}
 
-async function getEntryByPromptCategory(tag) {}
+async function getEntryByPromptCategory(category) {
+  try {
+    const entries = await getAllEntries();
+    return entries.filter(entry => entry.prompt.category.includes(category));
+  } catch (error) {
+    throw new Error(`Failed to read entries: ${error.message}`);
+  }
+}
 
 async function getEntryByDate(date) {}
 
@@ -101,7 +115,6 @@ async function formatEntryForDisplay(entry) {
   // takes an entry object and returns an array of styled strings
   // print to user wherever necessary
 }
-getEntryDates();
 
 module.exports = {
   saveEntry,

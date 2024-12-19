@@ -1198,5 +1198,155 @@
     "question": "What truth about yourself are you ready to claim?",
     "category": "growth",
     "usageCount": 0
+  },
+  {
+    "id": "201",
+    "question": "What goal have you been hesitant to pursue, and what's holding you back?",
+    "category": "growth",
+    "usageCount": 0
+  },
+  {
+    "id": "202",
+    "question": "How would achieving your current goal change your daily life?",
+    "category": "growth",
+    "usageCount": 0
+  },
+  {
+    "id": "203",
+    "question": "What small step could you take today towards a bigger goal?",
+    "category": "growth",
+    "usageCount": 0
+  },
+  {
+    "id": "204",
+    "question": "Think of a goal you've achieved. What strengths helped you succeed?",
+    "category": "growth",
+    "usageCount": 0
+  },
+  {
+    "id": "205",
+    "question": "What goal feels impossible right now but excites you to think about?",
+    "category": "growth",
+    "usageCount": 0
+  },
+  {
+    "id": "206",
+    "question": "How do your current habits support or hinder your goals?",
+    "category": "growth",
+    "usageCount": 0
+  },
+  {
+    "id": "207",
+    "question": "What would your life look like in 5 years if you achieved all your current goals?",
+    "category": "growth",
+    "usageCount": 0
+  },
+  {
+    "id": "208",
+    "question": "Which of your goals most aligns with your personal values?",
+    "category": "growth",
+    "usageCount": 0
+  },
+  {
+    "id": "209",
+    "question": "What's a goal you've abandoned, and do you want to revisit it?",
+    "category": "growth",
+    "usageCount": 0
+  },
+  {
+    "id": "210",
+    "question": "Who or what inspires you to pursue your goals?",
+    "category": "growth",
+    "usageCount": 0
+  },
+  {
+    "id": "211",
+    "question": "What thought keeps returning to you when you try to be still?",
+    "category": "mindfulness",
+    "usageCount": 0
+  },
+  {
+    "id": "212",
+    "question": "How does tiredness show up in your body and mind today?",
+    "category": "mindfulness",
+    "usageCount": 0
+  },
+  {
+    "id": "213",
+    "question": "What's the most meaningful object in your current space?",
+    "category": "mindfulness",
+    "usageCount": 0
+  },
+  {
+    "id": "214",
+    "question": "Who surprised you with their kindness recently?",
+    "category": "gratitude",
+    "usageCount": 0
+  },
+  {
+    "id": "215",
+    "question": "What's a convenience in your life that past generations didn't have?",
+    "category": "gratitude",
+    "usageCount": 0
+  },
+  {
+    "id": "216",
+    "question": "What difficulty are you secretly grateful for?",
+    "category": "gratitude",
+    "usageCount": 0
+  },
+  {
+    "id": "217",
+    "question": "Which emotion do you need to give more space to?",
+    "category": "growth",
+    "usageCount": 0
+  },
+  {
+    "id": "218",
+    "question": "What would saying 'no' more often allow you to say 'yes' to?",
+    "category": "growth",
+    "usageCount": 0
+  },
+  {
+    "id": "219",
+    "question": "How has a recent setback prepared you for future success?",
+    "category": "growth",
+    "usageCount": 0
+  },
+  {
+    "id": "220",
+    "question": "If you could master any skill overnight, what would it be and why?",
+    "category": "question",
+    "usageCount": 0
+  },
+  {
+    "id": "221",
+    "question": "What's the most recent thing that made you laugh out loud?",
+    "category": "question",
+    "usageCount": 0
+  },
+  {
+    "id": "222",
+    "question": "What would you attempt if you knew support was guaranteed?",
+    "category": "question",
+    "usageCount": 0
+  },
+  {
+    "id": "223",
+    "question": "Pema Chödrön wrote, 'The only way to ease our fear and be truly happy is to acknowledge our fear and look at it directly. Then we can see that the fear is just the echo of an old story.'",
+    "category": "quote",
+    "usageCount": 0
+  },
+  {
+    "id": "224",
+    "question": "Jane Goodall said, 'What you do makes a difference, and you have to decide what kind of difference you want to make.' What difference do you want to make?",
+    "category": "quote",
+    "usageCount": 0
+  },
+  {
+    "id": "225",
+    "question": "Walt Whitman wrote, 'We contain multitudes.' Which of your multitudes needs attention today?",
+    "category": "quote",
+    "usageCount": 0
   }
 ]

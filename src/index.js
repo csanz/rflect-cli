@@ -32,6 +32,7 @@ program
   .option('-d, --date', 'Find entries from a specific date (MM/DD/YYYY).')
   .option('-t, --tag', 'Find reflections with a specific tag.')
   .option('-c, --category', 'Find reflections by prompt type.')
+  .option('-m, --mood', 'Find reflections by mood.')
   .action(showCommand);
 
 // Prompts, tags, mood

@@ -1,9 +1,21 @@
 const { getAllPrompts, getPromptsByCategory } = require('../utils/prompts');
 const { formatQuoteInPrompt } = require('../utils/format');
 const styles = require('../utils/styles');
+const { checkConfig } = require('../utils/config');
 
 async function promptsCommand(options) {
   try {
+    const { isFirstTime  } = await checkConfig();
+    if (isFirstTime) {
+      console.log(
+        styles.warning(`\n ⚠️ It looks like you haven't set up your rflect account yet.`)
+      );
+      console.log(
+        styles.info('To get started, please use the ') + styles.value('rflect init') + styles.info(' command to configure your preferences.')
+      );
+      return;
+    }
+
     if (!options.all && !options.category) {
       console.log(styles.header('\n=== Reflection Prompts ===\n'));
       console.log(styles.help('Available options:'));

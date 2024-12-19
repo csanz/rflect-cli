@@ -100,6 +100,15 @@ async function getEntryByTag(tag) {
   }
 }
 
+async function getEntryByMood(mood) {
+  try {
+    const entries = await getAllEntries();
+    return entries.filter(entry => entry.content.mood.includes(mood));
+  } catch (error) {
+    throw new Error(`Failed to read entries: ${error.message}`);
+  }
+}
+
 async function getEntryByPromptCategory(category) {
   try {
     const entries = await getAllEntries();
@@ -129,7 +138,7 @@ async function getLastEntry() {
   }
 }
 
-async function formatEntryForDisplay(entry, index = 1) {
+function formatEntryForDisplay(entry, index = 1) {
   const { prompt, content, metadata } = entry;
 
   console.log(styles.entryHeader(index));
@@ -142,11 +151,15 @@ async function formatEntryForDisplay(entry, index = 1) {
   console.log(styles.entryResponse(content.body));
 }
 
+async function deleteAllEntries() {}
+async function deleteEntryByFileName(filename) {}
+
 module.exports = {
   saveEntry,
   getEntryDates,
   getAllEntries,
   getEntryByTag,
+  getEntryByMood,
   getEntryByPromptCategory,
   getEntryByFileName,
   getLastEntry,

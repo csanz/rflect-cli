@@ -100,10 +100,12 @@ async function initCommand() {
     config.user.useEditor = answers.useEditor;
     if (answers.setGoals) {
       config.goals.entries = {
+        ...config.goals.entries,
         type: answers.entryFrequency,
         goal: answers.entryGoal,
       };
       config.goals.words = {
+        ...config.goals.entries,
         type: answers.wordCountFrequency,
         goal: answers.wordCountGoal,
       };

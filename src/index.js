@@ -6,6 +6,11 @@ const configCommand = require('./commands/config');
 const initCommand = require('./commands/init');
 const promptsCommand = require('./commands/prompts');
 const writeCommand = require('./commands/write');
+const showCommand = require('./commands/show');
+const tagsCommand = require('./commands/tags');
+const moodCommand = require('./commands/moods');
+const statsCommand = require('./commands/stats');
+const deleteCommand = require('./commands/delete');
 
 // CLI Description
 program
@@ -27,7 +32,7 @@ program
   .option('-d, --date <date>', 'Find entries from a specific date (MM/DD/YYYY).')
   .option('-t, --tag <tag>', 'Filter entries by tag.')
   .option('-c, --category <category>', 'Filter my prompt category')
-  .action();
+  .action(showCommand);
 
 // Prompts, tags, mood
 program
@@ -39,17 +44,18 @@ program
 
 program
   .command('tags')
-  .description(styles.help('View and manage your reflection tags.'))
+  .description(styles.help(`View the tags you've created throughout your entries.`))
   .option('-a, --all', 'List all used tags.')
   .option('-t, --top', 'Show top 5 most frequently used tags.')
-  .action();
+  .action(tagsCommand);
 
 program
   .command('mood')
   .description(styles.help('View your mood stats in relation to your writing.'))
   .option('-a, --all', 'Show all mood statistics.')
   .option('-t, --top', 'Show top 5 most frequent moods.')
-  .action();
+  .option('-v', '--visual', 'Visualize your moods for the current month')
+  .action(moodCommand);
 
 // User settings & Stats
 program
@@ -78,7 +84,7 @@ program
   .option('-g, --goals', 'Show progress on all writing goals.')
   .option('-e, --entries', 'Display entry count and word statistics.')
   .option('-t, --time', 'Display time-related statistics.')
-  .action();
+  .action(statsCommand);
 
 // Entry Management
 program
@@ -86,7 +92,7 @@ program
   .description(styles.help('Manage your reflection history.'))
   .option('-a, --all', 'Remove all entries.')
   .option('-d, --date <date>', 'Remove entries from specific date (MM/DD/YYYY).')
-  .action();
+  .action(deleteCommand);
 
 // Future feature(s)
 program

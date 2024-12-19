@@ -1,30 +1,35 @@
 const { updateConfig } = require('./config');
-const { isToday, isYesterday, parseISO, startOfWeek, startOfMonth } = require('date-fns');
+const { format, isToday, isYesterday, parseISO, startOfWeek, startOfMonth } = require('date-fns');
 const styles = require('./styles');
 
 async function updateStatsAndGoals(config, entry) {
-  const { stats, messages: statsMessages } = await updateStats(config, entry);
-  const { goals, messages: goalMessages } = await updateGoals(config, entry);
+  try {
+    const { stats, messages: statsMessages } = await updateStats(config, entry);
+    const { goals, messages: goalMessages } = await updateGoals(config, entry);
 
-  const updatedConfig = {
-    ...config,
-    stats,
-    goals,
-  };
+    const updatedConfig = {
+      ...config,
+      stats,
+      goals
+    };
 
-  await updateConfig(updatedConfig);
-  return {
-    config: updatedConfig,
-    messages: [...statsMessages, ...goalMessages],
-  };
+    await updateConfig(updatedConfig);
+    return {
+      config: updatedConfig,
+      messages: [...statsMessages, ...goalMessages],
+    };
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function updateStats(config, entry) {
   const { content, metadata, prompt } = entry;
   const { wordCount, tags, mood } = content;
-  const { durationInMinutes } = metadata;
+  const { durationInMinutes, timestamp } = metadata;
   const now = new Date();
   const messages = [];
+  const entryFile = `${timestamp}.json`;
 
   // new stats object with updated counts
   const stats = {
@@ -43,14 +48,24 @@ async function updateStats(config, entry) {
       ...config.stats.entriesByPromptCategory,
       [prompt.category]: (config.stats.entriesByPromptCategory[prompt.category] || 0) + 1,
     },
-    tags: { ...config.stats.tags },
-    moods: { ...config.stats.moods },
+    tags: {
+      ...config.stats.tags,
+    },
+    moods: {
+      ...config.stats.moods,
+      [mood]: {
+        dates: [...(config.stats.moods[mood]?.dates || []), timestamp],
+        files: [...(config.stats.moods[mood]?.files || []), entryFile]
+      }
+    },
   };
 
-  stats.moods[mood] = (stats.moods[mood] || 0) + 1;
-  tags.forEach((tag) => {
-    stats.tags[tag] = (stats.tags[tag] || 0) + 1;
-  });
+  tags.forEach(tag => {
+    if (!stats.tags[tag]) {
+      stats.tags[tag] = { files: [] };
+    }
+    stats.tags[tag].files.push(entryFile);
+  })
 
   // streak calc
   const lastEntry = config.stats.lastEntry ? parseISO(config.stats.lastEntry) : null;

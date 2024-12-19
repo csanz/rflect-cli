@@ -4,7 +4,7 @@ const { checkConfig } = require('../utils/config');
 const { getRandomPrompt, incrementPromptUsageCount } = require('../utils/prompts');
 const { intervalToDuration } = require('date-fns');
 const { formatDuration } = require('../utils/format');
-const { moods } = require('../utils/mood');
+const { moods } = require('../data/mood');
 const { saveEntry } = require('../utils/entries');
 
 async function writeCommand() {

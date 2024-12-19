@@ -28,13 +28,13 @@ async function createRflectDirectory(isReinstall = false) {
           goal: 0,
           type: null, // daily, weekly, monthly
           current: 0,
-          periodStart: null,
+          periodStart: new Date().toISOString(),
         },
         words: {
           goal: 0,
           type: null, // daily, weekly, monthly
           current: 0,
-          periodStart: null,
+          periodStart: new Date().toISOString(),
         },
       },
       stats: {

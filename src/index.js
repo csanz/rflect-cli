@@ -8,7 +8,7 @@ const promptsCommand = require('./commands/prompts');
 const writeCommand = require('./commands/write');
 const showCommand = require('./commands/show');
 const tagsCommand = require('./commands/tags');
-const moodCommand = require('./commands/moods');
+const moodsCommand = require('./commands/moods');
 const statsCommand = require('./commands/stats');
 const deleteCommand = require('./commands/delete');
 
@@ -50,12 +50,11 @@ program
   .action(tagsCommand);
 
 program
-  .command('mood')
+  .command('moods')
   .description(styles.help('View your mood stats in relation to your writing.'))
-  .option('-a, --all', 'Show all mood statistics.')
-  .option('-t, --top', 'Show top 5 most frequent moods.')
-  .option('-v', '--visual', 'Visualize your moods for the current month')
-  .action(moodCommand);
+  .option('-f, --frequency', 'Show your mood frequency count.')
+  .option('-calendar, --calendar', 'Visualize your moods for the current month')
+  .action(moodsCommand);
 
 // User settings & Stats
 program

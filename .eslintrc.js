@@ -3,11 +3,7 @@ module.exports = {
     node: true,
     commonjs: true,
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:node/recommended',
-    'prettier'
-  ],
+  extends: ['eslint:recommended', 'plugin:node/recommended', 'prettier'],
   parserOptions: {
     ecmaVersion: 12,
     sourceType: 'commonjs',
@@ -16,6 +12,6 @@ module.exports = {
     'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'no-console': 'off',
     'prefer-const': 'error',
-    'eqeqeq': ['error', 'always'],
+    eqeqeq: ['error', 'always'],
   },
 };

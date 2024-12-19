@@ -26,8 +26,7 @@ program
   .option('-r, --recent', 'View most recent entry.')
   .option('-d, --date <date>', 'Find entries from a specific date (MM/DD/YYYY).')
   .option('-t, --tag <tag>', 'Filter entries by tag.')
-  .option('-s, --search <text>', 'Search entry contents.')
-  .option('-c, --category <text>', 'Filter my prompt category')
+  .option('-c, --category <category>', 'Filter my prompt category')
   .action();
 
 // Prompts, tags, mood
@@ -42,16 +41,14 @@ program
   .command('tags')
   .description(styles.help('View and manage your reflection tags.'))
   .option('-a, --all', 'List all used tags.')
-  .option('-p, --popular', 'Show most frequently used tags.')
+  .option('-t, --top', 'Show top 5 most frequently used tags.')
   .action();
 
 program
   .command('mood')
   .description(styles.help('View your mood stats in relation to your writing.'))
-  .option('-a, --all', 'Show all mood statistics')
-  .option('-t, --top <number>', 'Show top N most frequent moods', '5')
-  .option('-r, --range <date>', 'Show mood stats for a specific date range (e.g., "last-week", "last-month", "YYYY-MM-DD to YYYY-MM-DD")')
-  .option('-c, --correlation', 'Show correlation between mood and writing productivity')
+  .option('-a, --all', 'Show all mood statistics.')
+  .option('-t, --top', 'Show top 5 most frequent moods.')
   .action();
 
 // User settings & Stats

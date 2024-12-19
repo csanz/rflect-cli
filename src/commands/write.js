@@ -11,8 +11,14 @@ async function writeCommand() {
   try {
     const { isFirstTime, config } = await checkConfig();
     if (isFirstTime) {
-      console.log(styles.warning(`\n ⚠️ It looks like you haven't set up your rflect account yet.`));
-      console.log(styles.info('To get started, please use the ') + styles.value('rflect init') + styles.info(' command to configure your preferences.'));
+      console.log(
+        styles.warning(`\n ⚠️ It looks like you haven't set up your rflect account yet.`)
+      );
+      console.log(
+        styles.info('To get started, please use the ') +
+          styles.value('rflect init') +
+          styles.info(' command to configure your preferences.')
+      );
       return;
     }
 
@@ -26,7 +32,7 @@ async function writeCommand() {
         name: 'mood',
         message: styles.prompt('How are you feeling today?'),
         choices: moods,
-      }
+      },
     ]);
 
     const startTime = new Date();
@@ -35,44 +41,52 @@ async function writeCommand() {
         {
           type: 'editor',
           name: 'body',
-          message: styles.prompt(prompt.question + "\n"),
+          message: styles.prompt(prompt.question + '\n'),
           waitUserInput: true,
           default: '\n\n[Write your reflection here...]',
           // Editor content is validated after closing the editor
-          validate: input => {
+          validate: (input) => {
             const wordCount = input.trim().split(/\s+/).length;
             if (wordCount < 10) {
-              return styles.warning('Your reflection seems a bit short. Please write at least 10 words to capture your thoughts.');
+              return styles.warning(
+                'Your reflection seems a bit short. Please write at least 10 words to capture your thoughts.'
+              );
             }
             return true;
-          }
-        }
+          },
+        },
       ]));
     } else {
       ({ body } = await inquirer.prompt([
         {
           type: 'input',
           name: 'body',
-          message: styles.prompt(prompt.question + "\n"),
-          validate: input => {
+          message: styles.prompt(prompt.question + '\n'),
+          validate: (input) => {
             const wordCount = input.trim().split(/\s+/).length;
             if (wordCount < 10) {
-              return styles.warning('Your reflection seems a bit short. Please write at least 10 words to capture your thoughts.');
+              return styles.warning(
+                'Your reflection seems a bit short. Please write at least 10 words to capture your thoughts.'
+              );
             }
             return true;
-          }
-        }
+          },
+        },
       ]));
     }
 
     const { tags } = await inquirer.prompt([
-        {
-          type: 'input',
-          name: 'tags',
-          message: styles.prompt('Add tags (comma-separated) [optional]:'),
-          filter: input => input.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0)
-        }
-      ]);
+      {
+        type: 'input',
+        name: 'tags',
+        message: styles.prompt('Add tags (comma-separated) [optional]:'),
+        filter: (input) =>
+          input
+            .split(',')
+            .map((tag) => tag.trim())
+            .filter((tag) => tag.length > 0),
+      },
+    ]);
 
     const endTime = new Date();
     const duration = intervalToDuration({ start: startTime, end: endTime });
@@ -87,14 +101,14 @@ async function writeCommand() {
       startTime,
       endTime,
       durationString,
-      config
+      config,
     });
 
     console.log(styles.success('\n✨ Your reflection has been saved!'));
     console.log(styles.info(`Word Count: ${entry.content.wordCount}`));
     console.log(styles.info(`Time Spent Writing: ${durationString}`));
     console.log();
-    messages.forEach(message => console.log(message));
+    messages.forEach((message) => console.log(message));
   } catch (error) {
     // errors
   }

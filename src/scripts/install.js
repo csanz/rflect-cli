@@ -45,7 +45,7 @@ async function createRflectDirectory(isReinstall = false) {
         totalWords: 0,
         writingTime: {
           totalMinutes: 0,
-          averageMinutes: 0
+          averageMinutes: 0,
         },
         entriesByPromptCategory: {
           question: 0,

@@ -26,7 +26,9 @@ const styles = {
   entryDate: (date) => `${chalk.white.bold('Date:')} ${chalk.yellow(date)}`,
   entryPrompt: (prompt) => `${chalk.white.bold('Prompt:')} ${chalk.cyan(prompt)}`,
   entryResponse: (response) => `${chalk.white.bold('Response:')} ${chalk.white(response)}`,
-  entryStats: (duration, wordCount) => `${chalk.white.bold('Duration:')} ${chalk.yellow(duration)} minutes | ` + `${chalk.white.bold('Word Count:')} ${chalk.yellow(wordCount)} words`,
+  entryStats: (duration, wordCount) =>
+    `${chalk.white.bold('Duration:')} ${chalk.yellow(duration)} minutes | ` +
+    `${chalk.white.bold('Word Count:')} ${chalk.yellow(wordCount)} words`,
 };
 
 module.exports = styles;

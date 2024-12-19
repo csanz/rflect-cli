@@ -10,7 +10,11 @@ async function initCommand() {
         {
           type: 'confirm',
           name: 'initConfirmation',
-          message: styles.warning(`rflect is already initialized for ${styles.info(config.user.name)}. Would you like to restart the setup?`),
+          message: styles.warning(
+            `rflect is already initialized for ${styles.info(
+              config.user.name
+            )}. Would you like to restart the setup?`
+          ),
           default: false,
         },
       ]);
@@ -35,8 +39,10 @@ async function initCommand() {
       {
         type: 'confirm',
         name: 'useEditor',
-        message: styles.prompt('Would you like to use your system editor for writing? (e.g., vim, nano, notepad)?'),
-        default: false
+        message: styles.prompt(
+          'Would you like to use your system editor for writing? (e.g., vim, nano, notepad)?'
+        ),
+        default: false,
       },
       {
         type: 'confirm',
@@ -59,7 +65,9 @@ async function initCommand() {
         type: 'number',
         name: 'entryGoal',
         message: (answers) => {
-          return styles.prompt(`How many entries would you like to write ${answers.entryFrequency}?`);
+          return styles.prompt(
+            `How many entries would you like to write ${answers.entryFrequency}?`
+          );
         },
         when: (answers) => answers.setGoals,
         validate: (input) => (input > 0 ? true : styles.warning('Set a goal higher than 0.')),
@@ -79,7 +87,9 @@ async function initCommand() {
         type: 'number',
         name: 'wordCountGoal',
         message: (answers) => {
-          return styles.prompt(`How many words would you like to write ${answers.wordCountFrequency}?`);
+          return styles.prompt(
+            `How many words would you like to write ${answers.wordCountFrequency}?`
+          );
         },
         when: (answers) => answers.setGoals,
         validate: (input) => (input > 0 ? true : styles.warning('Set a goal higher than 0.')),
@@ -106,12 +116,24 @@ async function initCommand() {
       answers.useEditor
         ? styles.success(`\nYou will be writing in your system editor with rflect.`)
         : styles.success(`\nYou will be writing in basic text inputs with rflect.`) +
-        styles.info(`\n(You can change this later with rflect config --editor true/false.)`)
+            styles.info(`\n(You can change this later with rflect config --editor true/false.)`)
     );
     if (answers.setGoals) {
       console.log(styles.info(`\nYour goals:`));
-      console.log(styles.help(`- Write ${styles.number(answers.entryGoal)} entries ${styles.number(answers.entryFrequency)}`));
-      console.log(styles.help(`- Write ${styles.number(answers.wordCountGoal)} words ${styles.number(answers.wordCountFrequency)}`));
+      console.log(
+        styles.help(
+          `- Write ${styles.number(answers.entryGoal)} entries ${styles.number(
+            answers.entryFrequency
+          )}`
+        )
+      );
+      console.log(
+        styles.help(
+          `- Write ${styles.number(answers.wordCountGoal)} words ${styles.number(
+            answers.wordCountFrequency
+          )}`
+        )
+      );
     }
 
     console.log(styles.info('\nGet started with:'));

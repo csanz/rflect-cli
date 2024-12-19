@@ -12,9 +12,9 @@ function formatQuoteInPrompt(prompt) {
 function formatDuration(duration) {
   const { seconds, minutes, hours } = duration;
 
-  const hString = hours ? `${hours}h ` : "";
-  const mString = minutes ? `${minutes}m ` : "";
-  const sString = seconds ? `${seconds}s` : "";
+  const hString = hours ? `${hours}h ` : '';
+  const mString = minutes ? `${minutes}m ` : '';
+  const sString = seconds ? `${seconds}s` : '';
   return `${hString}${mString}${sString}`;
 }
 

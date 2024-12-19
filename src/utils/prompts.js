@@ -1,6 +1,5 @@
 const fs = require('fs').promises;
 const path = require('path');
-const styles = require('./styles');
 
 const promptLocation = path.join(__dirname, '../data/prompts.json');
 
@@ -19,7 +18,9 @@ async function getPromptsByCategory(category) {
   try {
     const data = await fs.readFile(promptLocation, 'utf8');
     const prompts = JSON.parse(data);
-    return prompts.filter((prompt) => prompt.category === category).map((prompt) => prompt.question);
+    return prompts
+      .filter((prompt) => prompt.category === category)
+      .map((prompt) => prompt.question);
   } catch (error) {
     // error messaging - add later
   }
@@ -49,10 +50,9 @@ async function incrementPromptUsageCount(id) {
   }
 }
 
-
 module.exports = {
   incrementPromptUsageCount,
   getAllPrompts,
   getPromptsByCategory,
-  getRandomPrompt
+  getRandomPrompt,
 };

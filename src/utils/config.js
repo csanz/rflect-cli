@@ -21,7 +21,9 @@ async function checkConfig() {
       config: config,
     };
   } catch (error) {
-    console.log(styles.error('\nConfiguration file not found. Please use rflect config --install.'));
+    console.log(
+      styles.error('\nConfiguration file not found. Please use rflect config --install.')
+    );
     return false;
   }
 }

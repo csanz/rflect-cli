@@ -9,14 +9,14 @@ async function updateStatsAndGoals(config, entry) {
   const updatedConfig = {
     ...config,
     stats,
-    goals
+    goals,
   };
 
   await updateConfig(updatedConfig);
   return {
     config: updatedConfig,
     messages: [...statsMessages, ...goalMessages],
-  }
+  };
 }
 
 async function updateStats(config, entry) {
@@ -34,18 +34,21 @@ async function updateStats(config, entry) {
     writingTime: {
       ...config.stats.writingTime,
       totalMinutes: (config.stats.writingTime.totalMinutes || 0) + durationInMinutes,
-      averageMinutes: Math.round(((config.stats.writingTime.totalMinutes || 0) + durationInMinutes) / (config.stats.totalEntries + 1))
+      averageMinutes: Math.round(
+        ((config.stats.writingTime.totalMinutes || 0) + durationInMinutes) /
+          (config.stats.totalEntries + 1)
+      ),
     },
     entriesByPromptCategory: {
       ...config.stats.entriesByPromptCategory,
-      [prompt.category]: (config.stats.entriesByPromptCategory[prompt.category] || 0) + 1
+      [prompt.category]: (config.stats.entriesByPromptCategory[prompt.category] || 0) + 1,
     },
     tags: { ...config.stats.tags },
-    moods: { ...config.stats.moods }
+    moods: { ...config.stats.moods },
   };
 
   stats.moods[mood] = (stats.moods[mood] || 0) + 1;
-  tags.forEach(tag => {
+  tags.forEach((tag) => {
     stats.tags[tag] = (stats.tags[tag] || 0) + 1;
   });
 
@@ -53,7 +56,7 @@ async function updateStats(config, entry) {
   const lastEntry = config.stats.lastEntry ? parseISO(config.stats.lastEntry) : null;
   if (!lastEntry) {
     stats.currentStreak = 1;
-    stats.longestStreak = 1
+    stats.longestStreak = 1;
   } else if (isYesterday(lastEntry)) {
     stats.currentStreak += 1; // means entries were wrote yesterday & today
     stats.longestStreak = Math.max(stats.currentStreak, stats.longestStreak); // ensures longest streak is updated whenever current streak surpasses it

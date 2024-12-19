@@ -70,8 +70,8 @@ program
   .option('-s, --show', 'View current settings.')
   .option('-e, --editor <boolean>', 'Toggle system editor usage.')
   .option('-g, --goal', 'Configure word count or writing frequency goals.')
-  .option('-t, --type <type>', 'Goal type (entries or words).')
-  .option('-f, --frequency <frequency>', 'Goal frequency (daily, weekly, or monthly).')
+  .option('-t, --type <entries|words>', 'Goal type (entries or words).')
+  .option('-f, --frequency <daily|weekly|monthly>', 'Goal frequency (daily, weekly, or monthly).')
   .option('-v, --value <number>', 'Goal value (# of entries or # of words).')
   .action(configCommand);
 
@@ -95,13 +95,15 @@ program
 
 // Future feature(s)
 program
-  .command('backup')
-  .description(styles.value('[COMING SOON]: Backup your rflect entries to the cloud for access anywhere.'))
-  .action(() => console.log(styles.warning(`[COMING SOON]: Backup your rflect entries to the cloud for access anywhere.`)));
-
-program
-  .command('theme')
-  .description(styles.value(`[COMING SOON]: Customize rflect's outputs with your own theme and color choices.`))
-  .action(() => console.log(styles.warning(`[COMING SOON]: Customize rflect's outputs with your own theme and color choices.`)));
+  .command('upcoming')
+  .description(styles.value('Possible features to add in the future.'))
+  .action(() => {
+    console.log(`    ${styles.warning('rflect theme')}: Customize rflect's outputs with your own theme and color choices.`);
+    console.log(`    ${styles.warning('rflect backup')}: Backup your rflect entries to the cloud for access anywhere.`);
+    console.log(`    ${styles.warning('rflect search <term>')}: Advanced searching capabilities.`);
+    console.log(`    ${styles.warning('rflect remind --frequency <daily|weekly|monthly> --time <HH:MM>')}: Get reminders to rflect.`);
+    console.log(`    ${styles.warning('rflect encrypt/decrypt')}: Ensure privacy for your (all or select) entries.`); // crypto library
+    console.log(`    ${styles.warning('rflect analyze')}: Use an AI API to get an analysis about your writing.`); // rate-limited
+})
 
 program.parse(process.argv);

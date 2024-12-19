@@ -22,8 +22,8 @@ async function configCommand(options) {
           styles.help('Toggle your system editor usage (true/false).')
       );
       console.log(
-        styles.value('  rflect config goal -t <type> -f <frequency> -v <number> ') +
-          styles.help('Set goals ("entry" or "words")')
+        styles.value('  rflect config goal -t <entries|words> -f <daily|weekly|monthly> -v <number> ') +
+          styles.help('Set goals ("entries" or "words")')
       );
       return;
     }
@@ -136,7 +136,7 @@ async function configCommand(options) {
       console.log(styles.help('Use rflect config --name to change your display name 🧑‍🎨'));
       console.log(
         styles.help(
-          'Use rflect config goal -t <type> -f <frequency> -v <number> to set new writing goals 📈'
+          'Use rflect config goal -t <entries|words> -f <daily|weekly|monthly> -v <number> to set new writing goals 📈'
         )
       );
       console.log(
@@ -163,7 +163,7 @@ async function configCommand(options) {
         console.log(styles.warning(`--value or -v can be a number.`));
         console.log(
           styles.em(
-            `   - "rflect config --goal -f weekly -v 10 -t entry" = you would like to write 10 entries a week. `
+            `   - "rflect config --goal -f weekly -v 10 -t entries" = you would like to write 10 entries a week. `
           )
         );
         console.log(
@@ -207,13 +207,7 @@ async function configCommand(options) {
       };
       await updateConfig(config);
       console.log(
-        styles.success(
-          `${type === 'words' ? 'Word' : 'Entry'} count goal has ${styles.em('successfully')} 
-            been updated to ${styles.invert(options.value)} ${
-            type === 'words' ? 'words' : 'entries'
-          } 
-          ${
-            options.frequency === 'daily'
+        styles.success(`${type === 'words' ? 'Word' : 'Entry'} count goal has ${styles.em('successfully')} been updated to ${styles.invert(options.value)} ${type === 'words' ? 'words' : 'entries'} ${options.frequency === 'daily'
               ? 'per day'
               : options.frequency === 'weekly'
               ? 'per week'

@@ -29,9 +29,9 @@ program
   .description(styles.help('Browse and revisit your past reflections.'))
   .option('-a, --all', 'Display all entries.')
   .option('-r, --recent', 'View most recent entry.')
-  .option('-d, --date <date>', 'Find entries from a specific date (MM/DD/YYYY).')
-  .option('-t, --tag <tag>', 'Filter entries by tag.')
-  .option('-c, --category <category>', 'Filter my prompt category')
+  .option('-d, --date', 'Find entries from a specific date (MM/DD/YYYY).')
+  .option('-t, --tag', 'Find reflections with a specific tag.')
+  .option('-c, --category', 'Find reflections by prompt type.')
   .action(showCommand);
 
 // Prompts, tags, mood
@@ -44,16 +44,16 @@ program
 
 program
   .command('tags')
-  .description(styles.help(`View the tags you've created throughout your entries.`))
-  .option('-a, --all', 'List all used tags.')
-  .option('-t, --top', 'Show top 5 most frequently used tags.')
+  .description(styles.help(`Discover themes in your reflection journey.`))
+  .option('-a, --all', 'View all your used tags.')
+  .option('-t, --top', 'See your 5 most frequent reflection themes.')
   .action(tagsCommand);
 
 program
   .command('moods')
-  .description(styles.help('View your mood stats in relation to your writing.'))
-  .option('-f, --frequency', 'Show your mood frequency count.')
-  .option('-calendar, --calendar', 'Visualize your moods for the current month')
+  .description(styles.help('Track your emotional journey through writing.'))
+  .option('-f, --frequency', 'See patterns in your recorded moods.')
+  .option('-calendar, --calendar', 'View your monthly mood patterns.')
   .action(moodsCommand);
 
 // User settings & Stats
@@ -96,14 +96,14 @@ program
 // Future feature(s)
 program
   .command('upcoming')
-  .description(styles.value('Possible features to add in the future.'))
+  .description(styles.value('Peek at future rflect features.'))
   .action(() => {
-    console.log(`    ${styles.warning('rflect theme')}: Customize rflect's outputs with your own theme and color choices.`);
-    console.log(`    ${styles.warning('rflect backup')}: Backup your rflect entries to the cloud for access anywhere.`);
-    console.log(`    ${styles.warning('rflect search <term>')}: Advanced searching capabilities.`);
-    console.log(`    ${styles.warning('rflect remind --frequency <daily|weekly|monthly> --time <HH:MM>')}: Get reminders to rflect.`);
-    console.log(`    ${styles.warning('rflect encrypt/decrypt')}: Ensure privacy for your (all or select) entries.`); // crypto library
-    console.log(`    ${styles.warning('rflect analyze')}: Use an AI API to get an analysis about your writing.`); // rate-limited
-})
+      console.log(`    ${styles.warning('rflect theme')}: Personalize your journaling experience with custom themes.`);
+      console.log(`    ${styles.warning('rflect backup')}: Keep your reflections safe with cloud backup.`);
+      console.log(`    ${styles.warning('rflect search <term>')}: Find specific moments in your journey.`);
+      console.log(`    ${styles.warning('rflect remind')}: Set gentle reminders for your reflection practice.`);
+      console.log(`    ${styles.warning('rflect encrypt/decrypt')}: Add extra privacy to selected entries.`);
+      console.log(`    ${styles.warning('rflect analyze')}: Gain insights into your reflection patterns with AI.`);
+  });
 
 program.parse(process.argv);

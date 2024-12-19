@@ -53,7 +53,7 @@ program
   .command('moods')
   .description(styles.help('Track your emotional journey through writing.'))
   .option('-f, --frequency', 'See patterns in your recorded moods.')
-  .option('-calendar, --calendar', 'View your monthly mood patterns.')
+  .option('-c, --calendar', 'View your monthly mood patterns.')
   .action(moodsCommand);
 
 // User settings & Stats

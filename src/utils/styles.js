@@ -22,13 +22,16 @@ const styles = {
   invert: (text) => chalk.inverse(text),
 
   // Entry formatting
-  entryHeader: () => chalk.inverse.cyan.bold('\n=== Entry ===\n'),
+  entryHeader: (index) => chalk.inverse.cyan.bold(`\n=== Entry ${index} ===\n`),
   entryDate: (date) => `${chalk.white.bold('Date:')} ${chalk.yellow(date)}`,
   entryPrompt: (prompt) => `${chalk.white.bold('Prompt:')} ${chalk.cyan(prompt)}`,
-  entryResponse: (response) => `${chalk.white.bold('Response:')} ${chalk.white(response)}`,
+  entryPromptCategory: (category) => `${chalk.white.bold('Category:')} ${chalk.magenta(category)}`,
+  entryMood: (mood) => `${chalk.white.bold('Mood:')} ${chalk.yellow(mood)}`,
+  entryTags: (tags) => `${chalk.white.bold('Tags:')} ${tags.map(tag => chalk.cyan(`#${tag}`)).join(' ')}`,
   entryStats: (duration, wordCount) =>
-    `${chalk.white.bold('Duration:')} ${chalk.yellow(duration)} minutes | ` +
-    `${chalk.white.bold('Word Count:')} ${chalk.yellow(wordCount)} words`,
+    `${chalk.white.bold('Time Spent:')} ${chalk.yellow(duration)} | ` +
+    `${chalk.white.bold('Words:')} ${chalk.yellow(wordCount)}`,
+  entryResponse: (response) => `\n${chalk.white.bold('Response:')}\n${chalk.white(response)}\n`
 };
 
 module.exports = styles;

@@ -1,8 +1,8 @@
 const inquirer = require('inquirer');
 const styles = require('../utils/styles');
-const { checkConfig, updateConfig } = require('../utils/config');
+const { checkConfig } = require('../utils/config');
 const { getRandomPrompt, incrementPromptUsageCount } = require('../utils/prompts');
-const { format, intervalToDuration, differenceInMinutes } = require('date-fns');
+const { intervalToDuration } = require('date-fns');
 const { formatDuration } = require('../utils/format');
 const { moods } = require('../utils/mood');
 const { saveEntry } = require('../utils/entries');
@@ -78,20 +78,23 @@ async function writeCommand() {
     const duration = intervalToDuration({ start: startTime, end: endTime });
     const durationString = formatDuration(duration);
 
-    const rawEntry = {
+    // update the config when entry is also saved...
+    const { entry, messages } = await saveEntry({
       prompt,
       body,
       tags,
       mood,
       startTime,
       endTime,
-      durationString
-    };
-    const savedEntry = await saveEntry(rawEntry);
-    console.log(savedEntry);
+      durationString,
+      config
+    });
 
-    console.log(styles.success('\n✨ Your reflection has been saved!\n'));
-    // update stats and tags in the config -> use updateconfig to update in the file
+    console.log(styles.success('\n✨ Your reflection has been saved!'));
+    console.log(styles.info(`Word Count: ${entry.content.wordCount}`));
+    console.log(styles.info(`Time Spent Writing: ${durationString}`));
+    console.log();
+    messages.forEach(message => console.log(message));
   } catch (error) {
     // errors
   }

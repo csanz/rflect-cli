@@ -24,11 +24,6 @@ async function createRflectDirectory(isReinstall = false) {
         useEditor: false, // default is simple input method
       },
       goals: {
-        dailyStreak: {
-          current: 0,
-          best: 0,
-          lastEntryDate: null,
-        },
         entries: {
           goal: 0,
           type: null, // daily, weekly, monthly
@@ -43,19 +38,25 @@ async function createRflectDirectory(isReinstall = false) {
         },
       },
       stats: {
+        lastEntry: null,
+        currentStreak: 0,
+        longestStreak: 0,
         totalEntries: 0,
         totalWords: 0,
-        totalTimeSpent: 0,
-        entryCountByPromptType: {
+        writingTime: {
+          totalMinutes: 0,
+          averageMinutes: 0
+        },
+        entriesByPromptCategory: {
           question: 0,
           quote: 0,
           gratitude: 0,
           growth: 0,
           mindfulness: 0,
         },
+        tags: {},
+        moods: {},
       },
-      tags: {},
-      mood: {},
     };
 
     if (isReinstall) {

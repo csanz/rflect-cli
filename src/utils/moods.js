@@ -14,9 +14,11 @@ async function getAllMoods() {
   }
 
   console.log(styles.header('\n=== All Moods ===\n'));
-  Object.keys(moods).forEach(mood => {
-    const count = moods[mood].dates.length
-    console.log(`You were ${mood} when writing ${count} entries out of ${config.stats.totalEntries} total entries.`);
+  Object.keys(moods).forEach((mood) => {
+    const count = moods[mood].dates.length;
+    console.log(
+      `You were ${mood} when writing ${count} entries out of ${config.stats.totalEntries} total entries.`
+    );
   });
 }
 
@@ -31,25 +33,31 @@ async function displayMoodCal(targetMood) {
   }
 
   const currentMonth = format(now, 'MM');
-  const moodDates = moods[targetMood].dates.filter(date => date.split('-')[0] === currentMonth).map(date => parseInt(date.split('-')[1]));
+  const moodDates = moods[targetMood].dates
+    .filter((date) => date.split('-')[0] === currentMonth)
+    .map((date) => parseInt(date.split('-')[1]));
   const emoji = targetMood.split(' ')[0];
   const monthCalendar = Calendar().of(now.getFullYear(), now.getMonth()).calendar;
 
   console.log(styles.header(`\n=== ${targetMood} Calendar: ${format(now, 'MMMM yyyy')} ===\n`));
   console.log(styles.value('Su  Mo  Tu  We  Th  Fr  Sa'));
 
-  monthCalendar.forEach(week => {
-    const weekLine = week.map(day => {
-      if (day === 0) return '';
-      return moodDates.includes(day)
-        ? `${emoji}  `
-        : `${day.toString().padStart(2)}  `;
-    }).join('');
+  monthCalendar.forEach((week) => {
+    const weekLine = week
+      .map((day) => {
+        if (day === 0) return '';
+        return moodDates.includes(day) ? `${emoji}  ` : `${day.toString().padStart(2)}  `;
+      })
+      .join('');
     console.log(weekLine);
   });
 
   const monthCount = moodDates.length;
-  console.log(styles.info(`\nYou felt ${targetMood} on ${monthCount} ${monthCount === 1 ? 'day' : 'days'} this month`));
+  console.log(
+    styles.info(
+      `\nYou felt ${targetMood} on ${monthCount} ${monthCount === 1 ? 'day' : 'days'} this month`
+    )
+  );
 }
 
 module.exports = { getAllMoods, displayMoodCal };

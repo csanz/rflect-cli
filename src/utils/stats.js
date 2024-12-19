@@ -1,5 +1,5 @@
 const { updateConfig } = require('./config');
-const { format, isToday, isYesterday, parseISO, startOfWeek, startOfMonth } = require('date-fns');
+const { isToday, isYesterday, parseISO, startOfWeek, startOfMonth } = require('date-fns');
 const styles = require('./styles');
 
 async function updateStatsAndGoals(config, entry) {
@@ -10,7 +10,7 @@ async function updateStatsAndGoals(config, entry) {
     const updatedConfig = {
       ...config,
       stats,
-      goals
+      goals,
     };
 
     await updateConfig(updatedConfig);
@@ -55,17 +55,17 @@ async function updateStats(config, entry) {
       ...config.stats.moods,
       [mood]: {
         dates: [...(config.stats.moods[mood]?.dates || []), timestamp],
-        files: [...(config.stats.moods[mood]?.files || []), entryFile]
-      }
+        files: [...(config.stats.moods[mood]?.files || []), entryFile],
+      },
     },
   };
 
-  tags.forEach(tag => {
+  tags.forEach((tag) => {
     if (!stats.tags[tag]) {
       stats.tags[tag] = { files: [] };
     }
     stats.tags[tag].files.push(entryFile);
-  })
+  });
 
   // streak calc
   const lastEntry = config.stats.lastEntry ? parseISO(config.stats.lastEntry) : null;

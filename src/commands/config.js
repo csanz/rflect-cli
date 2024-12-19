@@ -109,15 +109,27 @@ async function configCommand(options) {
     if (options.show) {
       console.log(styles.header('\n✨ Current Settings ✨\n'));
       console.log(styles.info(`Name: ${styles.highlight(config.user.name)}`));
-      console.log(styles.info(`Editor Preference: ${config.user.useEditor === "true" ? "System's built-in editor" : "Plain text input within the terminal"}`));
       console.log(
         styles.info(
-          `Current Entry Goal: ${styles.number(config.goals.entries.goal)} ${config.goals.entries.type} 📝`
+          `Editor Preference: ${
+            config.user.useEditor === 'true'
+              ? "System's built-in editor"
+              : 'Plain text input within the terminal'
+          }`
         )
       );
       console.log(
         styles.info(
-          `Current Word Goal: ${styles.number(config.goals.words.goal)} ${config.goals.words.type} 💬`
+          `Current Entry Goal: ${styles.number(config.goals.entries.goal)} ${
+            config.goals.entries.type
+          } 📝`
+        )
+      );
+      console.log(
+        styles.info(
+          `Current Word Goal: ${styles.number(config.goals.words.goal)} ${
+            config.goals.words.type
+          } 💬`
         )
       );
       console.log();

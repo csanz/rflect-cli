@@ -1,3 +1,3 @@
-async function showCommand () {}
+async function showCommand() {}
 
 module.exports = showCommand;

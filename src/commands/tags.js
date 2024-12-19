@@ -1,6 +1,6 @@
 const { getAllTags, getTopFiveTags } = require('../utils/tags');
 
-async function tagsCommand (options) {
+async function tagsCommand(options) {
   try {
     if (options.all) {
       await getAllTags();

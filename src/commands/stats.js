@@ -1,3 +1,3 @@
-async function statsCommand () {}
+async function statsCommand() {}
 
 module.exports = statsCommand;

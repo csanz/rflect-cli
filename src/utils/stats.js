@@ -72,18 +72,20 @@ async function updateStats(config, entry) {
   if (!lastEntry) {
     stats.currentStreak = 1;
     stats.longestStreak = 1;
+    messages.push(styles.success(`🔥 1 day streak! Great start!`));
+  } else if (isToday(lastEntry)) {
+    messages.push(styles.success(`✍️ Another entry today! Maintain that momentum!`));
   } else if (isYesterday(lastEntry)) {
     stats.currentStreak += 1; // means entries were wrote yesterday & today
-    stats.longestStreak = Math.max(stats.currentStreak, stats.longestStreak); // ensures longest streak is updated whenever current streak surpasses it
+    stats.longestStreak = Math.max(stats.currentStreak, stats.longestStreak);
+    messages.push(styles.success(`🔥 ${stats.currentStreak} day streak! Keep it up!`));
   } else {
     stats.currentStreak = 1; // reset
+    messages.push(styles.info(`🔄 Streak reset. Start a new streak today!`));
   }
-  stats.lastEntry = now.toISOString(); // last entry is updated to the newest entry being saved
+  stats.lastEntry = now.toISOString();  // last entry is updated to the newest entry being saved
 
   // messaging
-  if (stats.currentStreak > 1) {
-    messages.push(styles.success(`🔥 ${stats.currentStreak} day streak! Keep it up!`));
-  }
   if (stats.currentStreak === stats.longestStreak && stats.currentStreak > 1) {
     messages.push(styles.success(`🎉 New record streak!`));
   }

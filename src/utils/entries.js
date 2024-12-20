@@ -3,7 +3,6 @@ const path = require('path');
 const os = require('os');
 const { format, differenceInMinutes, parse, parseISO, isAfter } = require('date-fns');
 const { updateStatsAndGoals } = require('./stats');
-const styles = require('./styles');
 
 async function saveEntry({
   prompt,
@@ -138,8 +137,29 @@ async function getLastEntry() {
   }
 }
 
-async function deleteAllEntries() {}
-async function deleteEntryByFileName(filename) {}
+async function deleteAllEntries() {
+  try {
+    let deletedCount = 0;
+    const entriesDir = path.join(os.homedir(), '.rflect', 'entries');
+    const files = await fs.readdir(entriesDir);
+    for (const file of files) {
+      await fs.unlink(path.join(entriesDir, file));
+      deletedCount++;
+    }
+    return deletedCount;
+  } catch (error) {
+    throw new Error(`Failed to delete entries: ${error.message}`);
+  }
+}
+
+async function deleteEntryByFileName(filename) {
+  try {
+    const entriesDir = path.join(os.homedir(), '.rflect', 'entries');
+    await fs.unlink(path.join(entriesDir, filename));
+  } catch (error) {
+    throw new Error(`Failed to delete entry: ${error.message}`);
+  }
+}
 
 module.exports = {
   saveEntry,
@@ -150,4 +170,6 @@ module.exports = {
   getEntryByPromptCategory,
   getEntryByFileName,
   getLastEntry,
+  deleteAllEntries,
+  deleteEntryByFileName,
 };

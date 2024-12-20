@@ -98,18 +98,16 @@ async function initCommand() {
 
     config.user.name = answers.name;
     config.user.useEditor = answers.useEditor;
-    if (answers.setGoals) {
-      config.goals.entries = {
-        ...config.goals.entries,
-        type: answers.entryFrequency,
-        goal: answers.entryGoal,
-      };
-      config.goals.words = {
-        ...config.goals.entries,
-        type: answers.wordCountFrequency,
-        goal: answers.wordCountGoal,
-      };
-    }
+    config.goals.entries = {
+      ...config.goals.entries,
+      type: answers.entryFrequency || null,
+      goal: answers.entryGoal || 0,
+    };
+    config.goals.words = {
+      ...config.goals.entries,
+      type: answers.wordCountFrequency || null,
+      goal: answers.wordCountGoal || 0,
+    };
     await updateConfig(config);
 
     // Success message

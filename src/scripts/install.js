@@ -43,6 +43,8 @@ async function createRflectDirectory(isReinstall = false) {
         longestStreak: 0,
         totalEntries: 0,
         totalWords: 0,
+        deletedEntries: 0,
+        deletedWords: 0,
         writingTime: {
           totalMinutes: 0,
           averageMinutes: 0,

@@ -15,6 +15,13 @@ async function tagsCommand(options) {
       return;
     }
 
+    if (!options.all && !options.top) {
+      console.log(styles.help('Available options:'));
+      console.log(styles.value('  rflect tags --all      ') + styles.info('View all your used tags'));
+      console.log(styles.value('  rflect tags --top      ') + styles.info('See your 5 most frequent reflection themes'));
+      return;
+    }
+
     if (options.all) {
       await getAllTags();
     } else if (options.top) {

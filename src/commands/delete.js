@@ -16,6 +16,13 @@ async function deleteCommand(options) {
       return;
     }
 
+    if (!options.all && !options.date) {
+      console.log(styles.help('Available options:'));
+      console.log(styles.value('  rflect delete --all      ') + styles.info('Remove all entries'));
+      console.log(styles.value('  rflect delete --date     ') + styles.info('Remove entries from specific date'));
+      return;
+    }
+
     if (options.all) {
       const { firstConfirm } = await inquirer.prompt([
         {

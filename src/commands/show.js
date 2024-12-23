@@ -26,6 +26,17 @@ async function showCommand(options) {
       return;
     }
 
+    if (!options.all && !options.recent && !options.date && !options.tag && !options.category && !options.mood) {
+      console.log(styles.help('Available options:'));
+      console.log(styles.value('  rflect show --all      ') + styles.info('Display all entries'));
+      console.log(styles.value('  rflect show --recent   ') + styles.info('View your most recent entry'));
+      console.log(styles.value('  rflect show --date     ') + styles.info('Find entries from a specific date'));
+      console.log(styles.value('  rflect show --tag      ') + styles.info('Find entries with a specific tag'));
+      console.log(styles.value('  rflect show --category ') + styles.info('Find entries by prompt type'));
+      console.log(styles.value('  rflect show --mood     ') + styles.info('Find entries by mood'));
+      return;
+    }
+
     if (options.all) {
       const entries = await getAllEntries();
       entries.forEach((entry, index) => {

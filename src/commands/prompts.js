@@ -17,13 +17,9 @@ async function promptsCommand(options) {
     }
 
     if (!options.all && !options.category) {
-      console.log(styles.header('\n=== Reflection Prompts ===\n'));
       console.log(styles.help('Available options:'));
-      console.log(styles.value('  rflect prompts --all     ') + styles.help('Show all prompts'));
-      console.log(
-        styles.value('  rflect prompts --category <category>  ') +
-          styles.help('Show prompts for a specific category')
-      );
+      console.log(styles.value('  rflect prompts --all      ') + styles.info('View all available prompts'));
+      console.log(styles.value('  rflect prompts --category ') + styles.info('View prompts by category (mindfulness, gratitude, growth, question or quote)'));
       return;
     }
 

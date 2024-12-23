@@ -21,16 +21,18 @@ async function checkConfig() {
       config: config,
     };
   } catch (error) {
-    console.log(
-      styles.error('\nConfiguration file not found. Please use rflect config --install.')
-    );
+    console.error(styles.error('Error checking configuration: ') + styles.value(error.message));
     return false;
   }
 }
 
 async function updateConfig(config) {
-  const configLocation = path.join(os.homedir(), '.rflect', 'config.json');
-  await fs.writeFile(configLocation, JSON.stringify(config, null, 2));
+  try {
+    const configLocation = path.join(os.homedir(), '.rflect', 'config.json');
+    await fs.writeFile(configLocation, JSON.stringify(config, null, 2));
+  } catch (error) {
+    console.error(styles.error('Error updating configuration: ') + styles.value(error.message));
+  }
 }
 
 module.exports = { checkConfig, updateConfig };

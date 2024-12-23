@@ -31,12 +31,4 @@ function formatEntryForDisplay(entry, index = 1) {
   console.log(styles.entryResponse(content.body));
 }
 
-function formatStatsForDisplay(stats) {
-  // --streak progress (e.g. you've written 5 days in a row or 2 weeks in a row; best streak was x)
-  // --goals progress (e.g. progress toward set word count and entry count
-  // --entries count, total word count, average word count, largest word count and shortest word count + references to the file (date)
-  // --time stats => total duration spent writing, average time spent on entries
-  // --all is all of the above
-}
-
 module.exports = { formatQuoteInPrompt, formatDuration, formatEntryForDisplay };

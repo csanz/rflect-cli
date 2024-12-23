@@ -9,8 +9,7 @@ async function getAllPrompts() {
     const prompts = JSON.parse(data);
     return prompts.map((prompt) => prompt.question);
   } catch (error) {
-    // error messaging - add later
-    console.log(error);
+    throw new Error('Failed to retrieve prompts. Please check the prompts file.');
   }
 }
 
@@ -22,7 +21,7 @@ async function getPromptsByCategory(category) {
       .filter((prompt) => prompt.category === category)
       .map((prompt) => prompt.question);
   } catch (error) {
-    // error messaging - add later
+    throw new Error('Failed to retrieve prompts by category. Please check the prompts file.');
   }
 }
 
@@ -34,7 +33,7 @@ async function getRandomPrompt() {
     const selectedPrompts = unusedPrompts.length > 0 ? unusedPrompts : prompts; // if all have been used at least once, just pick from prompts at random
     return selectedPrompts[Math.floor(Math.random() * selectedPrompts.length)];
   } catch (error) {
-    // error messaging
+    throw new Error('Failed to retrieve a random prompt. Please check the prompts file.');
   }
 }
 
@@ -45,8 +44,7 @@ async function incrementPromptUsageCount(id) {
     prompts[prompts.findIndex((prompt) => prompt.id === id)].usageCount++;
     await fs.writeFile(promptLocation, JSON.stringify(prompts, null, 2));
   } catch (error) {
-    // error messaging
-    console.log(error);
+    throw new Error('Failed to update prompt usage count. Please check the prompts file.');
   }
 }
 

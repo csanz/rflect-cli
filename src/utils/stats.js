@@ -19,7 +19,7 @@ async function updateStatsAndGoals(config, entry) {
       messages: [...statsMessages, ...goalMessages],
     };
   } catch (error) {
-    console.log(error);
+    throw new Error('Failed to update stats and goals. Please check the configuration.');
   }
 }
 

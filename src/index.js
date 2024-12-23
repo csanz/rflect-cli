@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const { program } = require('commander');
 const styles = require('./utils/styles');
+const { version } = require('../package.json');
 
 const configCommand = require('./commands/config');
 const initCommand = require('./commands/init');
@@ -16,7 +17,7 @@ const deleteCommand = require('./commands/delete');
 program
   .name('rflect')
   .description(styles.number('📝 A CLI tool for guided reflections and journaling.'))
-  .version('2.0.0');
+  .version(version);
 
 // Writing & Viewing
 program

@@ -137,6 +137,26 @@ async function getLastEntry() {
   }
 }
 
+async function getShortestLongestEntryDuration() {
+  try {
+    const entries = await getAllEntries();
+    if (entries.length === 0) {
+      return null;
+    }
+
+    const sortedByDuration = entries.sort((a, b) =>
+      a.metadata.durationInMinutes - b.metadata.durationInMinutes
+    );
+
+    return {
+      shortest: sortedByDuration[0],
+      longest: sortedByDuration[sortedByDuration.length - 1]
+    };
+  } catch (error) {
+    throw new Error(`Failed to get entry duration statistics: ${error.message}`);
+  }
+}
+
 async function deleteAllEntries() {
   try {
     let deletedCount = 0;
@@ -170,6 +190,7 @@ module.exports = {
   getEntryByPromptCategory,
   getEntryByFileName,
   getLastEntry,
+  getShortestLongestEntryDuration,
   deleteAllEntries,
   deleteEntryByFileName,
 };

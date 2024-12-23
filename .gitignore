@@ -6,6 +6,3 @@ node_modules/
 
 # misc
 .DS_Store
-
-# env file
-.env

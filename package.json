@@ -34,13 +34,13 @@
     "email": "hello@aniqa.dev",
     "url": "https://aniqa.dev"
   },
-  "homepage": "https://github.com/aniqatc/rflect#readme",
+  "homepage": "https://github.com/aniqatc/rflect-cli#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aniqatc/rflect.git"
+    "url": "git+https://github.com/aniqatc/rflect-cli.git"
   },
   "bugs": {
-    "url": "https://github.com/aniqatc/rflect/issues"
+    "url": "https://github.com/aniqatc/rflect-cli/issues"
   },
   "engines": {
     "node": ">=14.0.0"

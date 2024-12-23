@@ -14,7 +14,7 @@ const colors = {
 };
 
 const styles = {
-  header: (text) => chalk.bgHex(colors.primary).hex('e1f0fa').bold(` === ${text} === `),
+  header: (text) => chalk.bgHex('111112').hex('e1f0fa').bold(`\n ────── ${text} ────── `),
   subheader: (text) => chalk.white.bold(`\n${text}`),
 
   success: (text) => chalk.hex(colors.success)(`✓ ${text}`),
@@ -32,7 +32,7 @@ const styles = {
   em: (text) => chalk.hex(colors.text).italic(text),
   invert: (text) => chalk.bgHex(colors.primary).white(` ${text} `),
 
-  entryHeader: (index) => chalk.bgHex(colors.primary).hex('C7E8EAFF').bold(`\n=== Entry ${index} ===`),
+  entryHeader: (index) => chalk.bgHex('111112').hex('C7E8EAFF').bold(`\n ───────── Entry ${index} ───────── `),
   entryDate: (date) => `${chalk.hex(colors.text).bold('Date:')} ${chalk.hex(colors.secondary).bold(date)}`,
   entryPrompt: (prompt) => `${chalk.hex(colors.text).bold('Prompt:')} ${chalk.hex(colors.secondary)(prompt)}`,
   entryPromptCategory: (category) => `${chalk.hex(colors.text).bold('Category:')} ${chalk.hex(colors.accent)(category)}`,

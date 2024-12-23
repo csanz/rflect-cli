@@ -1,5 +1,10 @@
 const { checkConfig, updateConfig } = require('../utils/config');
-const { deleteAllEntries, deleteEntryByFileName, getEntryDates, getEntryByFileName } = require('../utils/entries');
+const {
+  deleteAllEntries,
+  deleteEntryByFileName,
+  getEntryDates,
+  getEntryByFileName,
+} = require('../utils/entries');
 const styles = require('../utils/styles');
 const inquirer = require('inquirer');
 
@@ -10,8 +15,8 @@ async function deleteCommand(options) {
       console.log(styles.warning(`\nWelcome to rflect! Let's get you set up first.`));
       console.log(
         styles.info('Run ') +
-        styles.value('rflect init') +
-        styles.info(' to start your reflection journey.')
+          styles.value('rflect init') +
+          styles.info(' to start your reflection journey.')
       );
       return;
     }
@@ -19,7 +24,10 @@ async function deleteCommand(options) {
     if (!options.all && !options.date) {
       console.log(styles.help('Available options:'));
       console.log(styles.value('  rflect delete --all      ') + styles.info('Remove all entries'));
-      console.log(styles.value('  rflect delete --date     ') + styles.info('Remove entries from specific date'));
+      console.log(
+        styles.value('  rflect delete --date     ') +
+          styles.info('Remove entries from specific date')
+      );
       return;
     }
 
@@ -28,7 +36,9 @@ async function deleteCommand(options) {
         {
           type: 'confirm',
           name: 'firstConfirm',
-          message: styles.warning(`⚠️ PERMANENT DELETION WARNING\n\nThis action will completely remove ALL of your journal entries from your computer.\n- This cannot be undone\n- ALL journal entries will be permanently deleted\n- This includes ALL saved entries across ALL dates\n\nAre you absolutely certain you want to proceed?`),
+          message: styles.warning(
+            `⚠️ PERMANENT DELETION WARNING\n\nThis action will completely remove ALL of your journal entries from your computer.\n- This cannot be undone\n- ALL journal entries will be permanently deleted\n- This includes ALL saved entries across ALL dates\n\nAre you absolutely certain you want to proceed?`
+          ),
           default: false,
         },
       ]);
@@ -38,7 +48,9 @@ async function deleteCommand(options) {
           {
             type: 'confirm',
             name: 'finalConfirm',
-            message: styles.warning(`🚨 FINAL CONFIRMATION\n\nYou are about to permanently delete EVERYTHING:\n- ALL journal entries will be IRREVERSIBLY ERASED\n- No recovery is possible\n\nDO YOU WANT TO CONTINUE?`),
+            message: styles.warning(
+              `🚨 FINAL CONFIRMATION\n\nYou are about to permanently delete EVERYTHING:\n- ALL journal entries will be IRREVERSIBLY ERASED\n- No recovery is possible\n\nDO YOU WANT TO CONTINUE?`
+            ),
             default: false,
           },
         ]);
@@ -58,8 +70,14 @@ async function deleteCommand(options) {
 
           console.log(styles.success(`Deleted ${deletedFileCount} entries.`));
           console.log('\n' + styles.info('🔄 Recommendation:'));
-          console.log(styles.help('  - Use ') + styles.value('rflect init') + styles.help(' to reset your account settings and start a fresh reflection journey.'));
-          console.log(styles.help('  - This will help you reconfigure your preferences and goals.'));
+          console.log(
+            styles.help('  - Use ') +
+              styles.value('rflect init') +
+              styles.help(' to reset your account settings and start a fresh reflection journey.')
+          );
+          console.log(
+            styles.help('  - This will help you reconfigure your preferences and goals.')
+          );
         }
       }
     }
@@ -97,18 +115,25 @@ async function deleteCommand(options) {
         config.stats.deletedWords = config.stats.deletedWords + fileToDelete.content.wordCount;
         config.stats.totalWords = config.stats.totalWords - fileToDelete.content.wordCount;
         await updateConfig(config);
-        console.log(styles.success(`Entry from ${answers.selectedEntry.dateString} deleted successfully.`));
+        console.log(
+          styles.success(`Entry from ${answers.selectedEntry.dateString} deleted successfully.`)
+        );
 
         const remainingEntries = await getEntryDates();
         if (remainingEntries.length === 0) {
           console.log('\n' + styles.info('🔄 Recommendation:'));
-          console.log(styles.help('  - No entries remain. Consider using ') + styles.value('rflect init') + styles.help(' to reset your account settings.'));
-          console.log(styles.help('  - This will help you reconfigure your preferences and goals.'));
+          console.log(
+            styles.help('  - No entries remain. Consider using ') +
+              styles.value('rflect init') +
+              styles.help(' to reset your account settings.')
+          );
+          console.log(
+            styles.help('  - This will help you reconfigure your preferences and goals.')
+          );
         }
       }
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.error(styles.error('Error during deletion: ') + styles.value(error.message));
     console.log(styles.info('Please try again or report this issue.'));
   }

@@ -10,16 +10,23 @@ async function promptsCommand(options) {
       console.log(styles.warning(`\nWelcome to rflect! Let's get you set up first.`));
       console.log(
         styles.info('Run ') +
-        styles.value('rflect init') +
-        styles.info(' to start your reflection journey.')
+          styles.value('rflect init') +
+          styles.info(' to start your reflection journey.')
       );
       return;
     }
 
     if (!options.all && !options.category) {
       console.log(styles.help('Available options:'));
-      console.log(styles.value('  rflect prompts --all      ') + styles.info('View all available prompts'));
-      console.log(styles.value('  rflect prompts --category ') + styles.info('View prompts by category (mindfulness, gratitude, growth, question or quote)'));
+      console.log(
+        styles.value('  rflect prompts --all      ') + styles.info('View all available prompts')
+      );
+      console.log(
+        styles.value('  rflect prompts --category ') +
+          styles.info(
+            'View prompts by category (mindfulness, gratitude, growth, question or quote)'
+          )
+      );
       return;
     }
 

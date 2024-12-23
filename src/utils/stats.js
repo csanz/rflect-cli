@@ -83,7 +83,7 @@ async function updateStats(config, entry) {
     stats.currentStreak = 1; // reset
     messages.push(styles.info(`🔄 Streak reset. Start a new streak today!`));
   }
-  stats.lastEntry = now.toISOString();  // last entry is updated to the newest entry being saved
+  stats.lastEntry = now.toISOString(); // last entry is updated to the newest entry being saved
 
   // messaging
   if (stats.currentStreak === stats.longestStreak && stats.currentStreak > 1) {

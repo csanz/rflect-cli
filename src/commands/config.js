@@ -8,18 +8,29 @@ async function configCommand(options) {
     const { isFirstTime, config } = await checkConfig();
     if (!options.name && !options.show && !options.goal && !options.install & !options.editor) {
       console.log(styles.help('Available options:'));
-      console.log(styles.value('  rflect config --name     ') + styles.info('Set your display name'));
-      console.log(styles.value('  rflect config --show     ') + styles.info('View current settings'));
-      console.log(styles.value('  rflect config --install  ') + styles.info('Reinstall rflect configuration'));
-      console.log(styles.value('  rflect config --editor   ') + styles.info('Toggle system editor usage'));
+      console.log(
+        styles.value('  rflect config --name     ') + styles.info('Set your display name')
+      );
+      console.log(
+        styles.value('  rflect config --show     ') + styles.info('View current settings')
+      );
+      console.log(
+        styles.value('  rflect config --install  ') + styles.info('Reinstall rflect configuration')
+      );
+      console.log(
+        styles.value('  rflect config --editor   ') + styles.info('Toggle system editor usage')
+      );
       console.log();
       console.log(styles.help('Goal configuration:'));
       console.log(styles.value('  rflect config --goal     ') + styles.info('Set writing goals'));
       console.log(
         styles.info('     Options: ') +
-        styles.value('-t ') + styles.info('entries|words ') +
-        styles.value('-f ') + styles.info('daily|weekly|monthly ') +
-        styles.value('-v ') + styles.info('<number>')
+          styles.value('-t ') +
+          styles.info('entries|words ') +
+          styles.value('-f ') +
+          styles.info('daily|weekly|monthly ') +
+          styles.value('-v ') +
+          styles.info('<number>')
       );
       return;
     }

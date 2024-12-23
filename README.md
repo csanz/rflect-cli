@@ -1,17 +1,14 @@
 # rflect ![NPM Version](https://img.shields.io/npm/v/rflect)
 
-📝 A CLI journaling tool that guides you through daily reflections with thoughtfully curated prompts.
+📝 A CLI tool for guided reflections and journaling, offering a variety of prompts and tracking features to enhance your writing journey.
 
 ## Features
 
 - 🤔 Thoughtfully curated reflection prompts across multiple categories (mindfulness, gratitude, growth, etc.)
-- 💾 Flexible storage options (local filesystem, cloud, or both)
-- 🔐 Secure user authentication
 - 📊 Track your writing progress and streaks
 - 📝 Journaling stats including word count and duration tracking for each entry
-- 🔍 Easy access to past reflections with date-based filtering
-- 📱 Works offline with local storage option
-- 🔄 Seamless syncing between local and cloud storage
+- 🔍 Easy access to past reflections with date, tag and mood-based filtering
+- 💾 Works offline using your local filesystem, ensuring your data is secure and not shared
 
 ## Reflection Categories
 
@@ -29,92 +26,140 @@ npm install -g rflect
 
 ## Getting Started
 
-**During registration, you'll**:
-
-- Choose a username (minimum 3 characters)
-- Set a secure password (minimum 6 characters)
-- Select your preferred storage option
+During setup, you'll set up a configuration file to store your preferences:
 
 ```bash
-rflect register
-```
-
-**Basic Commands**
-
-```bash
-rflect write     # Start a new reflection
-rflect show      # View past entries
-rflect status    # Check account status
-rflect streak    # View your writing streak
+rflect init
 ```
 
 ## Storage
 
-`rflect` offers three storage settings:
+`rflect` uses local storage:
 
-1. **Local Storage** `--local`
-   - Entries stored in `~/.rflect/entries/`
-   - Complete offline access
-   - Private journaling as it is saves the entries in the user's file system
-2. **Cloud Storage** `--cloud`
-   - Storage in MongoDB
-   - Access entries across devices
-   - Automatic backups
-3. **Both** `--both`
-   - Synchronized local and cloud storage
-   - Seamless offline and online transitions
-   - Ensures data backs up in two locations
+- Entries are stored in `~/.rflect/entries/`
+- Complete offline access
+- Private journaling as it saves the entries in the user's file system
 
-Change storage settings anytime:
+## Commands
+
+### Writing & Viewing
+
+**Start a New Reflection**
 
 ```bash
-rflect storage --local  # Switch to local storage
-rflect storage --cloud  # Switch to cloud storage
-rflect storage --both   # Use both storage options
+rflect write
 ```
 
-## Managing Entries
+Begin a new reflection session with a thoughtfully curated prompt.
 
-**View your entries**:
+**Browse Past Reflections**
 
 ```bash
-rflect show --all               # Show all entries
-rflect show --recent           # Show most recent entry
-rflect show --date MM/DD/YYYY  # Show entries from specific date
+rflect show [options]
 ```
 
-**Delete entries**:
+- `--all`: Display all entries.
+- `--recent`: View the most recent entry.
+- `--date`: Find entries from a specific date.
+- `--tag`: Find reflections with a specific tag.
+- `--category`: Find reflections by prompt type.
+- `--mood`: Find reflections by mood.
+
+### Prompts, Tags, Mood
+
+**Browse Available Writing Prompts**
 
 ```bash
-rflect delete --local  # Delete local entries
-rflect delete --cloud  # Delete cloud entries
-rflect delete --both   # Delete all entries
+rflect prompts [options]
 ```
 
-**Tracking progress**:
+- `--all`: View all prompts.
+- `--category <type>`: View prompts by category (mindfulness, gratitude, growth, question, or quote).
+
+**Discover Themes in Your Reflection Journey**
 
 ```bash
-rflect streak --current  # View current streak
-rflect streak --best     # View longest streak
+rflect tags [options]
 ```
 
----
+- `--all`: View all your used tags.
+- `--top`: See your 5 most frequent reflection themes.
+
+**Track Your Emotional Journey**
+
+```bash
+rflect moods [options]
+```
+
+- `--frequency`: See patterns in your recorded moods.
+- `--calendar`: View your monthly mood patterns.
+
+### User Settings & Stats
+
+**Set Up Your rflect Account**
+
+```bash
+rflect init
+```
+
+Initialize your account with initial preferences.
+
+**Customize Your Reflection Preferences**
+
+```bash
+rflect config [options]
+```
+
+- `--install`: Reinstall rflect configuration file and directories.
+- `--name`: Set your display name.
+- `--show`: View current settings.
+- `--editor <boolean>`: Toggle system editor usage.
+- `--goal`: Configure word count or writing frequency goals.
+- `--type <entries|words>`: Goal type.
+- `--frequency <daily|weekly|monthly>`: Goal frequency.
+- `--value <number>`: Goal value.
+
+**View Insights About Your Writing Journey**
+
+```bash
+rflect stats [options]
+```
+
+- `--all`: Show comprehensive statistics.
+- `--streak`: View streak and progress towards streak goal.
+- `--goals`: Show progress on all writing goals.
+- `--entries`: Display entry count and word statistics.
+- `--time`: Display time-related statistics.
+
+### Entry Management
+
+**Manage Your Reflection History**
+
+```bash
+rflect delete [options]
+```
+
+- `--all`: Remove all entries.
+- `--date`: Remove entries from a specific date.
+
+### Future Features
+
+**See a list of upcoming features**
+
+```bash
+rflect upcoming
+```
+
+Discover upcoming features like custom themes, cloud backup, search, reminders, encryption, and AI insights.
 
 ## Tech
 
-#### Requires: **Node.js, MongoDB**
+#### Requires: **Node.js**
 
-- **Core**: `commander`, `inquirer`, `mongoose`, `chalk`, `dotenv`
-- **Security**: `bcrypt`, `jsonwebtoken`
+- **Core**: `commander`, `inquirer`
+- **Dates & Calendar**: `calendar-js`, `date-fns`
+- **Styling**: `chalk`
 - **Dev Tools**: `nodemon`, `eslint`, `prettier`
-
-#### Security
-
-- Passwords are hashed using `bcrypt`
-- JWT-based authentication
-- Entries are stored securely with user-specific encryption
-- Local storage is protected within your own home directory
-- Session management for secure login/logout
 
 #### Scripts
 
@@ -123,18 +168,6 @@ npm run dev     # Run with nodemon for development
 npm run lint    # Run ESLint checks
 npm run format  # Format code with Prettier
 ```
-
-#### Environment Setup
-
-Create a `.env` file in the root directory:
-
-```bash
-DB_URI=your_mongodb_connection_string
-DB_PW=your_database_password
-JWT_SECRET=your_jwt_secret_key
-```
-
----
 
 ## Issues
 

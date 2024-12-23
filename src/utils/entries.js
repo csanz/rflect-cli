@@ -144,13 +144,13 @@ async function getShortestLongestEntryDuration() {
       return null;
     }
 
-    const sortedByDuration = entries.sort((a, b) =>
-      a.metadata.durationInMinutes - b.metadata.durationInMinutes
+    const sortedByDuration = entries.sort(
+      (a, b) => a.metadata.durationInMinutes - b.metadata.durationInMinutes
     );
 
     return {
       shortest: sortedByDuration[0],
-      longest: sortedByDuration[sortedByDuration.length - 1]
+      longest: sortedByDuration[sortedByDuration.length - 1],
     };
   } catch (error) {
     throw new Error(`Failed to get entry duration statistics: ${error.message}`);

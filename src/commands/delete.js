@@ -5,13 +5,13 @@ const inquirer = require('inquirer');
 
 async function deleteCommand(options) {
   try {
-    const { isFirstTime, config} = await checkConfig();
+    const { isFirstTime, config } = await checkConfig();
     if (isFirstTime) {
-      console.log(styles.warning(`\n ⚠️ It looks like you haven't set up your rflect account yet.`));
+      console.log(styles.warning(`\nWelcome to rflect! Let's get you set up first.`));
       console.log(
-        styles.info('To get started, please use the ') +
+        styles.info('Run ') +
         styles.value('rflect init') +
-        styles.info(' command to configure your preferences.')
+        styles.info(' to start your reflection journey.')
       );
       return;
     }

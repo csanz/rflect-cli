@@ -87,7 +87,6 @@ program
   .action(statsCommand);
 
 // Entry Management
-// Recommend to users to use init to reset account data now that (all) files are gone...
 program
   .command('delete')
   .description(styles.help('Manage your reflection history.'))
@@ -98,14 +97,33 @@ program
 // Future feature(s)
 program
   .command('upcoming')
-  .description(styles.value('Peek at future rflect features.'))
+  .description(styles.info('Peek at future rflect features'))
   .action(() => {
-      console.log(`    ${styles.warning('rflect theme')}: Personalize your journaling experience with custom themes.`);
-      console.log(`    ${styles.warning('rflect backup')}: Keep your reflections safe with cloud backup.`);
-      console.log(`    ${styles.warning('rflect search <term>')}: Find specific moments in your journey.`);
-      console.log(`    ${styles.warning('rflect remind')}: Set gentle reminders for your reflection practice.`);
-      console.log(`    ${styles.warning('rflect encrypt/decrypt')}: Add extra privacy to selected entries.`);
-      console.log(`    ${styles.warning('rflect analyze')}: Gain insights into your reflection patterns with AI.`);
+        console.log(styles.subheader('Coming soon to rflect:'));
+        console.log(
+          styles.value('  rflect theme            ') +
+          styles.info('Personalize your journaling experience with custom themes')
+        );
+        console.log(
+          styles.value('  rflect backup           ') +
+          styles.info('Keep your reflections safe with cloud backup')
+        );
+        console.log(
+          styles.value('  rflect search <term>    ') +
+          styles.info('Find specific moments in your journey')
+        );
+        console.log(
+          styles.value('  rflect remind           ') +
+          styles.info('Set gentle reminders for your reflection practice')
+        );
+        console.log(
+          styles.value('  rflect encrypt          ') +
+          styles.info('Add extra privacy to selected entries')
+        );
+        console.log(
+          styles.value('  rflect analyze          ') +
+          styles.info('Gain insights into your reflection patterns with AI')
+        );
   });
 
 program.parse(process.argv);

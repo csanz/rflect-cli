@@ -55,7 +55,11 @@ async function deleteCommand(options) {
           config.stats.totalWords = 0;
 
           await updateConfig(config);
+
           console.log(styles.success(`Deleted ${deletedFileCount} entries.`));
+          console.log('\n' + styles.info('🔄 Recommendation:'));
+          console.log(styles.help('  - Use ') + styles.value('rflect init') + styles.help(' to reset your account settings and start a fresh reflection journey.'));
+          console.log(styles.help('  - This will help you reconfigure your preferences and goals.'));
         }
       }
     }
@@ -94,6 +98,13 @@ async function deleteCommand(options) {
         config.stats.totalWords = config.stats.totalWords - fileToDelete.content.wordCount;
         await updateConfig(config);
         console.log(styles.success(`Entry from ${answers.selectedEntry.dateString} deleted successfully.`));
+
+        const remainingEntries = await getEntryDates();
+        if (remainingEntries.length === 0) {
+          console.log('\n' + styles.info('🔄 Recommendation:'));
+          console.log(styles.help('  - No entries remain. Consider using ') + styles.value('rflect init') + styles.help(' to reset your account settings.'));
+          console.log(styles.help('  - This will help you reconfigure your preferences and goals.'));
+        }
       }
     }
   }

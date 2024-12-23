@@ -102,7 +102,7 @@ async function writeCommand() {
       config,
     });
 
-    console.log(styles.success('\n✨ Your reflection has been saved!'));
+    console.log(styles.success('✨ Your reflection has been saved!'));
     console.log(styles.help('Word Count: ') + styles.number(entry.content.wordCount));
     console.log(styles.help('Time Spent Writing: ') + styles.number(durationString));
     console.log();

@@ -6,6 +6,8 @@
 
 📝 A CLI tool for guided reflections and journaling, offering a variety of prompts and tracking features to enhance your writing journey.
 
+<img src="assets/rflect-help-v2.png">
+
 ## ✨ Features
 
 🎯 **Thoughtful Prompts**

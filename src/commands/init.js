@@ -21,8 +21,8 @@ async function initCommand() {
       if (!initConfirmation) {
         console.log(
           styles.help('Setup cancelled. Use ') +
-          styles.value('rflect config') +
-          styles.help(' to modify settings.')
+            styles.value('rflect config') +
+            styles.help(' to modify settings.')
         );
         return;
       }
@@ -120,9 +120,9 @@ async function initCommand() {
       answers.useEditor
         ? styles.success(`\nYou will be writing in your system editor with rflect.`)
         : styles.success(`\nYou will be writing in basic text inputs with rflect.`) +
-        styles.help(`\n(You can change this later with `) +
-        styles.value('rflect config --editor true/false') +
-        styles.help('.')
+            styles.help(`\n(You can change this later with `) +
+            styles.value('rflect config --editor true/false') +
+            styles.help('.')
     );
     if (answers.setGoals) {
       console.log(styles.info(`\nYour goals:`));
@@ -143,9 +143,17 @@ async function initCommand() {
     }
 
     console.log(styles.info('\nGet started with:'));
-    console.log(styles.help('  - ') + styles.value('rflect write') + styles.help('   - Start your first reflection'));
-    console.log(styles.help('  - ') + styles.value('rflect show') + styles.help('    - View your entries'));
-    console.log(styles.help('  - ') + styles.value('rflect stats') + styles.help('   - Track your progress'));
+    console.log(
+      styles.help('  - ') +
+        styles.value('rflect write') +
+        styles.help('   - Start your first reflection')
+    );
+    console.log(
+      styles.help('  - ') + styles.value('rflect show') + styles.help('    - View your entries')
+    );
+    console.log(
+      styles.help('  - ') + styles.value('rflect stats') + styles.help('   - Track your progress')
+    );
   } catch (error) {
     console.error(styles.error('Setup failed: ') + styles.value(error.message));
     console.log(styles.help('Please try again or report this issue.'));

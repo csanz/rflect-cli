@@ -9,21 +9,23 @@
 ## ✨ Key Features
 
 - 🤔 **Thoughtful Prompts**: Curated reflections across multiple categories
-    - Growth: Professional and personal development
-    - Gratitude: Practicing daily thankfulness
-    - Mindfulness: Present moment awareness
-    - Question-based: Thought-provoking inquiries
-    - Quote-inspired: Reflections from meaningful words
+
+  - Growth: Professional and personal development
+  - Gratitude: Practicing daily thankfulness
+  - Mindfulness: Present moment awareness
+  - Question-based: Thought-provoking inquiries
+  - Quote-inspired: Reflections from meaningful words
 
 - 📊 **Comprehensive Tracking**
-    - Writing progress and streaks
-    - Word count and writing duration
-    - Mood and tag-based entry filtering
+
+  - Writing progress and streaks
+  - Word count and writing duration
+  - Mood and tag-based entry filtering
 
 - 💾 **Secure & Private**
-    - Offline-first design
-    - Local filesystem storage
-    - Complete data ownership
+  - Offline-first design
+  - Local filesystem storage
+  - Complete data ownership
 
 ## 🚀 Quick Start
 
@@ -53,7 +55,7 @@ rflect init
 
 ### Writing & Viewing
 
-**Start a New Reflection**: 
+**Start a New Reflection**:
 Begin a new reflection session with a thoughtfully curated prompt.
 
 ```bash
@@ -104,13 +106,12 @@ rflect moods [options]
 
 ### User Settings & Stats
 
-**Set Up Your rflect Account**: 
+**Set Up Your rflect Account**:
 Initialize your account with initial preferences.
 
 ```bash
 rflect init
 ```
-
 
 **Customize Your Reflection Preferences**
 
@@ -153,7 +154,6 @@ rflect delete [options]
 ### Future Features
 
 **See a list of upcoming features**: Discover upcoming features like custom themes, cloud backup, search, reminders, encryption, and AI insights.
-
 
 ```bash
 rflect upcoming

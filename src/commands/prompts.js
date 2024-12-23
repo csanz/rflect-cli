@@ -10,8 +10,8 @@ async function promptsCommand(options) {
       console.log(styles.warning(`\nWelcome to rflect! Let's get you set up first.`));
       console.log(
         styles.info('Run ') +
-        styles.value('rflect init') +
-        styles.info(' to start your reflection journey.')
+          styles.value('rflect init') +
+          styles.info(' to start your reflection journey.')
       );
       return;
     }
@@ -19,12 +19,13 @@ async function promptsCommand(options) {
     if (!options.all && !options.category) {
       console.log(styles.help('Available options:'));
       console.log(
-        styles.value('  rflect prompts --all      ') +
-        styles.info('View all available prompts')
+        styles.value('  rflect prompts --all      ') + styles.info('View all available prompts')
       );
       console.log(
         styles.value('  rflect prompts --category ') +
-        styles.info('View prompts by category (mindfulness, gratitude, growth, question or quote)')
+          styles.info(
+            'View prompts by category (mindfulness, gratitude, growth, question or quote)'
+          )
       );
       return;
     }
@@ -35,8 +36,8 @@ async function promptsCommand(options) {
       prompts.forEach((prompt, index) => console.log(styles.number(index + 1) + `. ${prompt}`));
       console.log(
         styles.info(`\nUse `) +
-        styles.value('rflect write') +
-        styles.info(' to get a random prompt and start your reflection.')
+          styles.value('rflect write') +
+          styles.info(' to get a random prompt and start your reflection.')
       );
     }
 
@@ -44,9 +45,7 @@ async function promptsCommand(options) {
     const isValid = categories.filter((category) => category === options.category);
     if (options.category && isValid) {
       const prompts = await getPromptsByCategory(options.category);
-      console.log(
-        styles.header(`Prompts in '${styles.value(options.category)}' Category`)
-      );
+      console.log(styles.header(`Prompts in '${styles.value(options.category)}' Category`));
 
       prompts.forEach((prompt, index) => {
         if (options.category === 'quote') {
@@ -57,8 +56,8 @@ async function promptsCommand(options) {
       });
       console.log(
         styles.info(`\nUse `) +
-        styles.value('rflect write') +
-        styles.info(' to get a random prompt and start your reflection.')
+          styles.value('rflect write') +
+          styles.info(' to get a random prompt and start your reflection.')
       );
     }
   } catch (error) {

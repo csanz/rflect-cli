@@ -9,10 +9,7 @@ async function getAllMoods() {
 
   if (Object.keys(moods).length === 0) {
     console.log(styles.info('\nNo moods recorded.'));
-    console.log(
-      styles.help('Start recording moods by using ') +
-      styles.value('rflect write')
-    );
+    console.log(styles.help('Start recording moods by using ') + styles.value('rflect write'));
     return;
   }
 
@@ -22,8 +19,12 @@ async function getAllMoods() {
     const totalEntries = config.stats.totalEntries + config.stats.deletedEntries;
     console.log(
       styles.help(`You were `) +
-      styles.value(mood) +
-      styles.help(` when writing ${styles.number(count)} entries out of ${styles.number(totalEntries)} total entries.`)
+        styles.value(mood) +
+        styles.help(
+          ` when writing ${styles.number(count)} entries out of ${styles.number(
+            totalEntries
+          )} total entries.`
+        )
     );
   });
 }
@@ -61,8 +62,10 @@ async function displayMoodCal(targetMood) {
   const monthCount = moodDates.length;
   console.log(
     styles.help(`\nYou felt `) +
-    styles.value(targetMood) +
-    styles.help(` on ${styles.number(monthCount)} ${monthCount === 1 ? 'day' : 'days'} this month.`)
+      styles.value(targetMood) +
+      styles.help(
+        ` on ${styles.number(monthCount)} ${monthCount === 1 ? 'day' : 'days'} this month.`
+      )
   );
 }
 

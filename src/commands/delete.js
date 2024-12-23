@@ -15,8 +15,8 @@ async function deleteCommand(options) {
       console.log(styles.warning(`\nWelcome to rflect! Let's get you set up first.`));
       console.log(
         styles.info('Run ') +
-        styles.value('rflect init') +
-        styles.info(' to start your reflection journey.')
+          styles.value('rflect init') +
+          styles.info(' to start your reflection journey.')
       );
       return;
     }
@@ -26,7 +26,7 @@ async function deleteCommand(options) {
       console.log(styles.value('  rflect delete --all      ') + styles.info('Remove all entries'));
       console.log(
         styles.value('  rflect delete --date     ') +
-        styles.info('Remove entries from specific date')
+          styles.info('Remove entries from specific date')
       );
       return;
     }
@@ -72,8 +72,8 @@ async function deleteCommand(options) {
           console.log('\n' + styles.info('🔄 Recommendation:'));
           console.log(
             styles.help('  - Use ') +
-            styles.value('rflect init') +
-            styles.help(' to reset your account settings and start a fresh reflection journey.')
+              styles.value('rflect init') +
+              styles.help(' to reset your account settings and start a fresh reflection journey.')
           );
           console.log(
             styles.help('  - This will help you reconfigure your preferences and goals.')
@@ -124,8 +124,8 @@ async function deleteCommand(options) {
           console.log('\n' + styles.info('🔄 Recommendation:'));
           console.log(
             styles.help('  - No entries remain. Consider using ') +
-            styles.value('rflect init') +
-            styles.help(' to reset your account settings.')
+              styles.value('rflect init') +
+              styles.help(' to reset your account settings.')
           );
           console.log(
             styles.help('  - This will help you reconfigure your preferences and goals.')

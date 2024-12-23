@@ -9,8 +9,8 @@ async function tagsCommand(options) {
       console.log(styles.warning(`\nWelcome to rflect! Let's get you set up first.`));
       console.log(
         styles.info('Run ') +
-        styles.value('rflect init') +
-        styles.info(' to start your reflection journey.')
+          styles.value('rflect init') +
+          styles.info(' to start your reflection journey.')
       );
       return;
     }
@@ -18,12 +18,11 @@ async function tagsCommand(options) {
     if (!options.all && !options.top) {
       console.log(styles.help('Available options:'));
       console.log(
-        styles.value('  rflect tags --all      ') +
-        styles.help('View all your used tags')
+        styles.value('  rflect tags --all      ') + styles.help('View all your used tags')
       );
       console.log(
         styles.value('  rflect tags --top      ') +
-        styles.help('See your 5 most frequent reflection themes')
+          styles.help('See your 5 most frequent reflection themes')
       );
       return;
     }

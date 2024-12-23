@@ -10,22 +10,24 @@ async function getAllTags() {
       console.log(styles.info('\nNo tags found.'));
       console.log(
         styles.help('Start adding tags to your entries when writing: ') +
-        styles.value('rflect write')
+          styles.value('rflect write')
       );
       return;
     }
 
     console.log(styles.header('All Tags'));
     console.log(
-      styles.help('Here are ALL the tags that you have used across your entries and the number of times it was used:')
+      styles.help(
+        'Here are ALL the tags that you have used across your entries and the number of times it was used:'
+      )
     );
     for (const tag of Object.keys(tags)) {
       const count = tags[tag].files.length;
       console.log(
         styles.value(`#${tag}`) +
-        styles.info(` used in `) +
-        styles.number(count) +
-        styles.info(` ${count === 1 ? 'entry' : 'entries'}`)
+          styles.info(` used in `) +
+          styles.number(count) +
+          styles.info(` ${count === 1 ? 'entry' : 'entries'}`)
       );
     }
   } catch (error) {
@@ -43,7 +45,7 @@ async function getTopFiveTags() {
       console.log(styles.info('\nNo tags found.'));
       console.log(
         styles.help('Start adding tags to your entries when writing: ') +
-        styles.value('rflect write')
+          styles.value('rflect write')
       );
       return;
     }
@@ -60,16 +62,14 @@ async function getTopFiveTags() {
       const count = data.files.length;
       console.log(
         styles.value(`#${tag}`) +
-        styles.info(` used in `) +
-        styles.number(count) +
-        styles.info(` ${count === 1 ? 'entry' : 'entries'}`)
+          styles.info(` used in `) +
+          styles.number(count) +
+          styles.info(` ${count === 1 ? 'entry' : 'entries'}`)
       );
     });
 
     console.log(
-      styles.help('\nUse ') +
-      styles.value('rflect tags --all') +
-      styles.help(' to see all tags')
+      styles.help('\nUse ') + styles.value('rflect tags --all') + styles.help(' to see all tags')
     );
   } catch (error) {
     console.error(styles.error('Failed to retrieve top tags: ') + styles.value(error.message));

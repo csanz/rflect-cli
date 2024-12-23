@@ -18,11 +18,11 @@ async function tagsCommand(options) {
     if (!options.all && !options.top) {
       console.log(styles.help('Available options:'));
       console.log(
-        styles.value('  rflect tags --all      ') + styles.help('View all your used tags')
+        styles.value('  rflect tags --all      ') + styles.info('View all your used tags')
       );
       console.log(
         styles.value('  rflect tags --top      ') +
-          styles.help('See your 5 most frequent reflection themes')
+          styles.info('See your 5 most frequent reflection themes')
       );
       return;
     }

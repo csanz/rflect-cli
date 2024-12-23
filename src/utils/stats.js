@@ -74,7 +74,7 @@ async function updateStats(config, entry) {
     stats.longestStreak = 1;
     messages.push(styles.success(`🔥 1 day streak! Great start!`));
   } else if (isToday(lastEntry)) {
-    messages.push(styles.success(`✍️ Another entry today! Maintain that momentum!`));
+    messages.push(styles.success(`✍️  Another entry today! Maintain that momentum!`));
   } else if (isYesterday(lastEntry)) {
     stats.currentStreak += 1; // means entries were wrote yesterday & today
     stats.longestStreak = Math.max(stats.currentStreak, stats.longestStreak);

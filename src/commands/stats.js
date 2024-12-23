@@ -19,19 +19,19 @@ async function statsCommand(options) {
     if (!options.all && !options.streak && !options.goals && !options.entries && !options.time) {
       console.log(styles.help('Available options:'));
       console.log(
-        styles.value('  rflect stats --all      ') + styles.help('Show comprehensive statistics')
+        styles.value('  rflect stats --all      ') + styles.info('Show comprehensive statistics')
       );
       console.log(
-        styles.value('  rflect stats --streak   ') + styles.help('View your writing streak')
+        styles.value('  rflect stats --streak   ') + styles.info('View your writing streak')
       );
       console.log(
-        styles.value('  rflect stats --goals    ') + styles.help('Check progress on writing goals')
+        styles.value('  rflect stats --goals    ') + styles.info('Check progress on writing goals')
       );
       console.log(
-        styles.value('  rflect stats --entries  ') + styles.help('See entry and word count stats')
+        styles.value('  rflect stats --entries  ') + styles.info('See entry and word count stats')
       );
       console.log(
-        styles.value('  rflect stats --time     ') + styles.help('View time-related statistics')
+        styles.value('  rflect stats --time     ') + styles.info('View time-related statistics')
       );
       return;
     }

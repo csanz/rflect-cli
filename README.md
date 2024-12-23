@@ -159,6 +159,13 @@ npm run lint    # Run ESLint checks
 npm run format  # Format code with Prettier
 ```
 
+#### 🔄 GH Workflow
+
+```bash
+npm version [major|minor|patch]     # Bump version and create tag
+git push && git push --tags         # Push changes
+```
+
 ## 🤝 Contributing
 
 Contributions and suggestions are always welcome!

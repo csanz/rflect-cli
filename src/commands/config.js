@@ -63,12 +63,12 @@ async function configCommand(options) {
       if (confirmInstall) {
         const success = await createRflectDirectory(true);
         if (success) {
-          console.log(styles.success('\nConfiguration reset successfully.'));
+          console.log(styles.success('Configuration reset successfully.'));
           console.log(
             styles.info('\nPlease run ') + styles.value('rflect init') + styles.info(' to populate the config file with your details.')
           );
         } else {
-          console.log(styles.error('\nFailed to reset configuration.'));
+          console.log(styles.error('Failed to reset configuration.'));
           console.log(styles.help('Please try again or check file permissions.'));
         }
       } else {
@@ -83,7 +83,7 @@ async function configCommand(options) {
           type: 'confirm',
           name: 'confirmChange',
           message: styles.prompt(
-            `⚠️ Are you sure you would like to change your current name, ${config.user.name}?`
+            `⚠️ Are you sure you would like to change your current name, ${styles.name(config.user.name)}?`
           ),
           default: true,
         },
@@ -98,7 +98,7 @@ async function configCommand(options) {
       if (confirmChange) {
         config.user.name = newName;
         await updateConfig(config);
-        console.log(styles.success(`Display name updated to ${styles.highlight(newName)}.`));
+        console.log(styles.success(`Display name updated to ${styles.name(newName)}.`));
       }
     }
 
@@ -116,7 +116,7 @@ async function configCommand(options) {
     if (options.show) {
       console.log(styles.header('Current Settings'));
       console.log(styles.subheader('User Profile'));
-      console.log(styles.info(`Name: ${styles.highlight(config.user.name)}`));
+      console.log(styles.info(`Name: ${styles.name(config.user.name)}`));
       console.log(
         styles.info(
           `Editor Preference: ${

@@ -16,24 +16,25 @@
   },
   "keywords": [
     "cli",
+    "journal",
     "journaling",
     "reflection",
     "mindfulness",
-    "diary",
-    "writing",
-    "gratitude",
-    "guided writing",
-    "guided reflections",
-    "terminal journal",
-    "cli tool",
+    "productivity",
+    "personal-development",
+    "writing-tool",
+    "terminal",
+    "self-improvement",
     "daily-journal",
-    "self-improvement"
+    "mental-health",
+    "goal-tracking"
   ],
   "author": {
     "name": "Aniqa",
     "email": "hello@aniqa.dev",
     "url": "https://aniqa.dev"
   },
+  "homepage": "https://github.com/aniqatc/rflect#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aniqatc/rflect.git"

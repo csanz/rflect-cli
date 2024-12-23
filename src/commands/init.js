@@ -115,7 +115,7 @@ async function initCommand() {
     await updateConfig(config);
 
     // Success message
-    console.log(styles.success(`\n✨ Welcome, ${styles.value(answers.name)}!`));
+    console.log(styles.success(`\n✨ Welcome, ${styles.name(answers.name)}!`));
     console.log(
       answers.useEditor
         ? styles.success(`\nYou will be writing in your system editor with rflect.`)

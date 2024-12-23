@@ -1,30 +1,39 @@
-# rflect ![NPM Version](https://img.shields.io/npm/v/rflect)
+# rflect
+
+[![NPM Version](https://img.shields.io/npm/v/rflect)](https://www.npmjs.com/package/rflect)
+[![GitHub Issues](https://img.shields.io/github/issues/aniqatc/rflect-cli)](https://github.com/aniqatc/rflect-cli/issues)
+[![License](https://img.shields.io/github/license/aniqatc/rflect-cli)](https://github.com/aniqatc/rflect-cli/blob/main/LICENSE)
 
 📝 A CLI tool for guided reflections and journaling, offering a variety of prompts and tracking features to enhance your writing journey.
 
-## Features
+## ✨ Key Features
 
-- 🤔 Thoughtfully curated reflection prompts across multiple categories (mindfulness, gratitude, growth, etc.)
-- 📊 Track your writing progress and streaks
-- 📝 Journaling stats including word count and duration tracking for each entry
-- 🔍 Easy access to past reflections with date, tag and mood-based filtering
-- 💾 Works offline using your local filesystem, ensuring your data is secure and not shared
+- 🤔 **Thoughtful Prompts**: Curated reflections across multiple categories
+    - Growth: Professional and personal development
+    - Gratitude: Practicing daily thankfulness
+    - Mindfulness: Present moment awareness
+    - Question-based: Thought-provoking inquiries
+    - Quote-inspired: Reflections from meaningful words
 
-## Reflection Categories
+- 📊 **Comprehensive Tracking**
+    - Writing progress and streaks
+    - Word count and writing duration
+    - Mood and tag-based entry filtering
 
-- 🎯 Growth - Professional and personal development
-- 🙏 Gratitude - Practicing daily thankfulness
-- 💭 Mindfulness - Present moment awareness
-- 💡 Question - Thought-provoking inquiries
-- 💌 Quote - Reflections inspired by meaningful quotes
+- 💾 **Secure & Private**
+    - Offline-first design
+    - Local filesystem storage
+    - Complete data ownership
 
-## Installation
+## 🚀 Quick Start
+
+### Installation
 
 ```bash
 npm install -g rflect
 ```
 
-## Getting Started
+### Initial Setup
 
 During setup, you'll set up a configuration file to store your preferences:
 
@@ -32,7 +41,7 @@ During setup, you'll set up a configuration file to store your preferences:
 rflect init
 ```
 
-## Storage
+## Privacy & Storage
 
 `rflect` uses local storage:
 
@@ -40,17 +49,16 @@ rflect init
 - Complete offline access
 - Private journaling as it saves the entries in the user's file system
 
-## Commands
+## Commands Overview
 
 ### Writing & Viewing
 
-**Start a New Reflection**
+**Start a New Reflection**: 
+Begin a new reflection session with a thoughtfully curated prompt.
 
 ```bash
 rflect write
 ```
-
-Begin a new reflection session with a thoughtfully curated prompt.
 
 **Browse Past Reflections**
 
@@ -96,13 +104,13 @@ rflect moods [options]
 
 ### User Settings & Stats
 
-**Set Up Your rflect Account**
+**Set Up Your rflect Account**: 
+Initialize your account with initial preferences.
 
 ```bash
 rflect init
 ```
 
-Initialize your account with initial preferences.
 
 **Customize Your Reflection Preferences**
 
@@ -115,9 +123,9 @@ rflect config [options]
 - `--show`: View current settings.
 - `--editor <boolean>`: Toggle system editor usage.
 - `--goal`: Configure word count or writing frequency goals.
-- `--type <entries|words>`: Goal type.
-- `--frequency <daily|weekly|monthly>`: Goal frequency.
-- `--value <number>`: Goal value.
+  - `--type <entries|words>`: Goal type.
+  - `--frequency <daily|weekly|monthly>`: Goal frequency.
+  - `--value <number>`: Goal value.
 
 **View Insights About Your Writing Journey**
 
@@ -144,22 +152,24 @@ rflect delete [options]
 
 ### Future Features
 
-**See a list of upcoming features**
+**See a list of upcoming features**: Discover upcoming features like custom themes, cloud backup, search, reminders, encryption, and AI insights.
+
 
 ```bash
 rflect upcoming
 ```
 
-Discover upcoming features like custom themes, cloud backup, search, reminders, encryption, and AI insights.
-
 ## Tech
 
-#### Requires: **Node.js**
-
-- **Core**: `commander`, `inquirer`
-- **Dates & Calendar**: `calendar-js`, `date-fns`
+- **Core**: `node.js`, `commander`, `inquirer`
+- **Date Handling**: `calendar-js`, `date-fns`
 - **Styling**: `chalk`
-- **Dev Tools**: `nodemon`, `eslint`, `prettier`
+- **Development**: `nodemon`, `eslint`, `prettier`
+
+## 🔧 Requirements
+
+- **Node.js**: Version 14.0.0 or higher
+- **Operating System**: macOS, Linux, or Windows
 
 #### Scripts
 

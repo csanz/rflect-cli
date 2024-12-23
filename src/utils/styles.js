@@ -32,6 +32,7 @@ const styles = {
   highlight: (text) => chalk.hex(colors.secondary).italic(text),
   em: (text) => chalk.hex(colors.text).italic(text),
   invert: (text) => chalk.bgHex(colors.primary).white(` ${text} `),
+  name: (text) => chalk.hex(colors.tag).italic.bold(text),
 
   entryHeader: (index) => chalk.bgHex(colors.bg).hex('C7E8EAFF').bold(`\n ───────── Entry ${index} ───────── `),
   entryDate: (date) => `${chalk.hex(colors.text).bold('Date:')} ${chalk.hex(colors.secondary).bold(date)}`,

@@ -6,7 +6,7 @@ const styles = require('../utils/styles');
 
 async function createRflectDirectory(isReinstall = false) {
   try {
-    console.log(styles.header(`\n=== 🚀 Installing rflect ===\n`));
+    console.log(styles.header('🚀 Installing rflect'));
 
     // Directories needed for rflect
     const primaryDirectory = path.join(os.homedir(), '.rflect');
@@ -76,8 +76,8 @@ async function createRflectDirectory(isReinstall = false) {
     }
 
     // Welcome and next steps
-    console.log(styles.header('\n=== 👋🏼 Welcome to rflect! ==='));
-    console.log(styles.info('\nGet started with:'));
+    console.log(styles.header('👋🏼 Welcome!'));
+    console.log(styles.info('Get started with:'));
     console.log(styles.help('1. Initialize your profile:'));
     console.log(styles.value('   rflect init'));
     console.log(styles.help('2. Start writing:'));

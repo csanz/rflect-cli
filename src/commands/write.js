@@ -14,8 +14,8 @@ async function writeCommand() {
       console.log(styles.warning(`\nWelcome to rflect! Let's get you set up first.`));
       console.log(
         styles.info('Run ') +
-          styles.value('rflect init') +
-          styles.info(' to start your reflection journey.')
+        styles.value('rflect init') +
+        styles.info(' to start your reflection journey.')
       );
       return;
     }
@@ -103,13 +103,13 @@ async function writeCommand() {
     });
 
     console.log(styles.success('\n✨ Your reflection has been saved!'));
-    console.log(styles.info(`Word Count: ${entry.content.wordCount}`));
-    console.log(styles.info(`Time Spent Writing: ${durationString}`));
+    console.log(styles.help('Word Count: ') + styles.number(entry.content.wordCount));
+    console.log(styles.help('Time Spent Writing: ') + styles.number(durationString));
     console.log();
     messages.forEach((message) => console.log(message));
   } catch (error) {
     console.error(styles.error('Error during writing: ') + styles.value(error.message));
-    console.log(styles.info('Please try again or report this issue.'));
+    console.log(styles.help('Please try again or report this issue.'));
   }
 }
 

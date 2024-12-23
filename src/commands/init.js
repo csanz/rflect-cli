@@ -19,13 +19,17 @@ async function initCommand() {
         },
       ]);
       if (!initConfirmation) {
-        console.log(styles.info('\nSetup cancelled. Use rflect config to modify settings.'));
+        console.log(
+          styles.help('Setup cancelled. Use ') +
+          styles.value('rflect config') +
+          styles.help(' to modify settings.')
+        );
         return;
       }
     }
 
     // Init setup
-    console.log(styles.header('\n=== Welcome to rflect! ==='));
+    console.log(styles.header('Welcome to rflect!'));
     console.log(styles.info("Let's get you set up for your reflection journey.\n"));
 
     // Get user config
@@ -116,7 +120,9 @@ async function initCommand() {
       answers.useEditor
         ? styles.success(`\nYou will be writing in your system editor with rflect.`)
         : styles.success(`\nYou will be writing in basic text inputs with rflect.`) +
-            styles.info(`\n(You can change this later with rflect config --editor true/false.)`)
+        styles.help(`\n(You can change this later with `) +
+        styles.value('rflect config --editor true/false') +
+        styles.help('.')
     );
     if (answers.setGoals) {
       console.log(styles.info(`\nYour goals:`));
@@ -137,12 +143,12 @@ async function initCommand() {
     }
 
     console.log(styles.info('\nGet started with:'));
-    console.log(styles.help(`rflect write   - Start your first reflection`));
-    console.log(styles.help(`rflect show    - View your entries`));
-    console.log(styles.help(`rflect stats   - Track your progress`));
+    console.log(styles.help('  - ') + styles.value('rflect write') + styles.help('   - Start your first reflection'));
+    console.log(styles.help('  - ') + styles.value('rflect show') + styles.help('    - View your entries'));
+    console.log(styles.help('  - ') + styles.value('rflect stats') + styles.help('   - Track your progress'));
   } catch (error) {
     console.error(styles.error('Setup failed: ') + styles.value(error.message));
-    console.log(styles.info('Please try again or report this issue.'));
+    console.log(styles.help('Please try again or report this issue.'));
   }
 }
 

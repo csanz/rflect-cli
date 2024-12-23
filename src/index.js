@@ -15,7 +15,7 @@ const deleteCommand = require('./commands/delete');
 // CLI Description
 program
   .name('rflect')
-  .description(styles.header('📝 A CLI tool for guided reflections and journaling.'))
+  .description(styles.info('📝 A CLI tool for guided reflections and journaling.'))
   .version('2.0.0');
 
 // Writing & Viewing

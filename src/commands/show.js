@@ -20,8 +20,8 @@ async function showCommand(options) {
       console.log(styles.warning(`\nWelcome to rflect! Let's get you set up first.`));
       console.log(
         styles.info('Run ') +
-          styles.value('rflect init') +
-          styles.info(' to start your reflection journey.')
+        styles.value('rflect init') +
+        styles.info(' to start your reflection journey.')
       );
       return;
     }
@@ -35,20 +35,30 @@ async function showCommand(options) {
       !options.mood
     ) {
       console.log(styles.help('Available options:'));
-      console.log(styles.value('  rflect show --all      ') + styles.info('Display all entries'));
       console.log(
-        styles.value('  rflect show --recent   ') + styles.info('View your most recent entry')
+        styles.value('  rflect show --all      ') +
+        styles.help('Display all entries')
       );
       console.log(
-        styles.value('  rflect show --date     ') + styles.info('Find entries from a specific date')
+        styles.value('  rflect show --recent   ') +
+        styles.help('View your most recent entry')
       );
       console.log(
-        styles.value('  rflect show --tag      ') + styles.info('Find entries with a specific tag')
+        styles.value('  rflect show --date     ') +
+        styles.help('Find entries from a specific date')
       );
       console.log(
-        styles.value('  rflect show --category ') + styles.info('Find entries by prompt type')
+        styles.value('  rflect show --tag      ') +
+        styles.help('Find entries with a specific tag')
       );
-      console.log(styles.value('  rflect show --mood     ') + styles.info('Find entries by mood'));
+      console.log(
+        styles.value('  rflect show --category ') +
+        styles.help('Find entries by prompt type')
+      );
+      console.log(
+        styles.value('  rflect show --mood     ') +
+        styles.help('Find entries by mood')
+      );
       return;
     }
 
@@ -119,7 +129,7 @@ async function showCommand(options) {
           type: 'list',
           name: 'selectedMood',
           message: styles.prompt(
-            `Select the mood you'd like to visualize on the calendar (select one that you've used before)!`
+            `Select a mood you've used in your entries to view: `
           ),
           choices: moods,
         },
@@ -131,7 +141,7 @@ async function showCommand(options) {
     }
   } catch (error) {
     console.error(styles.error('Error displaying entries: ') + styles.value(error.message));
-    console.log(styles.info('Please try again or report this issue.'));
+    console.log(styles.help('Please try again or report this issue.'));
   }
 }
 

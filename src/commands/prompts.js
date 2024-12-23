@@ -10,8 +10,8 @@ async function promptsCommand(options) {
       console.log(styles.warning(`\nWelcome to rflect! Let's get you set up first.`));
       console.log(
         styles.info('Run ') +
-          styles.value('rflect init') +
-          styles.info(' to start your reflection journey.')
+        styles.value('rflect init') +
+        styles.info(' to start your reflection journey.')
       );
       return;
     }
@@ -19,27 +19,24 @@ async function promptsCommand(options) {
     if (!options.all && !options.category) {
       console.log(styles.help('Available options:'));
       console.log(
-        styles.value('  rflect prompts --all      ') + styles.info('View all available prompts')
+        styles.value('  rflect prompts --all      ') +
+        styles.info('View all available prompts')
       );
       console.log(
         styles.value('  rflect prompts --category ') +
-          styles.info(
-            'View prompts by category (mindfulness, gratitude, growth, question or quote)'
-          )
+        styles.info('View prompts by category (mindfulness, gratitude, growth, question or quote)')
       );
       return;
     }
 
     if (options.all) {
       const prompts = await getAllPrompts();
-      console.log(styles.header(`\n=== All available prompts ===\n`));
+      console.log(styles.header('All Available Prompts'));
       prompts.forEach((prompt, index) => console.log(styles.number(index + 1) + `. ${prompt}`));
       console.log(
-        styles.info(
-          `\n${styles.em(
-            'rflect write'
-          )} will provide you with a random prompt from the list above to write about.`
-        )
+        styles.info(`\nUse `) +
+        styles.value('rflect write') +
+        styles.info(' to get a random prompt and start your reflection.')
       );
     }
 
@@ -48,7 +45,7 @@ async function promptsCommand(options) {
     if (options.category && isValid) {
       const prompts = await getPromptsByCategory(options.category);
       console.log(
-        styles.header(`\n=== Available prompts for '${options.category}' category ===\n`)
+        styles.header(`Prompts in '${styles.value(options.category)}' Category`)
       );
 
       prompts.forEach((prompt, index) => {
@@ -59,14 +56,14 @@ async function promptsCommand(options) {
         }
       });
       console.log(
-        styles.info(
-          `\n${styles.em('rflect write')} will provide you with a random prompt to write about.`
-        )
+        styles.info(`\nUse `) +
+        styles.value('rflect write') +
+        styles.info(' to get a random prompt and start your reflection.')
       );
     }
   } catch (error) {
     console.error(styles.error('Error processing prompts: ') + styles.value(error.message));
-    console.log(styles.info('Please try again or report this issue.'));
+    console.log(styles.help('Please try again or report this issue.'));
   }
 }
 

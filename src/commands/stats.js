@@ -10,8 +10,8 @@ async function statsCommand(options) {
       console.log(styles.warning(`\nWelcome to rflect! Let's get you set up first.`));
       console.log(
         styles.info('Run ') +
-          styles.value('rflect init') +
-          styles.info(' to start your reflection journey.')
+        styles.value('rflect init') +
+        styles.info(' to start your reflection journey.')
       );
       return;
     }
@@ -19,19 +19,24 @@ async function statsCommand(options) {
     if (!options.all && !options.streak && !options.goals && !options.entries && !options.time) {
       console.log(styles.help('Available options:'));
       console.log(
-        styles.value('  rflect stats --all      ') + styles.info('Show comprehensive statistics')
+        styles.value('  rflect stats --all      ') +
+        styles.help('Show comprehensive statistics')
       );
       console.log(
-        styles.value('  rflect stats --streak   ') + styles.info('View your writing streak')
+        styles.value('  rflect stats --streak   ') +
+        styles.help('View your writing streak')
       );
       console.log(
-        styles.value('  rflect stats --goals    ') + styles.info('Check progress on writing goals')
+        styles.value('  rflect stats --goals    ') +
+        styles.help('Check progress on writing goals')
       );
       console.log(
-        styles.value('  rflect stats --entries  ') + styles.info('See entry and word count stats')
+        styles.value('  rflect stats --entries  ') +
+        styles.help('See entry and word count stats')
       );
       console.log(
-        styles.value('  rflect stats --time     ') + styles.info('View time-related statistics')
+        styles.value('  rflect stats --time     ') +
+        styles.help('View time-related statistics')
       );
       return;
     }
@@ -44,17 +49,17 @@ async function statsCommand(options) {
       console.log(styles.header('Entry Statistics'));
       const averageWords = Math.round(stats.totalWords / stats.totalEntries) || 0;
       console.log(
-        styles.info('Account Created: ') +
-          styles.date(format(new Date(config.user.createdAt), 'MMM dd, yyyy'))
+        styles.help('Account Created: ') +
+        styles.date(format(new Date(config.user.createdAt), 'MMM dd, yyyy'))
       );
-      console.log(styles.info('Total Entries Written: ') + styles.number(stats.totalEntries));
-      console.log(styles.info('Total Words Written: ') + styles.number(stats.totalWords));
-      console.log(styles.info('Average Words per Entry: ') + styles.number(averageWords));
+      console.log(styles.help('Total Entries Written: ') + styles.number(stats.totalEntries));
+      console.log(styles.help('Total Words Written: ') + styles.number(stats.totalWords));
+      console.log(styles.help('Average Words per Entry: ') + styles.number(averageWords));
 
       if (stats.lastEntry) {
         console.log(
-          styles.info('Latest Entry: ') +
-            styles.date(format(new Date(stats.lastEntry), 'MMM dd, yyyy'))
+          styles.help('Latest Entry: ') +
+          styles.date(format(new Date(stats.lastEntry), 'MMM dd, yyyy'))
         );
       }
 
@@ -74,7 +79,7 @@ async function statsCommand(options) {
       );
       console.log(
         styles.info('Average Time per Entry: ') +
-          styles.number(`${stats.writingTime.averageMinutes}m`)
+        styles.number(`${stats.writingTime.averageMinutes}m`)
       );
 
       // Entry Duration Range
@@ -85,16 +90,16 @@ async function statsCommand(options) {
           console.log(styles.subheader('Entry Duration Range'));
           console.log(
             styles.info('Shortest Entry: ') +
-              styles.number(`${shortest.metadata.durationInMinutes}m`) +
-              styles.info(' on ') +
-              styles.date(format(new Date(shortest.metadata.created), 'MMM dd, yyyy'))
+            styles.number(`${shortest.metadata.durationInMinutes}m`) +
+            styles.info(' on ') +
+            styles.date(format(new Date(shortest.metadata.created), 'MMM dd, yyyy'))
           );
 
           console.log(
             styles.info('Longest Entry: ') +
-              styles.number(`${longest.metadata.durationInMinutes}m`) +
-              styles.info(' on ') +
-              styles.date(format(new Date(longest.metadata.created), 'MMM dd, yyyy'))
+            styles.number(`${longest.metadata.durationInMinutes}m`) +
+            styles.info(' on ') +
+            styles.date(format(new Date(longest.metadata.created), 'MMM dd, yyyy'))
           );
         }
       } catch {
@@ -120,7 +125,7 @@ async function statsCommand(options) {
       console.log(styles.info('Longest Streak: ') + styles.number(`${stats.longestStreak} days`));
 
       if (stats.currentStreak === 0) {
-        console.log(styles.info('Start a new streak by writing today!'));
+        console.log(styles.help('Start a new streak by writing today!'));
       } else if (stats.currentStreak === stats.longestStreak) {
         console.log(styles.success("🔥 You're on your best streak ever! Keep it going!"));
       } else if (stats.currentStreak > 0) {
@@ -142,10 +147,16 @@ async function statsCommand(options) {
       console.log(styles.subheader('Entry Goals'));
       if (entries.goal > 0) {
         console.log(
-          styles.info(`Goal: Write ${styles.number(entries.goal)} entries ${entries.type}`)
+          styles.info(`Goal: Write `) +
+          styles.number(entries.goal) +
+          styles.info(` entries ${entries.type}`)
         );
-        console.log(styles.info(`Progress: ${styles.number(entries.current)} entries completed`));
-        console.log(styles.info(`Completion: ${styles.number(entryPercentage)}%`));
+        console.log(
+          styles.info(`Progress: `) +
+          styles.number(entries.current) +
+          styles.info(` entries completed`)
+        );
+        console.log(styles.info(`Completion: `) + styles.number(entryPercentage) + styles.info('%'));
         if (entryPercentage >= 100) {
           console.log(
             styles.success("🎯 You've reached your entry goal! Consider setting a new challenge.")
@@ -153,25 +164,31 @@ async function statsCommand(options) {
         } else if (entryPercentage >= 75) {
           console.log(styles.success('💪 Almost there! Keep up the great work.'));
         } else if (entryPercentage >= 50) {
-          console.log(styles.info("👍 You're making steady progress."));
+          console.log(styles.help("👍 You're making steady progress."));
         } else {
-          console.log(styles.info('✍️  Keep writing - every entry counts!'));
+          console.log(styles.help('✍️  Keep writing - every entry counts!'));
         }
       } else {
         console.log(
-          styles.info(
-            'No entry goals set. Use ' +
-              styles.value('rflect config --goal') +
-              ' to set writing goals.'
-          )
+          styles.help('No entry goals set. Use ') +
+          styles.value('rflect config --goal') +
+          styles.help(' to set writing goals.')
         );
       }
 
       console.log(styles.subheader('Word Count Goals'));
       if (words.goal > 0) {
-        console.log(styles.info(`Goal: Write ${styles.number(words.goal)} words ${words.type}`));
-        console.log(styles.info(`Progress: ${styles.number(words.current)} words written`));
-        console.log(styles.info(`Completion: ${styles.number(wordPercentage)}%`));
+        console.log(
+          styles.info(`Goal: Write `) +
+          styles.number(words.goal) +
+          styles.info(` words ${words.type}`)
+        );
+        console.log(
+          styles.info(`Progress: `) +
+          styles.number(words.current) +
+          styles.info(` words written`)
+        );
+        console.log(styles.info(`Completion: `) + styles.number(wordPercentage) + styles.info('%'));
         if (wordPercentage >= 100) {
           console.log(
             styles.success("🎯 You've reached your word count goal! Ready for a bigger challenge?")
@@ -179,17 +196,15 @@ async function statsCommand(options) {
         } else if (wordPercentage >= 75) {
           console.log(styles.success('💪 Getting close! The finish line is in sight.'));
         } else if (wordPercentage >= 50) {
-          console.log(styles.info("👍 Halfway there - you're making great progress!"));
+          console.log(styles.help("👍 Halfway there - you're making great progress!"));
         } else {
-          console.log(styles.info('✍️  Keep going - every word counts!'));
+          console.log(styles.help('✍️  Keep going - every word counts!'));
         }
       } else {
         console.log(
-          styles.info(
-            'No word count goals set. Use ' +
-              styles.value('rflect config --goal') +
-              ' to set writing goals.'
-          )
+          styles.help('No word count goals set. Use ') +
+          styles.value('rflect config --goal') +
+          styles.help(' to set writing goals.')
         );
       }
 
@@ -197,32 +212,32 @@ async function statsCommand(options) {
         console.log(styles.subheader('Goal Period'));
         console.log(
           styles.info(`Started: `) +
-            styles.date(format(new Date(entries.periodStart), 'MMM dd, yyyy'))
+          styles.date(format(new Date(entries.periodStart), 'MMM dd, yyyy'))
         );
 
         if (entries.goal > 0) {
           console.log(
             styles.info(`Entry Goal Frequency: `) +
-              styles.date(
-                entries.type === 'daily'
-                  ? 'Every day'
-                  : entries.type === 'weekly'
+            styles.date(
+              entries.type === 'daily'
+                ? 'Every day'
+                : entries.type === 'weekly'
                   ? 'Every week'
                   : 'Every month'
-              )
+            )
           );
         }
 
         if (words.goal > 0) {
           console.log(
             styles.info(`Word Count Goal Frequency: `) +
-              styles.date(
-                words.type === 'daily'
-                  ? 'Every day'
-                  : words.type === 'weekly'
+            styles.date(
+              words.type === 'daily'
+                ? 'Every day'
+                : words.type === 'weekly'
                   ? 'Every week'
                   : 'Every month'
-              )
+            )
           );
         }
       }
@@ -234,7 +249,7 @@ async function statsCommand(options) {
       const averageWords = Math.round(stats.totalWords / stats.totalEntries) || 0;
       console.log(
         styles.info('Account Created: ') +
-          styles.date(format(new Date(config.user.createdAt), 'MMM dd, yyyy'))
+        styles.date(format(new Date(config.user.createdAt), 'MMM dd, yyyy'))
       );
       console.log(styles.info('Total Entries Written: ') + styles.number(stats.totalEntries));
       console.log(styles.info('Total Words Written: ') + styles.number(stats.totalWords));
@@ -243,7 +258,7 @@ async function statsCommand(options) {
       if (stats.lastEntry) {
         console.log(
           styles.info('Last Entry: ') +
-            styles.date(format(new Date(stats.lastEntry), 'MMM dd, yyyy'))
+          styles.date(format(new Date(stats.lastEntry), 'MMM dd, yyyy'))
         );
       }
 
@@ -262,7 +277,7 @@ async function statsCommand(options) {
       console.log(styles.header('Time Statistics'));
       console.log(
         styles.info('Account Created: ') +
-          styles.date(format(new Date(config.user.createdAt), 'MMM dd, yyyy'))
+        styles.date(format(new Date(config.user.createdAt), 'MMM dd, yyyy'))
       );
       console.log(styles.info('Days Since Creation: ') + styles.number(daysSinceCreation));
 
@@ -273,7 +288,7 @@ async function statsCommand(options) {
       );
       console.log(
         styles.info('Average Time per Entry: ') +
-          styles.number(`${stats.writingTime.averageMinutes}m`)
+        styles.number(`${stats.writingTime.averageMinutes}m`)
       );
 
       try {
@@ -283,16 +298,16 @@ async function statsCommand(options) {
           console.log(styles.subheader('Entry Duration Range'));
           console.log(
             styles.info('Shortest Entry: ') +
-              styles.number(`${shortest.metadata.durationInMinutes}m`) +
-              styles.info(' on ') +
-              styles.date(format(new Date(shortest.metadata.created), 'MMM dd, yyyy'))
+            styles.number(`${shortest.metadata.durationInMinutes}m`) +
+            styles.info(' on ') +
+            styles.date(format(new Date(shortest.metadata.created), 'MMM dd, yyyy'))
           );
 
           console.log(
             styles.info('Longest Entry: ') +
-              styles.number(`${longest.metadata.durationInMinutes}m`) +
-              styles.info(' on ') +
-              styles.date(format(new Date(longest.metadata.created), 'MMM dd, yyyy'))
+            styles.number(`${longest.metadata.durationInMinutes}m`) +
+            styles.info(' on ') +
+            styles.date(format(new Date(longest.metadata.created), 'MMM dd, yyyy'))
           );
         }
       } catch {
@@ -301,7 +316,7 @@ async function statsCommand(options) {
     }
   } catch (error) {
     console.error(styles.error('Error displaying statistics: ') + styles.value(error.message));
-    console.log(styles.info('Please try again or report this issue.'));
+    console.log(styles.help('Please try again or report this issue.'));
   }
 }
 

@@ -25,12 +25,12 @@ async function configCommand(options) {
       console.log(styles.value('  rflect config --goal     ') + styles.info('Set writing goals'));
       console.log(
         styles.info('     Options: ') +
-          styles.value('-t ') +
-          styles.info('entries|words ') +
-          styles.value('-f ') +
-          styles.info('daily|weekly|monthly ') +
-          styles.value('-v ') +
-          styles.info('<number>')
+        styles.value('-t ') +
+        styles.info('entries|words ') +
+        styles.value('-f ') +
+        styles.info('daily|weekly|monthly ') +
+        styles.value('-v ') +
+        styles.info('<number>')
       );
       return;
     }
@@ -41,8 +41,8 @@ async function configCommand(options) {
       );
       console.log(
         styles.info('To get started, please use the ') +
-          styles.value('rflect init') +
-          styles.info(' command to configure your preferences.')
+        styles.value('rflect init') +
+        styles.info(' command to configure your preferences.')
       );
       return;
     }
@@ -54,8 +54,8 @@ async function configCommand(options) {
           name: 'confirmInstall',
           message: config
             ? styles.warning(
-                'This will reset your configuration and will require you to re-configure your details. Are you sure?'
-              )
+              'This will reset your configuration and will require you to re-configure your details. Are you sure?'
+            )
             : styles.prompt('Would you like to install rflect?'),
           default: false,
         },
@@ -65,7 +65,7 @@ async function configCommand(options) {
         if (success) {
           console.log(styles.success('\nConfiguration reset successfully.'));
           console.log(
-            styles.info('\nPlease run rflect init to populate the config file with your details.')
+            styles.info('\nPlease run ') + styles.value('rflect init') + styles.info(' to populate the config file with your details.')
           );
         } else {
           console.log(styles.error('\nFailed to reset configuration.'));
@@ -114,17 +114,20 @@ async function configCommand(options) {
     }
 
     if (options.show) {
-      console.log(styles.header('\n✨ Current Settings ✨\n'));
+      console.log(styles.header('Current Settings'));
+      console.log(styles.subheader('User Profile'));
       console.log(styles.info(`Name: ${styles.highlight(config.user.name)}`));
       console.log(
         styles.info(
           `Editor Preference: ${
             config.user.useEditor === 'true'
-              ? "System's built-in editor"
-              : 'Plain text input within the terminal'
+              ? styles.highlight("System's built-in editor")
+              : styles.highlight('Plain text input within the terminal')
           }`
         )
       );
+
+      console.log(styles.subheader('Writing Goals'));
       console.log(
         styles.info(
           `Current Entry Goal: ${styles.number(config.goals.entries.goal)} ${
@@ -139,17 +142,17 @@ async function configCommand(options) {
           } 💬`
         )
       );
+
       console.log();
-      console.log(styles.help('Use rflect config --name to change your display name 🧑‍🎨'));
+      console.log(styles.help('Quick Config Options:'));
+      console.log(styles.help(`- Use `) + styles.value('rflect config --name') + styles.help(' to change your display name 🧑‍🎨'));
       console.log(
-        styles.help(
-          'Use rflect config goal -t <entries|words> -f <daily|weekly|monthly> -v <number> to set new writing goals 📈'
-        )
+        styles.help('- Set new writing goals: ') +
+        styles.value('rflect config goal -t <entries|words> -f <daily|weekly|monthly> -v <number>') +
+        styles.help(' 📈')
       );
       console.log(
-        styles.help(
-          'Use rflect stats to see your current progress towards your goals and other writing stats!'
-        )
+        styles.help('- Track progress: ') + styles.value('rflect stats') + styles.help(' to see your current writing stats!')
       );
     }
 
@@ -157,7 +160,7 @@ async function configCommand(options) {
       const { frequency, type, value } = options;
       if (!frequency || !type || !value) {
         console.log(
-          styles.error(`Please provide all ${styles.invert('required')} goal-related details: `)
+          styles.error(`Please provide all required goal-related details:`)
         );
         console.log(
           styles.warning(
@@ -169,14 +172,14 @@ async function configCommand(options) {
         );
         console.log(styles.warning(`--value or -v can be a number.`));
         console.log(
-          styles.em(
-            `   - "rflect config --goal -f weekly -v 10 -t entries" = you would like to write 10 entries a week. `
-          )
+          styles.help('Example: ') +
+          styles.value('"rflect config --goal -f weekly -v 10 -t entries"') +
+          styles.help(' = write 10 entries a week.')
         );
         console.log(
-          styles.em(
-            `   - "rflect config --goal -t words -f monthly -v 5000" = you would like to write at least 5000 words every month. `
-          )
+          styles.help('Example: ') +
+          styles.value('"rflect config --goal -t words -f monthly -v 5000"') +
+          styles.help(' = write at least 5000 words monthly.')
         );
         return;
       }
@@ -207,7 +210,6 @@ async function configCommand(options) {
         return;
       }
 
-      // Update config at this point
       config.goals[type] = {
         type: frequency,
         goal: Number(value),
@@ -223,15 +225,15 @@ async function configCommand(options) {
             options.frequency === 'daily'
               ? 'per day'
               : options.frequency === 'weekly'
-              ? 'per week'
-              : 'per month'
+                ? 'per week'
+                : 'per month'
           }.`
         )
       );
     }
   } catch (error) {
-    console.error(styles.error('Error in config: ') + styles.value(error.message));
-    console.log(styles.info('Please try again or report this issue.'));
+    console.error(styles.error('Configuration Error: ') + styles.value(error.message));
+    console.log(styles.help('Please try again or report this issue.'));
   }
 }
 

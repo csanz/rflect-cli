@@ -9,15 +9,21 @@ async function getAllMoods() {
 
   if (Object.keys(moods).length === 0) {
     console.log(styles.info('\nNo moods recorded.'));
-    console.log(styles.help('Select your mood at the start of your entry: rflect write'));
+    console.log(
+      styles.help('Start recording moods by using ') +
+      styles.value('rflect write')
+    );
     return;
   }
 
-  console.log(styles.header('\n=== All Moods ===\n'));
+  console.log(styles.header('All Recorded Moods'));
   Object.keys(moods).forEach((mood) => {
     const count = moods[mood].dates.length;
+    const totalEntries = config.stats.totalEntries + config.stats.deletedEntries;
     console.log(
-      `You were ${mood} when writing ${count} entries out of ${config.stats.totalEntries} total entries.`
+      styles.help(`You were `) +
+      styles.value(mood) +
+      styles.help(` when writing ${styles.number(count)} entries out of ${styles.number(totalEntries)} total entries.`)
     );
   });
 }
@@ -39,7 +45,7 @@ async function displayMoodCal(targetMood) {
   const emoji = targetMood.split(' ')[0];
   const monthCalendar = Calendar().of(now.getFullYear(), now.getMonth()).calendar;
 
-  console.log(styles.header(`\n=== ${targetMood} Calendar: ${format(now, 'MMMM yyyy')} ===\n`));
+  console.log(styles.header(`${targetMood} Calendar: ${format(now, 'MMMM yyyy')}`));
   console.log(styles.value('Su  Mo  Tu  We  Th  Fr  Sa'));
 
   monthCalendar.forEach((week) => {
@@ -54,9 +60,9 @@ async function displayMoodCal(targetMood) {
 
   const monthCount = moodDates.length;
   console.log(
-    styles.info(
-      `\nYou felt ${targetMood} on ${monthCount} ${monthCount === 1 ? 'day' : 'days'} this month`
-    )
+    styles.help(`\nYou felt `) +
+    styles.value(targetMood) +
+    styles.help(` on ${styles.number(monthCount)} ${monthCount === 1 ? 'day' : 'days'} this month.`)
   );
 }
 

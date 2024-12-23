@@ -219,8 +219,8 @@ async function configCommand(options) {
       );
     }
   } catch (error) {
-    // error messages
-    console.error(styles.error('Error in config:'), error);
+    console.error(styles.error('Error in config: ') + styles.value(error.message));
+    console.log(styles.info('Please try again or report this issue.'));
   }
 }
 

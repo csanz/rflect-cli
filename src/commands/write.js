@@ -108,7 +108,8 @@ async function writeCommand() {
     console.log();
     messages.forEach((message) => console.log(message));
   } catch (error) {
-    // errors
+    console.error(styles.error('Error during writing: ') + styles.value(error.message));
+    console.log(styles.info('Please try again or report this issue.'));
   }
 }
 

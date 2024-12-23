@@ -230,10 +230,8 @@ async function statsCommand(options) {
       }
     }
   } catch (error) {
-    console.log(styles.error('\nUnable to display statistics:'));
-    console.log(styles.warning(error.message));
-    console.log(styles.info('Please try again or check your configuration with ') +
-      styles.value('rflect config --show'));
+    console.error(styles.error('Error displaying statistics: ') + styles.value(error.message));
+    console.log(styles.info('Please try again or report this issue.'));
   }
 }
 

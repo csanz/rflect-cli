@@ -57,10 +57,9 @@ async function promptsCommand(options) {
         )
       );
     }
-    // add pagination option + allow users to start writing based on a prompt they click (?)
   } catch (error) {
-    // error messaging
-    console.log(error);
+    console.error(styles.error('Error processing prompts: ') + styles.value(error.message));
+    console.log(styles.info('Please try again or report this issue.'));
   }
 }
 

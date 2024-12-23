@@ -142,7 +142,7 @@ async function initCommand() {
     console.log(styles.help(`rflect stats   - Track your progress`));
   } catch (error) {
     console.error(styles.error('Setup failed: ') + styles.value(error.message));
-    console.log(styles.help('Please try again.'));
+    console.log(styles.info('Please try again or report this issue.'));
   }
 }
 

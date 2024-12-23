@@ -115,7 +115,8 @@ async function showCommand(options) {
       });
     }
   } catch (error) {
-    console.log(error);
+    console.error(styles.error('Error displaying entries: ') + styles.value(error.message));
+    console.log(styles.info('Please try again or report this issue.'));
   }
 }
 

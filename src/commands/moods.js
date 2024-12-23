@@ -42,7 +42,8 @@ async function moodsCommand(options) {
       await getAllMoods();
     }
   } catch (error) {
-    // error messaging
+    console.error(styles.error('Error processing moods: ') + styles.value(error.message));
+    console.log(styles.info('Please try again or report this issue.'));
   }
 }
 

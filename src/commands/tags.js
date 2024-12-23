@@ -30,7 +30,8 @@ async function tagsCommand(options) {
       await getAllTags();
     }
   } catch (error) {
-    // error messaging
+    console.error(styles.error('Error processing tags: ') + styles.value(error.message));
+    console.log(styles.info('Please try again or report this issue.'));
   }
 }
 

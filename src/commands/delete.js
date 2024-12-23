@@ -109,7 +109,8 @@ async function deleteCommand(options) {
     }
   }
   catch (error) {
-    console.error(styles.error('Error during deletion:'), error.message);
+    console.error(styles.error('Error during deletion: ') + styles.value(error.message));
+    console.log(styles.info('Please try again or report this issue.'));
   }
 }
 

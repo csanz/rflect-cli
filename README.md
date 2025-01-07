@@ -1,12 +1,15 @@
-# rflect
+# [rflect](https://rflect.aniqa.dev)
 
+[![Landing Page](https://img.shields.io/badge/Live%20Landing%20Page-1D80C1)](https://rflect.aniqa.dev)
 [![NPM Version](https://img.shields.io/npm/v/rflect)](https://www.npmjs.com/package/rflect)
 [![GitHub Issues](https://img.shields.io/github/issues/aniqatc/rflect-cli)](https://github.com/aniqatc/rflect-cli/issues)
 [![License](https://img.shields.io/github/license/aniqatc/rflect-cli)](https://github.com/aniqatc/rflect-cli/blob/main/LICENSE)
 
 📝 A CLI tool for guided reflections and journaling, offering a variety of prompts and tracking features to enhance your writing journey.
 
+<a href="https://rflect.aniqa.dev" target="_blank">
 <img src="assets/rflect-help-v2.png">
+</a>
 
 ## ✨ Features
 
